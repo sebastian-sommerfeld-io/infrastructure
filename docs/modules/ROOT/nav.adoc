@@ -1,1 +1,13 @@
 * xref:index.adoc[]
+** Workstations
+*** xref:workstations/kobol/index.adoc[]
+**** xref:workstations/kobol/vagrantboxes/pegasus.adoc[]
+** Server Nodes
+*** Physical Machines
+**** Node: proxmox
+**** RasPi: prometheus
+**** RasPi: terra
+*** Virtual Machines
+**** <VM ...>
+**** <VM ...>
+**** <VM ...>

@@ -1,0 +1,94 @@
+= Vagrantbox: pegasus
+Sebastian Sommerfeld <sebastian@sommerfeld.io>
+
+Vagrantbox providing the main development tools for my every day use. The Vagrantbox runs on my main workstation "xref:workstations/kobol/index.adoc[kobol]".
+
+== Why is this Vagrantbox called Pegasus?
+
+The link:https://en.battlestarwikiclone.org/wiki/Pegasus_(TRS)[Battlestar Pegasus] is a spaceship from Battlestar Galactica. For this Vagrantbox the name "Pegasus" represents an entity smaller than the Planet Kobol (hence smaller than the physical workstation "xref:workstations/kobol/index.adoc[kobol]") but larger than a single service / tool / utility.
+
+The Battlestar Pegasus is a Mercury class battlestar and was the crown jewel of the Colonial Fleet with a big reputation.
+
+Since this Vagrantbox contains all essential development tools, it is the "crown jewel" of my toolbox and most-use Vagrantbox.
+
+== Requirements Overview
+. Setup my local workstation with minimal manual interactions and minimal development tools installed directly onto my workstation.
+. Encapsulated the tools inside a Vagrantbox to ensure (broken) updates can easily be rolled back and the setup is portable in case I have to reset my workstation or have to switch to another workstation.
+.. Add or update packages without any risk -> avoid having to repair broken installations (dumping the broken setup and reverting to a working one is preferred).
+. Test the setup regularly (automated) to ensure a new installation from scratch will work.
+
+== Quality Goals
+. The whole setup of my local workstation follows is Infrastructure as Code
+
+== Install
+In order to run this project, the following dependencies must be met:
+
+. Install Virtualbox and Vagrant
+.. Install the Vagrant Plugin "link:https://github.com/leighmcculloch/vagrant-docker-compose[vagrant-docker-compose]" using `vagrant plugin install vagrant-docker-compose`
+.. Install the Vagrant Plugin "vagrant-vbguest" using `vagrant plugin install vagrant-vbguest`
+. The host machine should have git installed -> the Vagrantbox "pegasus" expects a ~/.gitconfig file in order to copy this file into the Vagrantbox.
+. The host machine should have a `~/.ssh`, `~/.tmp` and `~/.work` directories -> the Vagrantbox "pegasus" expects these folders in order to copy them into the Vagrantbox
+
+== Usage
+[cols="1,4", options="header"]
+|===
+|Category |Info
+|Box Image |ubuntu/impish64 (= Ubuntu 21.10)
+|Provider |Virtualbox
+|VM-Name & Hostname |pegasus
+|User (Password) |vagrant (vagrant)
+|Port Range for this VM |7000 - 7999
+|System Requirements |CPUs = 4, RAM = 1024MB * 6
+|===
+
+=== Use this Vagrantbox
+. Start Vagrantbox by running start.sh
+. Connect to Bash using vagrant ssh (no username / password needed)
+. Stop Vagrantbox using stop.sh
+. Remove all generated files, artifacts and Virtualbox files associated with this Vagrantbox by running clean.sh.
+
+=== Provisioning
+This Vagrantbox is provisioned on (initial) startup. To provision the Vagrantbox again, run vagrant up --provision on a stopped environment and vagrant provision or vagrant reload --provision on a running environment.
+
+IMPORTANT: Before you add packages to provisioning, make sure installing the package is the best way to got. Always try to use a Docker image first!
+
+=== Expose port when Vagrantbox is up and running
+Add port forwarding (`pegasus.vm.network "forwarded_port", host: 7777, guest: 7777`) to Vagrantfile and reload config using vagrant reload.
+
+=== Expose rage of ports
+To expose a range of ports, add this snippet to Vagrantfile. Keep in mind that all ports will be allocated on the host machine.
+
+[source, ruby]
+----
+for i in 7800..7888
+    config.vm.network :forwarded_port, guest: i, host: i
+end
+----
+
+== Building Block View / Whitebox Overall System
+. Folders and Config from host are mounted into Vagrantbox to make sure the host machine supplies all secrets to the Vagrantbox.
+. Wrappers are scripts wrapping Docker containers to use them by their respective default command.
+
+=== Services
+The following services are up and running when the Vagrantbox is started (and provisioned).
+
+[cols="3,1,2", options="header"]
+|===
+|Service |URL|User (Password)
+|Node Exporter |http://localhost:7100 |-
+|cAdvisor |http://localhost:7101 |-
+|Portainer |http://localhost:7990 |admin (admin)
+|Rundeck |http://localhost:7440 |admin (admin)
+|===
+
+== Architecture Decisions
+. The actual development tools are encapsulated to make sure a working environment can always be started. This way running any update comes without any risk because reverting to a working setup can be done easily. This becomes even easier when every update has a dedicated git branch. Therefore the actual tools are built into a Vagrantbox.
+
+== Risks and Technical Debts
+Scale for Probability and Impact: Low, Medium and High
+
+[cols="1,3,5,1,1,1", options="header"]
+|===
+|# |Title |Description |Probability |Impact |Response
+|{counter:usage} |none |none |none |none |none ||none
+|===

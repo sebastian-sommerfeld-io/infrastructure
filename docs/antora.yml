@@ -5,3 +5,5 @@ version: main
 start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc
+  - modules/ADRs/nav.adoc
+  - modules/MEMOS/nav.adoc

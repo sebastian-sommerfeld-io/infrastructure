@@ -17,12 +17,13 @@ Infrastructure repository with configs and docs for my local workstations, my ho
 *Todos*
 
 . Merge and delete repo kobol-config
-. Merge and delete repo kobol-scripts
-. Merge and delete repo kobol-vagrant
-. Merge and delete repo homelab
 . Update Jira components and board to infrastructure??
-. ADR-kobol-vs-pegasus
-. ADR-chef-vs-ansible
+. ADR: xref:ADRs:architecture-decision-records/kobol-vs-pegasus.adoc[]
+. ADR: xref:ADRs:architecture-decision-records/chef-vs-ansible.adoc[]
+. Do I really need the separate prometheus-grafana repo? Can I merge the repo into this project? Or is this a service on its own? If so, create a Docker image and deploy via terraform.
+.. Can terraform deploy containers to remote raspi nodes? Withoput kubernetes etc?!
+. Find Docker-based alternative to cron -> Rundeck or something else?
+. Make Vagrantbox idempotent -> handle .gitignore differently
 ====
 
 == Requirements Overview

@@ -1,0 +1,118 @@
+= Code Snippets
+
+== Asciidoc + PlantUML: Embedd Diagram
+[code, bash]
+----
+ [plantuml, puml-build-image, svg]
+ ----
+ @startuml
+
+ skinparam linetype ortho
+ skinparam monochrome false
+ skinparam componentStyle uml2
+ skinparam backgroundColor #fff
+ skinparam ArrowColor black
+ skinparam NoteBorderColor Grey
+ skinparam NoteBackgroundColor #fdfdfd
+ skinparam defaultTextAlignment center
+ skinparam activity {
+ FontName Ubuntu
+ }
+
+ component something
+
+ @enduml
+ ----
+----
+
+[code, bash]
+----
+ [plantuml, rendered-plantuml-image, svg]
+ ----
+ include::image$PATH/TO/FILE/FILENAME.puml[]
+ ----
+----
+
+== Bash
+=== APT - Check available versions of packages
+[code, bash]
+----
+apt-get update
+apt-cache madison <PACKAGE_NAME>
+----
+
+=== Case for var-values
+[code, bash]
+----
+case $HOSTNAME in
+("kobol") echo -e "$LOG_INFO Do some stuff on the machine with name kobol";;
+(*)       echo -e "$LOG_ERROR NOT THE EXPECTED MACHINE (* = any other) !!!" && echo && exit;;
+esac
+----
+
+=== Param missing (function or script)
+[code, bash]
+----
+if [ -z "$var" ]
+then
+  echo -e "$LOG_ERROR Param missing: DESC (TYPE)"
+  echo -e "$LOG_ERROR exit"
+  exit 0
+fi
+----
+
+=== Select
+[code, bash]
+----
+echo -e "$LOG_INFO Do you wish to do some stuff?"
+select choice in "Yes" "No"; do
+    case "$choice" in
+        Yes ) echo "1"; break;;
+        No ) exit;;
+    esac
+done
+----
+
+== shdoc
+=== File
+[code, bash]
+----
+#!/bin/bash
+# @file start.sh
+# @brief Start containers that are common to all nodes.
+#
+# @description The script starts all containers that are common to every node (RasPi and x86). All these containers
+# satisfy monitoring, logging and management purposes and are defined using docker compose.
+#
+# | What          | User/Pass   | Port | Protocol |
+# | ------------- | ----------- | ---- | -------- |
+# | node-exporter | -           | 9100 | http     |
+# | cAdvisor      | -           | 9110 | http     |
+# | portainer     | admin/admin | 9990 | http     |
+#
+# ==== Arguments
+#
+# The script does not accept any parameters.
+----
+
+[code, bash]
+----
+#!/bin/bash
+# @file kube-deploy.sh
+# @brief Deploy applications to v-kube-cluster.
+# @description When the scripts is called without any parameters, the script deploys all available applications to kubernetes cluster. Therefore the scripts iterates through all application folders inside resources/applications folder.  When called without parameter the script writes information for all deployments to the antora asciidoc documentation as well (see docs/modules/bash-api-docs folder). When the script is called with application name parameter only the single application is deployed. The applications are expected inside resources/applications folder and expects a deploy.sh script.
+#
+# ==== Arguments
+#
+# * *$1* (string): Application name to deploy (optional)
+----
+
+=== Function
+[code, bash]
+----
+# @description Create folders for groups and repositories and clone repos from list.
+#
+# @arg $1 String Base URL of the repository (ssh and https possible)
+# @arg $2 String The name of the group containing the repositories
+# @arg $3 List<String> List of repository names in the given group
+----

@@ -1,0 +1,64 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+IMAGE_NAME = "ubuntu/impish64" # impish = 21.10 | bento/ubuntu-21.10
+HOSTNAME = "pegasus"
+IP="10.42.10.10"
+
+Vagrant.configure(2) do |config|
+
+    #
+    # Vagrantbox: pegasus
+    #
+    config.vm.define HOSTNAME do |pegasus|
+        pegasus.vm.box = IMAGE_NAME
+        pegasus.vm.hostname = HOSTNAME
+        pegasus.vm.network :private_network, ip: IP
+
+        if Vagrant.has_plugin?("vagrant-cachier")
+            pegasus.cache.scope = :box # Configure cached packages to be shared between instances of the same base box
+        end
+
+        pegasus.vm.provider "virtualbox" do |v|
+            v.memory = 1024*6
+            v.cpus = 2
+            v.customize ["modifyvm", :id, "--groups", "/vagrantboxes"]
+            # v.customize ["modifyvm", :id, "--ioapic", "on"] # https://www.mkwd.net/improve-vagrant-performance/
+            v.name = HOSTNAME
+        end
+
+        # copy files and mount shared volumes
+        pegasus.ssh.forward_agent = true # If true, agent forwarding over SSH connections is enabled. Defaults to false.
+        pegasus.vm.provision "file", source: "~/.ssh", destination: "/home/vagrant/.ssh"
+        pegasus.vm.synced_folder "~/tmp", "/home/vagrant/tmp"
+        pegasus.vm.synced_folder "~/work", "/home/vagrant/work"
+
+        # provisioning
+        pegasus.vm.provision "shell", :inline => "sudo rm /etc/localtime && sudo ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime", run: "always"
+        pegasus.vm.provision "shell", path: "provision/install/uninstall.sh"
+        pegasus.vm.provision "shell", path: "provision/configure.sh"
+        pegasus.vm.provision "shell", path: "provision/ssh-keys.sh", privileged: false # Use default user (vagrant) instead of root
+        pegasus.vm.provision :docker
+        pegasus.vm.provision "shell", path: "docker/images/build-images.sh"
+        pegasus.vm.provision :docker_compose, yml: "/vagrant/docker/services/ops/docker-compose.yml", run: "always"
+        pegasus.vm.provision :docker_compose, yml: "/vagrant/docker/services/services/docker-compose.yml", run: "always"
+        pegasus.vm.provision "shell", path: "provision/install/update-upgrade.sh"
+        pegasus.vm.provision "shell", path: "provision/install/basic-packages.sh"
+        pegasus.vm.provision "shell", path: "provision/install/java.sh"
+        pegasus.vm.provision "shell", path: "provision/install/node.sh"
+        pegasus.vm.provision "shell", path: "initialize/rundeck/init.sh"
+
+        # in use -> see src/main/vagrantboxes/pegasus/docker/services/docker-compose.yml
+        pegasus.vm.network "forwarded_port", host: 7100, guest: 9100
+        pegasus.vm.network "forwarded_port", host: 7110, guest: 7110
+        pegasus.vm.network "forwarded_port", host: 7440, guest: 7440
+        pegasus.vm.network "forwarded_port", host: 7990, guest: 7990
+
+        # prepared
+        pegasus.vm.network "forwarded_port", host: 7000, guest: 7000 # free
+        pegasus.vm.network "forwarded_port", host: 7080, guest: 7080 # free
+        pegasus.vm.network "forwarded_port", host: 7081, guest: 7081 # free
+        pegasus.vm.network "forwarded_port", host: 7443, guest: 7443 # free
+        pegasus.vm.network "forwarded_port", host: 7888, guest: 7888 # pegasus/website & pegasus/docs-website
+    end
+end

@@ -1,0 +1,98 @@
+= Laptop: kobol
+Sebastian Sommerfeld <sebastian@sommerfeld.io>
+
+Setup, configuration and documentation for my local Ubuntu workstation following an infrastructure as code approach.
+
+== Requirements Overview
+. Setup my local workstation with minimal manual interactions.
+. Add or update packages without any risk -> avoid having to repair broken installations (dumping the broken setup and reverting to a working one is preferred).
+. Test the setup regularly (automated) to ensure a new installation from scratch will work.
+
+== Quality Goals
+. The whole setup of my local workstation, all my Vagrantboxes and all my Docker Images is Infrastructure as Code.
+. Software installations through the classic package managers like `apt` should be avoided. As much as possible should run inside docker containers. This is true for the host machine as well as Vagrantboxes.
+
+== Install
+Download and install a fresh link:https://ubuntu.com[Ubuntu] from an iso image:
+
+. Download iso image from https://ubuntu.com/download/desktop
+. Create bootable USB stick using the application "Startup Disk Creator" (shipped with Ubuntu) or something else like https://www.balena.io/etcher[Etcher]
+. Install the OS on the machine
+
+Once the basic OS is installed, perform the following steps on your machine:
+
+. Choose NVIDIA graphics driver from "Additional Drivers"
+. Clone or download this repository to some tmp folder (`git clone https://github.com/sebastian-sommerfeld-io/kobol-config.git`)
+. Run `src/main/host/setup/10-configure.sh` -> Basic configuration and .bashrc settings
+. Run `src/main/host/setup/20-install.sh` -> Install software packages
+. Run `src/main/host/setup/21-install-intellij.sh` -> Install IntelliJ
+. Run `src/main/host/setup/90-start-services.sh` -> Start basic services and docker containers which are always running
+. Enable Dark Mode
+. Add `~/work`, `~/temp` and `~/virtualmachines` to favourites (in File Manager)
+. Login to Firefox Sync
+. Setup three monitors, Dock position and icon size, add favourite applications to Dock
+. Setup Deja Dup Backups for folder "/media/sebastian/USB-1TB/.kobol-backups/deja-dup
+. In GNOME Tweaks app
+.. Go to "Workspaces" and set "Display handling" to "Workspaces span displays" to be able to scroll through workspaces (desktops) on all screens
+.. Go to "Top Bar" and enable "Battery Percentage" and "Week Numbers" for calendar
+.. Clone repositories
+. Import existing Virtualbox VMs
+
+=== Steam Setup for Windows Games on Linux
+. Install Steam
+. Enable the Steam Beta Client: Go to Steam -> Settings
+. In the account tab, click change in the Steam Beta Update and click on Steam Beta Update
+. Enable Steam Play for all games
+. Go to Settings -> Steam Play Tab and click "Enable Steam Play for all titles"
+. Install the respective games
+
+== Usage
+Since each service brings its own set of features, requirements and dependencies the way how to setup and use a respective service is highly dependent on the respective service. For details take a look at the respective docs for the service.
+
+== Building Block View / Whitebox Overall System
+[plantuml, rendered-plantuml-image, svg]
+----
+@startuml
+
+skinparam linetype ortho
+skinparam monochrome false
+skinparam componentStyle uml2
+skinparam backgroundColor transparent
+skinparam ArrowColor black
+skinparam CollectionsBorderColor black
+skinparam ComponentBorderColor black
+skinparam ComponentBackgroundColor #FEFECE
+skinparam NoteBorderColor Grey
+skinparam NoteBackgroundColor #fdfdfd
+skinparam defaultTextAlignment center
+skinparam activity {
+  FontName Ubuntu
+}
+
+component host as "physical host machine" <<kobol>> {
+    collections basic_packages <<apt & snap>>
+    collections basic_containers <<docker>>
+
+    collections sb1 as "sandboxes" <<vagrantbox>>
+    collections sb2 as "sandboxes" <<docker>>
+
+    basic_packages -[hidden]right-> basic_containers
+    basic_containers -[hidden]right-> sb1
+    sb1 -[hidden]right-> sb2
+}
+
+@enduml
+----
+
+. Basic packages -> Essential Tools like git, Virtualbox, Vagrant, Docker, etc. or tools that require a desktop and don't change very often like Browsers, IntelliJ, Slack, etc.
+. Basic containers -> Essential containers running on the host and don't change very often - e.g. to expose metrics for monitoring purposes.
+. Sandboxes -> The encapsulated which provide the actual development environment etc. -> these sandboxes probably are subject to frequent changes.
+
+== Risks and Technical Debts
+Scale for Probability and Impact: Low, Medium and High
+
+[cols="^1,2,7a,1,1,4a", options="header"]
+|===
+|# |Title |Description |Probability |Impact |Response
+|{counter:usage} |External monitors remain dark with Ubuntu 21.04 |After updating to Ubuntu 21.04 the two external screens are recognized but remain dark. Screens are connected via DisplayPort through a USB-C Hub. All screens can be configured but the laptop screen is the only one showing the actual desktop. The DisplayPort screens say there is "No DP signal from your device". For details see link:https://askubuntu.com/questions/1350593/ubuntu-21-04-with-three-external-monitors[my question on askubuntu.com].+++<br><br>+++*Workaround:* Sticking with Ubuntu 20.10 for the moment. |High |High |link:https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/1931547[Known problem with Ubuntu 21.04 (or rather the xorg-server package)]. This bug was fixed in the package xorg-server `2:1.20.11-1ubuntu1~20.04.2`.
+|===
