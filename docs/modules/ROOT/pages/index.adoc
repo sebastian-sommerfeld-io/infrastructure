@@ -17,7 +17,6 @@ Infrastructure repository with configs and docs for my local workstations, my ho
 *Todos*
 
 . Merge and delete repo kobol-config
-. Update Jira components and board to infrastructure??
 . ADR: xref:ADRs:architecture-decision-records/kobol-vs-pegasus.adoc[]
 . ADR: xref:ADRs:architecture-decision-records/chef-vs-ansible.adoc[]
 . Do I really need the separate prometheus-grafana repo? Can I merge the repo into this project? Or is this a service on its own? If so, create a Docker image and deploy via terraform.
