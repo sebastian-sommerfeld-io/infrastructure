@@ -32,7 +32,7 @@ Infrastructure repository with configs and docs for my local workstations, my ho
 .. My public website (classic web hosting and link:https://cloud.digitalocean.com[DigitalOcean])
 . Every single setup for every component with as little manual interaction as possible.
 . Manage assets which are common to all projects in one place.
-.. Allow other prjoects, to load these assets into their respective repo (each project takes care of this on its own)
+.. Allow other projects, to load these assets into their respective repo (each project takes care of this on its own)
 
 == Quality Goals
 . Lint everything inside this repo
