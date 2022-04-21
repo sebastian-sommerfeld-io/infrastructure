@@ -1,0 +1,3 @@
+todo ... setup and configure scripts
+
+todo ... add a special bootstrap-script / init-script ala `curl GITHUB_URL/bootstrap-kobol.sh | bash` -> install basics, clone repo, install rest

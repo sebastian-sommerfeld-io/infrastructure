@@ -1,0 +1,88 @@
+= Startpage
+Sebastian Sommerfeld <sebastian@sommerfeld.io>
+:project-name: infrastructure
+:url-project: https://github.com/sebastian-sommerfeld-io/{project-name}
+
+Infrastructure repository with configs and docs for my local workstations, my homelab with Proxmox and RasPi nodes and my public website hosted in the cloud.
+
+[cols="1,4", options="header"]
+|===
+|What |Where to find
+|Repository |{url-project}
+|Documentation |https://docs.sommerfeld.io/{project-name}/main
+|===
+
+[IMPORTANT]
+====
+*Todos*
+
+. Merge and delete repo kobol-config
+. Merge and delete repo kobol-scripts
+. Merge and delete repo kobol-vagrant
+. Merge and delete repo homelab
+. Update Jira components and board to infrastructure??
+. ADR-kobol-vs-pegasus
+. ADR-chef-vs-ansible
+====
+
+== Requirements Overview
+. Centrally manage all my infrastructure components.
+.. My physical workstations and all link:/playground-docs/main[non-playground] Vagrantboxes
+.. My homelab (physical and virtual)
+.. My public website (classic web hosting and link:https://cloud.digitalocean.com[DigitalOcean])
+. Every single setup for every component with as little manual interaction as possible.
+. Manage assets which are common to all projects in one place.
+.. Allow other prjoects, to load these assets into their respective repo (each project takes care of this on its own)
+
+== Quality Goals
+. Lint everything inside this repo
+. Encapsulated as much as possible inside Docker Containers and/or Vagrantboxes to ensure (broken) updates can easily be rolled back and the setup is portable in case I have to reset my workstation or have to switch to another workstation.
+.. Add or update packages without any risk -> avoid having to repair broken installations (dumping the broken setup and reverting to a working one is preferred).
+.. Instead of using e.g. `apt-get install`, use Docker Contaioners and create a Symlink in `/usr/bin` to a wrapper-script which delegates commands to a Docker contaner.
+
+== Building Block View / Whitebox Overall System
+[plantuml, rendered-plantuml-image, svg]
+----
+@startuml
+
+skinparam linetype ortho
+skinparam monochrome false
+skinparam componentStyle uml2
+skinparam backgroundColor transparent
+skinparam ArrowColor black
+skinparam FrameBackgroundColor #fff
+skinparam CollectionsBackgroundColor #fefece
+skinparam CollectionsBorderColor black
+skinparam ComponentBorderColor black
+skinparam ComponentBackgroundColor #fefece
+skinparam QueueBorderColor black
+skinparam NoteBorderColor Grey
+skinparam NoteBackgroundColor #fdfdfd
+skinparam defaultTextAlignment center
+skinparam activity {
+  FontName Ubuntu
+}
+
+component kobol <<physical workstation>> {
+    component pegasus <<Vagrantbox>>
+}
+
+component proxmox <<physical server>> {
+    collections VMs <<virtual>>
+    collections Containers <<Docker>>
+}
+
+component prometheus <<physical RasPi>>
+
+
+@enduml
+----
+
+== Risks and Technical Debts
+Scale for Probability and Impact: Low, Medium and High
+
+[cols="^1,2,5a,1,1,5a", options="header"]
+|===
+|# |Title |Description |Probability |Impact |Response
+|{counter:usage} |- |- |- |- |-
+|===
