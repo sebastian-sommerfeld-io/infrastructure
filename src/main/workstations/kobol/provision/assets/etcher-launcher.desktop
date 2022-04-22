@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=13.0
+Type=Application
+Terminal=false
+Icon[en_US]=/home/sebastian/work/tools/etcher/etcher.png
+Name[en_US]=Etcher
+Exec=/home/sebastian/work/tools/etcher/balenaEtcher-1.5.122-x64.AppImage
+Name=Etcher
+Icon=/home/sebastian/work/tools/etcher/etcher.png

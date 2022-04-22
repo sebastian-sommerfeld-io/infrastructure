@@ -65,16 +65,16 @@ function set_executable() {
   chmod +x "/usr/bin/$2"
 }
 
-PATH_PEGASUS="$home/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/workstations/kobol/vagrantboxes/pegasus"
-set_executable "$PATH_PEGASUS/provision/wrappers/folderslint.sh" folderslint
-set_executable "$PATH_PEGASUS/provision/wrappers/git.sh" git
-set_executable "$PATH_PEGASUS/provision/wrappers/groovy.sh" groovy
-set_executable "$PATH_PEGASUS/provision/wrappers/jq.sh" jq
-set_executable "$PATH_PEGASUS/provision/wrappers/hadolint.sh" hadolint
-set_executable "$PATH_PEGASUS/provision/wrappers/hugo.sh" hugo
-set_executable "$PATH_PEGASUS/provision/wrappers/mvn.sh" mvn
-set_executable "$PATH_PEGASUS/provision/wrappers/python.sh" py
-set_executable "$PATH_PEGASUS/provision/wrappers/shellcheck.sh" shellcheck
-set_executable "$PATH_PEGASUS/provision/wrappers/yamllint.sh" yamllint
-set_executable "$PATH_PEGASUS/provision/wrappers/yq.sh" yq
+WRAPPERS_PATH="$home/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/workstations/kobol/vagrantboxes/pegasus"
+set_executable "$WRAPPERS_PATH/provision/wrappers/folderslint.sh" folderslint
+set_executable "$WRAPPERS_PATH/provision/wrappers/git.sh" git
+set_executable "$WRAPPERS_PATH/provision/wrappers/groovy.sh" groovy
+set_executable "$WRAPPERS_PATH/provision/wrappers/jq.sh" jq
+set_executable "$WRAPPERS_PATH/provision/wrappers/hadolint.sh" hadolint
+set_executable "$WRAPPERS_PATH/provision/wrappers/hugo.sh" hugo
+set_executable "$WRAPPERS_PATH/provision/wrappers/mvn.sh" mvn
+set_executable "$WRAPPERS_PATH/provision/wrappers/python.sh" py
+set_executable "$WRAPPERS_PATH/provision/wrappers/shellcheck.sh" shellcheck
+set_executable "$WRAPPERS_PATH/provision/wrappers/yamllint.sh" yamllint
+set_executable "$WRAPPERS_PATH/provision/wrappers/yq.sh" yq
 echo "[DONE] Symlink setup for Docker wrapper scripts"
