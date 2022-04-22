@@ -4,7 +4,7 @@
 	email = sebastian@sommerfeld.io
 	name = sebastian
 [core]
-	excludesfile = /home/sebastian/.gitignore
+	excludesfile = /home/bitnami/.gitignore
 	autocrlf = input
 [credential]
 	helper = cache --timeout=3600
