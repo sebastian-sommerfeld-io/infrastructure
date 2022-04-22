@@ -19,11 +19,11 @@ bash install/install-desktop-software.sh
 bash install/install-docker.sh
 bash install/install-etcher.sh
 bash install/install-git.sh
-bash install/install-java.sh
+#bash install/install-java.sh
 bash install/install-postman.sh
 bash install/install-raspi-imager.sh
 bash install/install-slack.sh
-bash install/install-ssh-server.sh
+#bash install/install-ssh-server.sh
 bash install/install-sublime.sh
 bash install/install-virtualbox.sh
 bash install/install-vagrant.sh

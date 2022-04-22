@@ -22,19 +22,21 @@ Download and install a fresh link:https://ubuntu.com[Ubuntu] from an iso image:
 Once the basic OS is installed, perform the following steps on your machine:
 
 . Choose NVIDIA graphics driver from "Additional Drivers"
-. Clone or download this repository to some tmp folder (`git clone https://github.com/sebastian-sommerfeld-io/kobol-config.git`)
-. Run `src/main/host/setup/10-configure.sh` -> Basic configuration and .bashrc settings
-. Run `src/main/host/setup/20-install.sh` -> Install software packages
-. Run `src/main/host/setup/21-install-intellij.sh` -> Install IntelliJ
-. Run `src/main/host/setup/90-start-services.sh` -> Start basic services and docker containers which are always running
 . Enable Dark Mode
-. Add `~/work`, `~/temp` and `~/virtualmachines` to favourites (in File Manager)
-. Login to Firefox Sync
 . Setup three monitors, Dock position and icon size, add favourite applications to Dock
-. Setup Deja Dup Backups for folder "/media/sebastian/USB-1TB/.kobol-backups/deja-dup
+. Login to Firefox Sync
 . In GNOME Tweaks app
 .. Go to "Workspaces" and set "Display handling" to "Workspaces span displays" to be able to scroll through workspaces (desktops) on all screens
 .. Go to "Top Bar" and enable "Battery Percentage" and "Week Numbers" for calendar
+. Setup Deja Dup Backups for folder "/media/sebastian/USB-1TB/.kobol-backups/deja-dup
+. Run setup from infrastructure repository
+.. Install git using `sudo apt-get install -y git` and create folder `mkdir -p ~/work/repos/sebastian-sommerfeld-io`
+.. Clone repository (`git clone https://github.com/sebastian-sommerfeld-io/infrastructure.git`) to `~/work/repos/sebastian-sommerfeld-io`
+... Run `src/main/host/setup/10-configure.sh` -> Basic configuration and .bashrc settings
+... Run `src/main/host/setup/20-install.sh` -> Install software packages
+... Run `src/main/host/setup/21-install-intellij.sh` -> Install IntelliJ
+... Run `src/main/host/setup/90-start-services.sh` -> Start basic services and docker containers which are always running
+.. Add `~/work`, `~/temp` and `~/virtualmachines` to favourites (in File Manager)
 .. Clone repositories
 . Import existing Virtualbox VMs
 
