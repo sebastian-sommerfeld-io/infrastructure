@@ -31,7 +31,7 @@ ln -s "/usr/bin/dot" "/opt/local/bin/dot"
 echo -e "$LOG_INFO Install IntelliJ"
 rm -rf "$TARGET_DIR_INTELLIJ"
 mkdir -p "$TARGET_DIR_INTELLIJ"
-curl -L -o "$TARGET_DIR_INTELLIJ/intellij.tar.gz" https://download.jetbrains.com/idea/ideaIC-2021.1.tar.gz
+curl -L -o "$TARGET_DIR_INTELLIJ/intellij.tar.gz" https://download.jetbrains.com/idea/ideaIC-2022.1.tar.gz
 echo -e "$LOG_DONE Finished download"
 
 rm -rf "$INSTALL_DIR/intellij"

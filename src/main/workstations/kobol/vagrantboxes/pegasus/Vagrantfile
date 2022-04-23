@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-IMAGE_NAME = "ubuntu/impish64" # impish = 21.10 | bento/ubuntu-21.10
+IMAGE_NAME = "ubuntu/jammy64" # jammy = 22.04 | bento/ubuntu-21.10
 HOSTNAME = "pegasus"
 #IP="10.42.10.10"
 
