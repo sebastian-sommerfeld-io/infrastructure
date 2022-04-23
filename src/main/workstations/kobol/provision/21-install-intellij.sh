@@ -13,7 +13,7 @@
 TARGET_DIR="../../../../../target"
 TARGET_DIR_INTELLIJ="$TARGET_DIR/provision/intellij"
 INSTALL_DIR="$HOME/work/tools"
-PLUGINS_DIR="$INSTALL_DIR/intellij/idea-IC-211.6693.111/plugins"
+PLUGINS_DIR="$INSTALL_DIR/intellij/idea-IC-221.5080.210/plugins"
 
 mkdir -p "$TARGET_DIR"
 
@@ -55,13 +55,13 @@ echo -e "$LOG_DONE Installed plugin AsciiDoc"
 
 echo -e "$LOG_INFO Start IntelliJ"
 #echo -e "$LOG_WARN Manual step needed: create launcher"
-"$INSTALL_DIR/intellij/idea-IC-211.6693.111/bin/idea.sh" &
+"$INSTALL_DIR/intellij/idea-IC-221.5080.210/bin/idea.sh" &
 
 #### Add launcher and icon #####################################################
 
 echo -e "$LOG_INFO Create IntelliJ Launcher with Icon"
 launcherTarget="/usr/share/applications/intellij.desktop"
-sudo cp "resources/intellij-launcher.desktop" "$launcherTarget"
+sudo cp "assets/intellij-launcher.desktop" "$launcherTarget"
 sudo chmod 644 "$launcherTarget"
 sudo chown root:root "$launcherTarget"
 
