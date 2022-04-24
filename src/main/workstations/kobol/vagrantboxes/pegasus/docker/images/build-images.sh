@@ -35,6 +35,7 @@ function buildImage() {
   echo "[DONE] Finished building '$IMAGE_PREFIX/$1:$IMAGE_TAG'"
 }
 
+# todo ... iterate folders
 buildImage "adoc-antora"
 buildImage "folderslint"
 buildImage "ftp-client"
