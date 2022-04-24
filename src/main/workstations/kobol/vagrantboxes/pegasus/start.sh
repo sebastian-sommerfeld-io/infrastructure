@@ -19,7 +19,13 @@ PATH_PEGASUS="$HOME/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/w
 echo -e "$LOG_INFO Start Vagrant Boxes"
 (
   cd "$PATH_PEGASUS" || exit
+  echo -e "$LOG_INFO Validate"
   vagrant validate
+  
+  echo -e "$LOG_INFO Update box"
+  vagrant box update
+  
+  echo -e "$LOG_INFO Startup"
   time vagrant up
 )
 
