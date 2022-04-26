@@ -31,8 +31,6 @@ docker run -i  --rm hadolint/hadolint < src/main/workstations/kobol/vagrantboxes
 docker run -i  --rm hadolint/hadolint < src/main/workstations/kobol/vagrantboxes/pegasus/docker/images/ftp-client/Dockerfile
 docker run -i  --rm hadolint/hadolint < src/main/workstations/kobol/vagrantboxes/pegasus/docker/images/git/Dockerfile
 docker run -i  --rm hadolint/hadolint < src/main/workstations/kobol/vagrantboxes/pegasus/docker/images/jq/Dockerfile
-docker run -i  --rm hadolint/hadolint < src/main/workstations/kobol/vagrantboxes/pegasus/docker/images/rundeck/Dockerfile
-docker run -i  --rm hadolint/hadolint < src/main/workstations/kobol/vagrantboxes/pegasus/docker/images/rundeck-cle/Dockerfile
 docker run -i  --rm hadolint/hadolint < src/main/workstations/kobol/vagrantboxes/pegasus/docker/images/yq/Dockerfile
 docker run -it --rm --volume "$(pwd):/data" --workdir "/data" lslintorg/ls-lint:1.11.0
 docker run -i  --rm --volume "$(pwd):$(pwd)" --workdir "$(pwd)" pegasus/folderslint:latest folderslint .

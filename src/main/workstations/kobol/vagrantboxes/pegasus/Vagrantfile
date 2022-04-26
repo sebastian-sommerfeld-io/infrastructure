@@ -41,24 +41,19 @@ Vagrant.configure(2) do |config|
         pegasus.vm.provision :docker
         pegasus.vm.provision "shell", path: "docker/images/build-images.sh"
         pegasus.vm.provision :docker_compose, yml: "/vagrant/docker/services/ops/docker-compose.yml", run: "always"
-        pegasus.vm.provision :docker_compose, yml: "/vagrant/docker/services/services/docker-compose.yml", run: "always"
+        #pegasus.vm.provision :docker_compose, yml: "/vagrant/docker/services/services/docker-compose.yml", run: "always"
         pegasus.vm.provision "shell", path: "provision/install/update-upgrade.sh"
         pegasus.vm.provision "shell", path: "provision/install/basic-packages.sh"
         pegasus.vm.provision "shell", path: "provision/install/java.sh"
         pegasus.vm.provision "shell", path: "provision/install/node.sh"
-        pegasus.vm.provision "shell", path: "initialize/rundeck/init.sh"
 
-        # in use -> see src/main/vagrantboxes/pegasus/docker/services/docker-compose.yml
-        pegasus.vm.network "forwarded_port", host: 7100, guest: 9100
-        pegasus.vm.network "forwarded_port", host: 7110, guest: 7110
-        pegasus.vm.network "forwarded_port", host: 7440, guest: 7440
-        pegasus.vm.network "forwarded_port", host: 7990, guest: 7990
-
-        # prepared
         pegasus.vm.network "forwarded_port", host: 7000, guest: 7000 # free
         pegasus.vm.network "forwarded_port", host: 7080, guest: 7080 # free
         pegasus.vm.network "forwarded_port", host: 7081, guest: 7081 # free
+        pegasus.vm.network "forwarded_port", host: 7100, guest: 9100 # node_exporter
+        pegasus.vm.network "forwarded_port", host: 7110, guest: 7110 # cAdvisor
         pegasus.vm.network "forwarded_port", host: 7443, guest: 7443 # free
         pegasus.vm.network "forwarded_port", host: 7888, guest: 7888 # pegasus/website & pegasus/docs-website
+        pegasus.vm.network "forwarded_port", host: 7990, guest: 7990 # portainer
     end
 end

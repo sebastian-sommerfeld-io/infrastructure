@@ -1,4 +1,0 @@
-= README
-:imagesdir: ../../../../../../../../docs/modules/ROOT/assets/images
-
-include::../../../../../../../../docs/modules/ROOT/partials/vagrantboxes/pegasus/rundeck.adoc[]
