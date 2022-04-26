@@ -16,6 +16,7 @@ blacklist=(
   "System Volume Information"
   "java_error_in_idea_*.log"
   ".DS_Store"
+  "firefox.tmp"
 )
 
 # add all jobs to crontab
