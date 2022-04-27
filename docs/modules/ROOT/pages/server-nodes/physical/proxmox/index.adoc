@@ -2,7 +2,7 @@
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-[cols="^1,5", options="header"]
+[cols="1,3", options="header"]
 |===
 |Hostname |prometheus
 |FQDN |prometheus.fritz.box
@@ -97,7 +97,7 @@ workstation ~> wifi_network
 |===
 |Service |URL |User (Password)
 |Node Exporter |http://proxmox.fritz.box:9100 |-
-|cAdvisor |http://proxmox.fritz.box:9101 |-
+|cAdvisor |http://proxmox.fritz.box:9110 |-
 |Portainer |http://proxmox.fritz.box:9990 |admin (admin)
 |Proxmox Web Console |http://proxmox.fritz.box:8006 |root (admin)
 |===
