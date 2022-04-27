@@ -1,3 +1,25 @@
 = RasPi: prometheus
 
+http://prometheus.fritz.box:3000/
+
+[cols="^1,5", options="header"]
+|===
+|Hostname |prometheus
+|FQDN |prometheus.fritz.box
+|User (Password) |pi (raspberry), ubuntu (raspberry)
+|===
+
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+== Building Block View / Whitebox Overall System
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+=== Services
+[cols="3,1,2", options="header"]
+|===
+|Service |URL |User (Password)
+|Node Exporter |http://prometheus.fritz.box:9100 |-
+|cAdvisor |http://prometheus.fritz.box:9110 |-
+|Portainer |http://prometheus.fritz.box:9990 |admin (admin)
+|Grafana |http://prometheus.fritz.box:3000 |-
+|===

@@ -2,6 +2,13 @@
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
+[cols="^1,5", options="header"]
+|===
+|Hostname |prometheus
+|FQDN |prometheus.fritz.box
+|User (Password) |root (admin)
+|===
+
 == Requirements Overview
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
@@ -84,6 +91,16 @@ workstation ~> wifi_network
 . Running Proxmox via Wifi means that VMs cannot access the outside world because most access Points drop their packages. The VM comes with their own Mac and IP which are unknown to the access point.
 .. From link:https://pve.proxmox.com/wiki/WLAN[Proxmox Docs]: Avoid using WLAN if possible, it has several technical limitations making it not really suitable as single interface of a hyper-visor like PVE. Wi-Fi adapters can only be used as Linux bridge interface through workarounds, as most Access Points (APs) will reject frames that have a source address that didn't authenticate with the AP.
 . To avoid this behavior the xref:server-nodes/physical/proxmox-bridge/index.adoc[] accepts WLAN connections and bridges them to the proxmox server via cable.
+
+=== Services
+[cols="3,1,2", options="header"]
+|===
+|Service |URL |User (Password)
+|Node Exporter |http://proxmox.fritz.box:9100 |-
+|cAdvisor |http://proxmox.fritz.box:9101 |-
+|Portainer |http://proxmox.fritz.box:9990 |admin (admin)
+|Proxmox Web Console |http://proxmox.fritz.box:8006 |root (admin)
+|===
 
 == Risks and Technical Debts
 Scale for Probability and Impact: Low, Medium and High

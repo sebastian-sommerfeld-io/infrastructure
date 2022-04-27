@@ -74,7 +74,7 @@ The following services are up and running when the Vagrantbox is started (and pr
 
 [cols="3,1,2", options="header"]
 |===
-|Service |URL|User (Password)
+|Service |URL |User (Password)
 |Node Exporter |http://localhost:7100 |-
 |cAdvisor |http://localhost:7101 |-
 |Portainer |http://localhost:7990 |admin (admin)
