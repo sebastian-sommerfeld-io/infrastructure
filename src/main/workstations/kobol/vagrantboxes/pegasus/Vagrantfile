@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-IMAGE_NAME = "ubuntu/jammy64" # impish = 21.10 | jammy = 22.04 | bento/ubuntu-21.10
+IMAGE_NAME = "ubuntu/impish64" # impish = 21.10 | jammy = 22.04 | bento/ubuntu-21.10
 HOSTNAME = "pegasus"
 IP="192.168.56.10"
 
@@ -9,6 +9,8 @@ Vagrant.configure(2) do |config|
 
     #
     # Vagrantbox: pegasus
+    #
+    # * Ubuntu impish, because jammy is currently not supported by node/npm.
     #
     config.vm.define HOSTNAME do |pegasus|
         pegasus.vm.box = IMAGE_NAME

@@ -18,9 +18,8 @@
   echo "[INFO] Install node and npm"
   cd /home/vagrant || exit
 
-  curl -sL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+  curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
   sudo apt-get install -y nodejs
-  npm install -g npm@latest
 
   echo "[INFO] node version = $(node --version)"
   echo "[INFO] npm version = $(npm --version)"
@@ -28,9 +27,6 @@
 )
 
 echo "[INFO] Install node apps"
-
 npm install --global @antora/cli@2.3 @antora/site-generator-default@2.3
 npm install --global gulp-cli
-npm install --global webserver
-
 echo "[DONE] Installed node apps"
