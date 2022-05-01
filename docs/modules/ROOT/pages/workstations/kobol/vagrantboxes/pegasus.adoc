@@ -18,7 +18,7 @@ Since this Vagrantbox contains all essential development tools, it is the "crown
 . Test the setup regularly (automated) to ensure a new installation from scratch will work.
 
 == Quality Goals
-. The whole setup of my local workstation follows is Infrastructure as Code
+. The whole setup of my local workstation is Infrastructure as Code
 
 == Install
 In order to run this project, the following dependencies must be met:
