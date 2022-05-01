@@ -1,7 +1,5 @@
 = RasPi: prometheus
 
-http://prometheus.fritz.box:3000/
-
 [cols="1,3", options="header"]
 |===
 |Hostname |prometheus
@@ -22,4 +20,5 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 |cAdvisor |http://prometheus.fritz.box:9110 |-
 |Portainer |http://prometheus.fritz.box:9990 |admin (admin)
 |Grafana |http://prometheus.fritz.box:3000 |-
+|Prometheus |http://prometheus.fritz.box:9090 |-
 |===
