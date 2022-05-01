@@ -3,7 +3,7 @@
 *** xref:workstations/kobol/index.adoc[]
 **** xref:workstations/kobol/vagrantboxes/pegasus.adoc[]
 ** Server Nodes
-*** xref:server-nodes/common-setup.adoc[]
+*** xref:server-nodes/installation-guide.adoc[]
 *** Nodes
 **** xref:server-nodes/physical/prometheus/index.adoc[]
 **** xref:server-nodes/physical/proxmox-bridge/index.adoc[]

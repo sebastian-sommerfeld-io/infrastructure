@@ -1,0 +1,31 @@
+= Installation Guide
+Sebastian Sommerfeld <sebastian@sommerfeld.io>
+
+This installation guide provides information of the basic setup of all physical and virtual machines in my homelab. This guide covers the initial setup (= OS installation) and basic configurations that are common to all nodes. Additional installation and configuration steps for each machine are covered on dedicated pages for the respective machine.
+
+== Requirements Overview
+All nodes (physical and virtual) share the same basic setup.
+
+. *Operating System* -> By default all servers are running some flavor of link:https://www.debian.org/index.html[Debian]. Normally the Operating System of choice is link:https://ubuntu.com[Ubuntu]. The virtualization server is running link:https://www.proxmox.com/en/proxmox-ve[Proxmox VE], which is based on Debian.
+. *Provisioning* -> Each node utilizes the same basic configuration. This basic provisioning is done by link:https://cloudinit.readthedocs.io/en/latest[cloud-init]. On instance boot, cloud-init will read any provided metadata and initialize the system accordingly. Later, cloud-init will parse and process any optional user or vendor data that was passed to the instance. Common configuration for all nodes:
+.. Set the hostname for each node -> TODO: HOW CAN I SET THE HOSTNAME TO A DIFFERENT NAME OF MY CHOICE FOR EACH NODE??? -> Extract name from a file that is located in /tmp/hostname-for-cloud-init.txt on each machine?
+.. Set up the same default user and password for all nodes
+.. Set up the same basic directory structure for all nodes
+.. Set up the same SSH public key to allow password-less SSH connections from xref:workstations/kobol/index.adoc[]
+.. For physical nodes: WiFi configuration
+
+== Quality Goals
+. No installation is done completely by hand. Although installations that normally take place only once don't need to be fully automated (e.g. proxmox). These installations need a full documentation in order to re-install the machines properly.
+
+== Install
+=== Raspberry Pi
+. Use the link:https://www.raspberrypi.com/software[Raspberry Pi Imager] to write Ubunbtu to an SD Card
+. Run `src/main/homelab/installation/common/raspi/init-sd-card/setup-sd-card.sh` to weite additional information to the SD card. These information bootstrap the Raspberry Pi with Wifi information and cloud-init configs.
+. Startup the Raspberry Pi with this SD card
+. Connect from kobol via SSH
+
+=== Lenovo Think Centre
+This nodes acts as virtualization provider. See xref:server-nodes/physical/proxmox/index.adoc[] ("Install" section) for installation instructions.
+
+=== Virtual Machines on proxmox
+All virtual machines are created and provisioned by link:https://www.terraform.io[Terraforn] and link:https://cloudinit.readthedocs.io/en/latest[cloud-init]. For forther information see "Usage" section on the xref:server-nodes/physical/proxmox/index.adoc[] page.
