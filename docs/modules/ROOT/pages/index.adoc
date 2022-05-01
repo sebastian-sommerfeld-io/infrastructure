@@ -27,7 +27,7 @@ Infrastructure repository with configs and docs for my local workstations, my ho
 
 == Requirements Overview
 . Centrally manage all my infrastructure components.
-.. My physical workstations and all link:/playground-docs/main[non-playground] Vagrantboxes
+.. My physical workstations and all link:/playgrounds-docs/main[non-playground] Vagrantboxes
 .. My homelab (physical and virtual)
 .. My public website (classic web hosting and link:https://cloud.digitalocean.com[DigitalOcean])
 . Every single setup for every component with as little manual interaction as possible.
