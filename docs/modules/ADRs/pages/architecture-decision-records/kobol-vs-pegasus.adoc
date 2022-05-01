@@ -26,19 +26,17 @@ Lorem ipsum dolor ... The setup of choice is ...
 
 [NOTE]
 ====
-*General Takeaway*
+*General Takeaways*
 
-Run everything in containers! This way separating tools from themselves and rapairing broken configs becomes much easier, even when the development tools are not encapsulated in a Vagrantbox.
-
-. Don't install Node & npm anywhere. Not on host and not in guest VM. Don't use nvm or anything. Always run node from a Docker container!
-. ...
-. ...
+. Run as much as possible in containers! This way separating tools from themselves and repairing broken configs becomes much easier, even when the development tools are not encapsulated in a Vagrantbox.
+. Every new tool installation should get its own git branch. This way rolling back becomes as easy as possible.
 ====
 
 === Todos resulting from architecture decision
 . Merge Repo "kobol-scripts", "kobol-vagrant" and "kobol-config" into new repo "infrastructure"
 . Reset kobol machine from scratch
 
+=== Decision details
 [cols="1,1,1,1,1", options="header"]
 |===
 2+|Run everything directly on physical machine "kobol" (in Docker) 2+|Encapsulate everything inside Vagrantbox "pegasus" .2+|Info / Comment
