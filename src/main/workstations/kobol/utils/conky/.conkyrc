@@ -91,13 +91,11 @@ ${template1}[SUPER] + [T]         ${alignr}Terminal
 
 ${template0}${color #9f907d}TERMINAL COMMANDS ${color slate grey}${hr 2}${font}${color slate grey}
 ${template1}cheatsheet ${template2}    ${template1}       ${alignr}Docs for Bash Command
-${template1}ctop                  ${alignr}List Containers
 ${template1}htop                  ${alignr}Bash Util
 ${template1}ncdu ${template2}    ${template1}             ${alignr}Bash Util
 ${template1}neofetch              ${alignr}Bash Util
 ${template1}pull-all-repos        ${alignr}Git
 ${template1}reset-conky           ${alignr}Restart Conky
 ${template1}reset-sound           ${alignr}pulseaudio --start
-${template1}slack-send-msg ${template2}    ${template1}   ${alignr}Send Slack Message
 
 ]];
