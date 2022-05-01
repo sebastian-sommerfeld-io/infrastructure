@@ -82,6 +82,7 @@ The following services are up and running when the Vagrantbox is started (and pr
 
 == Architecture Decisions
 . The actual development tools are encapsulated to make sure a working environment can always be started. This way running any update comes without any risk because reverting to a working setup can be done easily. This becomes even easier when every update has a dedicated git branch. Therefore the actual tools are built into a Vagrantbox.
+.. xref:ADRs:architecture-decision-records/kobol-vs-pegasus.adoc[]
 
 == Risks and Technical Debts
 Scale for Probability and Impact: Low, Medium and High
