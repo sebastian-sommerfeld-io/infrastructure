@@ -17,28 +17,32 @@ export IMAGE_TAG="latest"
 # @description Build docker image to use inside vagrantbox.
 #
 # @arg $1 string image_name (= directory containing the Dockerfile) - mandatory
+#
+# @exitcode 0 If successful.
+# @exitcode 1 If param is missing
 function buildImage() {
   if [ -z "$1" ]
   then
     echo "[ERROR] Param missing: image_name"
     echo "[ERROR] exit"
-    exit 0
+    exit 1
   fi
 
   echo "[INFO] Building '$IMAGE_PREFIX/$1:$IMAGE_TAG'"
   (
     cd "/vagrant/docker/images/$1" || exit
-
-    echo "[INFO] Build image"
     docker build -t "$IMAGE_PREFIX/$1:$IMAGE_TAG" .
   )
   echo "[DONE] Finished building '$IMAGE_PREFIX/$1:$IMAGE_TAG'"
 }
 
-# todo ... iterate folders
-buildImage "adoc-antora"
-buildImage "folderslint"
-buildImage "ftp-client"
-buildImage "git"
-buildImage "jq"
-buildImage "yq"
+echo "[INFO] Build docker images"
+(
+  cd /vagrant/docker/images || exit
+
+  for dir in */ ; do
+    image=${dir%*/}
+    echo "[INFO] Build image from folder $image"
+    buildImage "$image"
+  done
+)
