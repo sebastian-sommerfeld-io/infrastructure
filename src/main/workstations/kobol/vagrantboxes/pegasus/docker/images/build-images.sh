@@ -24,8 +24,7 @@ function buildImage() {
   if [ -z "$1" ]
   then
     echo "[ERROR] Param missing: image_name"
-    echo "[ERROR] exit"
-    exit 1
+    echo "[ERROR] exit" && exit 1
   fi
 
   echo "[INFO] Building '$IMAGE_PREFIX/$1:$IMAGE_TAG'"
