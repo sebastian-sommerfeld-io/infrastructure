@@ -36,6 +36,6 @@ function set_executable() {
   chmod +x "/usr/bin/$2"
 }
 
-WRAPPERS_PATH="$HOME/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/workstations/kobol/docker/wrappers"
+#WRAPPERS_PATH="$HOME/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/workstations/kobol/docker/wrappers"
 #set_executable "$WRAPPERS_PATH/git.sh" git
 echo -e "$LOG_DONE Symlink setup for Docker wrapper scripts"
