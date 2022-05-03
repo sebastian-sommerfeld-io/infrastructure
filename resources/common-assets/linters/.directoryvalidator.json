@@ -2,7 +2,12 @@
   "ignoreDirs": [
     "node_modules",
     "target",
-    ".git"
+    ".git",
+    ".idea",
+    "**/*.log",
+    "**/.vagrant",
+    "**/.terraform*",
+    "**/*.tfstate*"
   ],
   "commonRules": {
     "rule_adoc": {
