@@ -37,6 +37,10 @@ Once the basic OS is installed, perform the following steps on your machine:
 .. Add `~/work`, `~/temp` and `~/virtualmachines` to favourites (in File Manager)
 .. Update file associations in Settings > Applications > Sublime Text
 .. Clone repositories
+. Enable Auto-Export for Firefox bookmarks
+. Open `about:config`
+.. Set `browser.bookmarks.autoExportHTML = true`
+.. Set `browser.bookmarks.file = "/home/sebastian/work/repos/sebastian-sommerfeld-io/website-sommerfeld-io/subdomain-www/src/main/firefox-bookmarks.html"` -> Since this folder is part of the repository link:https://github.com/sebastian-sommerfeld-io/website-sommerfeld-io[website-sommerfeld-io] it is important to clone the all repositories first (as stated above).
 . Import existing Virtualbox VMs
 
 === Steam Setup for Windows Games on Linux
