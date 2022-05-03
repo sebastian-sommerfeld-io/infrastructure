@@ -81,8 +81,8 @@ component prometheus <<physical RasPi>>
 === Linters
 The link:https://github.com/sebastian-sommerfeld-io/infrastructure[Infrastructure Repository] contains ready-to-use linter definitions which other projects can download and use (see link:https://github.com/sebastian-sommerfeld-io/infrastructure/blob/main/lint.sh[lint.sh]).
 
-==== Directory Validator
-The Directory Validator checks if all mandatory files and folders are present. Folders cannot be empty. For "empty" folders, add a .gitkeep file and wexplain why this folder is empty (= empty in the remote repo).
+==== directory-validator
+The link:https://github.com/goerwin/directory-validator[directory-validator] checks if all mandatory files and folders are present. Folders cannot be empty. For "empty" folders, add a .gitkeep file and explain why this folder is empty (= empty in the remote repo). Empty .gitkeep files normally are placeholders, until the directory is populated with the actual content.
 
 == Risks and Technical Debts
 Scale for Probability and Impact: Low, Medium and High
