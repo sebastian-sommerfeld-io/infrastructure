@@ -25,6 +25,9 @@ ls:
 
 ignore:
   - .ls-lint.yml
+  - .yamllint.yml
+  - resources/common-assets/linters/.ls-lint.yml
+  - resources/common-assets/linters/.yamllint.yml
   - .idea
   - .git
   - node_modules
