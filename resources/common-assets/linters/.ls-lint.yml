@@ -29,3 +29,7 @@ ignore:
   - .git
   - node_modules
   - target
+  - subdomain-docs/node_modules
+  - subdomain-docs/target
+  - subdomain-www/node_modules
+  - subdomain-www/target
