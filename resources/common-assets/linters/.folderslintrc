@@ -8,13 +8,10 @@
     "docs/modules/*/pages/**",
     "docs/modules/*/partials/*",
     "docs/modules/*/partials/**",
-
     "resources/**",
-
     "src/cicd/**",
     "src/main/**",
     "src/test/**",
-
     "node_modules/**",
     "target/**"
   ]
