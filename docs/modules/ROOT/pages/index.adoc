@@ -36,11 +36,18 @@ Infrastructure repository with configs and docs for my local workstations, my ho
 
 == Quality Goals
 . Lint everything inside this repo
-. Encapsulated as much as possible inside Docker Containers and/or Vagrantboxes to ensure (broken) updates can easily be rolled back and the setup is portable in case I have to reset my workstation or have to switch to another workstation.
+. Encapsulate as much as possible inside Docker Containers and/or Vagrantboxes to ensure (broken) updates can easily be rolled back and the setup is portable in case I have to reset my workstation or have to switch to another workstation.
 .. Add or update packages without any risk -> avoid having to repair broken installations (dumping the broken setup and reverting to a working one is preferred).
 .. Instead of using e.g. `apt-get install`, use Docker Contaioners and create a Symlink in `/usr/bin` to a wrapper-script which delegates commands to a Docker contaner.
 
 == Building Block View / Whitebox Overall System
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ... summary on how my remote and on-prem artifacts are updated ... docs.sommefeld.io = digitalocean = terraform ...
+
+=== Public Sites hosted on the Internet
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
 [plantuml, rendered-plantuml-image, svg]
 ----
 @startuml
@@ -55,6 +62,8 @@ skinparam CollectionsBackgroundColor #fefece
 skinparam CollectionsBorderColor black
 skinparam ComponentBorderColor black
 skinparam ComponentBackgroundColor #fefece
+skinparam RectangleBorderColor black
+skinparam RectangleBackgroundColor #fefece
 skinparam QueueBorderColor black
 skinparam NoteBorderColor Grey
 skinparam NoteBackgroundColor #fdfdfd
@@ -63,21 +72,21 @@ skinparam activity {
   FontName Ubuntu
 }
 
-component kobol <<physical workstation>> {
-    component pegasus <<Vagrantbox>>
+rectangle DigitalOcean {
+    component docs as "docs.sommerfeld.io" <<docker_image>>
 }
-
-component proxmox <<physical server>> {
-    collections VMs <<virtual>>
-    collections Containers <<Docker>>
-}
-
-component prometheus <<physical RasPi>>
-
 
 @enduml
 ----
 
+CAUTION: todo ... text plus diagram
+
+=== On-Premise Homelab
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ... text plus diagram
+
+== Usage
 === Linters
 The link:https://github.com/sebastian-sommerfeld-io/infrastructure[Infrastructure Repository] contains ready-to-use linter definitions which other projects can download and use (see link:https://github.com/sebastian-sommerfeld-io/infrastructure/blob/main/lint.sh[lint.sh]).
 
