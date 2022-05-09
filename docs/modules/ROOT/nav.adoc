@@ -7,6 +7,7 @@
 *** Nodes
 **** xref:server-nodes/physical/prometheus/index.adoc[]
 **** xref:server-nodes/physical/proxmox-bridge/index.adoc[]
+**** xref:server-nodes/physical/tron/index.adoc[]
 **** xref:server-nodes/physical/proxmox/index.adoc[]
 **** VM: tbd
 **** VM: tbd
