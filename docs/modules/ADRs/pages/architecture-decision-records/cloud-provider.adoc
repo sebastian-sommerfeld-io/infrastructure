@@ -1,0 +1,15 @@
+= Cloud Provider
+Sebastian Sommerfeld <sebastian@sommerfeld.io>
+// ADR spreadsheet = ...1
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+Minus
++++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++
+
+Plus 1
++++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++
+
+Plus 2
++++<i class="fa fa-minus-circle" style="color: #FF6D01;" aria-hidden="true"></i>+++
+
