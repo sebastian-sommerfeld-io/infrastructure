@@ -1,15 +1,52 @@
+//Plus
+//+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++
+//
+//Minus 1
+//+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++
+//
+//Minus 2
+//+++<i class="fa fa-minus-circle" style="color: #FF6D01;" aria-hidden="true"></i>+++
+
 = Cloud Provider
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
-// ADR spreadsheet = ...1
+// URL = https://docs.google.com/spreadsheets/d/1n8sRg3emV5hFrXzuvvn4WnN-5swMCUVkZR8dzUhRt0U
 
+Which cloud provider will host my container-based services and websites? Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+IMPORTANT: Status = Work in Progress
+
+== Requirements Overview
+. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+. At vero eos et accusam et justo duo dolores et ea rebum.
+. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+. Dolore magna aliquyam erat, sed diam voluptua.
+. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+. Dolore magna aliquyam erat, sed diam voluptua.
+. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+
+=== Quality Goals
+. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+. At vero eos et accusam et justo duo dolores et ea rebum.
+. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+. Dolore magna aliquyam erat, sed diam voluptua.
+. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+. Dolore magna aliquyam erat, sed diam voluptua.
+. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+
+== Decision
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-Minus
-+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++
+=== Todos resulting from this decision
+. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+. At vero eos et accusam et justo duo dolores et ea rebum.
+. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+. Dolore magna aliquyam erat, sed diam voluptua.
+. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+. Dolore magna aliquyam erat, sed diam voluptua.
+. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
 
-Plus 1
-+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++
-
-Plus 2
-+++<i class="fa fa-minus-circle" style="color: #FF6D01;" aria-hidden="true"></i>+++
-
+=== Decision details
+[cols="1,1,1,1,1", options="header"]
+|===
+|AWS |Digital Ocean |Google Cloud Platform |Linode |Info / Comment
+|===
