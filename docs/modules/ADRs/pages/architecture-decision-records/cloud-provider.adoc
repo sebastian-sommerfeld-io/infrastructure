@@ -1,52 +1,48 @@
-//Plus
-//+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++
-//
-//Minus 1
-//+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++
-//
-//Minus 2
-//+++<i class="fa fa-minus-circle" style="color: #FF6D01;" aria-hidden="true"></i>+++
-
 = Cloud Provider
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
 // URL = https://docs.google.com/spreadsheets/d/1n8sRg3emV5hFrXzuvvn4WnN-5swMCUVkZR8dzUhRt0U
 
-Which cloud provider will host my container-based services and websites? Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Which cloud provider will host my container-based services and websites? All applications run inside containers, so there is no need for traditional Virtual Machines. VMs are handled by the local Proxmox server. Docker images are hosted on DockerHub.
 
-IMPORTANT: Status = Work in Progress
+IMPORTANT: Status = Done (2022-05-19)
 
 == Requirements Overview
-. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
-. At vero eos et accusam et justo duo dolores et ea rebum.
-. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
-. Dolore magna aliquyam erat, sed diam voluptua.
-. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-. Dolore magna aliquyam erat, sed diam voluptua.
-. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+. All application run in containers. The cloud provider must offer a way to deploy and run Docker images.
+. Since there is not much load that needs to be handled, there is no need for sophisticated high availability and failover. Containers don't need to run in kubernetes. Containers should run "directly" in some way without provisioning a VM with Docker first.
+. Cloud provider must allow Infrastructure as Code using Terraform.
+. Cloud provider must offer DNS servers so that subdomains can point to services in the cloud but the www-subdomain still is handled traditionally by the classic web hoster.
+. There is no need to build the images in the cloud. There will be a separate build process and images are deployed to DockerHub. The cloud provider must use these images from DockerHub.
 
 === Quality Goals
-. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
-. At vero eos et accusam et justo duo dolores et ea rebum.
-. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
-. Dolore magna aliquyam erat, sed diam voluptua.
-. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-. Dolore magna aliquyam erat, sed diam voluptua.
-. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+. Everything is Infrastructure as Code.
+. All services run in containers.
 
 == Decision
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Digital Ocean is the cloud provider of choice. Based on the active community, AWS or Google Cloud Platform are the clear winners. But since they are (way) more expensive, the cloud provider of choice is Digital Ocean.
 
 === Todos resulting from this decision
-. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
-. At vero eos et accusam et justo duo dolores et ea rebum.
-. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
-. Dolore magna aliquyam erat, sed diam voluptua.
-. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-. Dolore magna aliquyam erat, sed diam voluptua.
-. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+. Setup docs.sommerfeld.io with Terraform (Run container, add Load Balancer, use https)
 
 === Decision details
+AWS and Google Cloud Platform offer by far the larger feature set, DigitalOcean and Linode provide much less. But most of these features are not relevant to sommerfeld.io and other project usecases.
+
+For further information and comparisons, see https://comparecloud.in.
+
+AWS and Google Cloud Platform offer the most active community with good help on StackOverflow and SuperUser plus the most information for Terraform. AWS is more or less the default cloud provider for most Terraform tutorials and blog posts.
+
+AWS seems to be 10x more expensive than Ditigal Ocean. Google Could Platform seems to be twice as expensive than Digital Ocean. Linode seems similar in cost and feature set seems to lack  easy Docker container deployments.
+
 [cols="1,1,1,1,1", options="header"]
 |===
 |AWS |Digital Ocean |Google Cloud Platform |Linode |Info / Comment
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Run Docker Images directly with link:https://aws.amazon.com/apprunner[App Runner] |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Easily run Docker Images directly with link:https://cloud.digitalocean.com/apps[Apps] |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Run Docker Images directly with link:https://cloud.google.com/run[Cloud Run] |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ From a first look at the Web UI it seems that Container deployments need Kubernetes |Essential requirement - No VM with Docker, Kubernetes, etc. should be needed.
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ App Runner works with AWS container registries ony. DockerHub not supported |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Deploy images from DockerHub |_not checked_ |_not checked_ |
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ $0,064/ hour vCPU + $0,007/hour GB = (for April) 30 days * 24 hours = 720 hours - hours * costs = $51,12 for whole april |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ 1 App (= Docker Image): 5,00€ |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Simple link:https://cloud.google.com/products/calculator#id=ac997dde-dfae-4467-a19e-29a75b0d695d[calculation for "Cloud Run" results in $11,50 per month] |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ From a first look at the Web UI it seems that Container deployments need Kubernetes |All calculations are based on 1 Docker app (= 1 running Docker container)
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Most resources (tutorials, etc.) available - link:https://registry.terraform.io/providers/hashicorp/aws/latest/docs[Terraform AWS Provider] |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Good documentation from vendor but not too many tutorials, howto.articles and blogs on the internet - especially when Terraform is involved. |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Lost of resources (tutorials, etc.) available - link:https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started[Terraform Google Provider] and link:https://cloud.google.com/docs/terraform[Terraform with Google Cloud] |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Good documentation from vendor but not too many tutorials, howto.articles and blogs on the internet - especially when Terraform is involved. |
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Good StackOverflow support |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ The first PoC showed, that StackOverflow and SuperUser don't provide much help with questions. |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Good StackOverflow support |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ No really checked for this ADR but it is to be expected that Linode feels similar to DIgitalOcean. |Active community with large forum is really important.
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Provides a CLI tool |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Provides a CLI tool |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Provides a CLI tool |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Provides a CLI tool |CLI should not really be needed because Terraform should handle everything.
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Allows IaC with Terraform |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Allows IaC with Terraform |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Allows IaC with Terraform |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Allows IaC with Terraform |
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Complex Web Management UI |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Simple Web Management UI |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Complex Web Management UI |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Simple Web Management UI |Terraform should reduce the need to use the Web UI.
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ DataCenter Location in Germany (Frankfurt) |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ DataCenter Location in Germany (Frankfurt) |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ DataCenter Location in Germany (Frankfurt) |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ DataCenter Location in Germany (Frankfurt) |
+|_not checked_ |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Simple HTTPS setup and domain configuration for Docker apps |_not checked_ |_not checked_ |Not yet checked with Terraform
 |===
