@@ -42,13 +42,13 @@ find . -not \( -path "*node_modules*" \) -name Dockerfile -exec \
     sh -c 'src=${1#./} && echo "$LOG_INFO Lint $1" && docker run -i  --rm hadolint/hadolint < $1' sh "{}" \;
 
 echo -e "$LOG_INFO lint Vagrantfile"
-# todo ...
+echo -e "$LOG_WARN todo ..." # todo ...
 
 echo -e "$LOG_INFO lslint"
 docker run -it --rm --volume "$(pwd):/data" --workdir "/data" lslintorg/ls-lint:1.11.0
 
 echo -e "$LOG_INFO lint .env files"
-docker run -it --rm --volume "$(pwd):/app" --workdir "/app" dotenvlinter/dotenv-linter:latest --exclude "*node_modules*" --recursive
+docker run -it --rm DL3009 info: Delete the apt-get lists after installing something--volume "$(pwd):/app" --workdir "/app" dotenvlinter/dotenv-linter:latest --exclude "*node_modules*" --recursive
 
 echo -e "$LOG_INFO lint terraform files"
 find . -not \( -path "*node_modules*" \) -name "*.tf" -exec docker run -it --rm --volume "$(pwd):$(pwd)" --workdir "$(pwd)" ghcr.io/terraform-linters/tflint:latest {} \;
