@@ -1,13 +1,13 @@
 # https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/app
-resource "digitalocean_app" "docs-page-docker-app" {
+resource "digitalocean_app" "docs_page" {
   spec {
-    name   = "docs-page-docker-app"
+    name   = "docs_page"
     region = "fra1"
 
     # domain
 
     service {
-      name      = "docs-page-docker-app-image"
+      name      = "docs_page_image"
       http_port = 3000
 
       image {

@@ -1,4 +1,4 @@
-= Kobol vs. Pegasus
+= ADR: Kobol vs. Pegasus
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
 // ADR spreadsheet = https://docs.google.com/spreadsheets/d/13trHjYR6NSg2-XDDzEx_Wt-AH2becUVeto5abweKdF0/edit#gid=0
 

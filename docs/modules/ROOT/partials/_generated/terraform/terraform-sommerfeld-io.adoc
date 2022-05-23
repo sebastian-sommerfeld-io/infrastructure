@@ -1,0 +1,44 @@
+== Requirements
+
+[cols="a,a",options="header,autowidth"]
+|===
+|Name |Version
+|[[requirement_digitalocean]] <<requirement_digitalocean,digitalocean>> |~> 2.0
+|===
+
+== Providers
+
+[cols="a,a",options="header,autowidth"]
+|===
+|Name |Version
+|[[provider_digitalocean]] <<provider_digitalocean,digitalocean>> |2.19.0
+|===
+
+== Modules
+
+No modules.
+
+== Resources
+
+[cols="a,a",options="header,autowidth"]
+|===
+|Name |Type
+|https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/app[digitalocean_app.docs_page] |resource
+|===
+
+== Inputs
+
+[cols="a,a,a,a,a",options="header,autowidth"]
+|===
+|Name |Description |Type |Default |Required
+|[[input_do_token]] <<input_do_token,do_token>>
+|Access token for Digital Ocean API (read in `tf.sh` from local file that is not pushed to the remote git repo)
+|`string`
+|n/a
+|yes
+
+|===
+
+== Outputs
+
+No outputs.

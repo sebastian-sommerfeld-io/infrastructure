@@ -1,0 +1,14 @@
+= Cloud Infrastructure
+Sebastian Sommerfeld <sebastian@sommerfeld.io>
+
+This is the latest and up-to-date Terraform configuration for all *.sommerfeld.io services running in the cloud.
+
+== Building Block View / Whitebox Overall System
+The cloud provider of choice is Digital Ocean. For further information on the desicion process take a look at xref:ADRs:architecture-decision-records/cloud-provider.adoc[].
+
+image:ROOT:_generated/terraform/terraform-sommerfeld-io.png[]
+
+include::ROOT:partial$_generated/terraform/terraform-sommerfeld-io.adoc[]
+
+== Further Information
+For docs on Digital Ocean with Terraform see https://docs.digitalocean.com/reference/terraform and https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs. Also see the link:https://www.digitalocean.com/community/conceptual_articles/infrastructure-as-code-explained[Tutorial Series: How To Manage Infrastructure with Terraform] on the Digital Ocean website.

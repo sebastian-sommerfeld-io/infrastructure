@@ -84,7 +84,7 @@ function tf() {
 function initialize() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Initialize this configuration"
   tf init
-  graph
+  generateDocs
 }
 
 
@@ -108,7 +108,7 @@ function plan() {
 
   validate
   tf plan -var=do_token="$DO_TOKEN"
-  graph
+  generateDocs
 }
 
 
@@ -121,7 +121,7 @@ function apply() {
 
   validate
   tf apply -auto-approve -var=do_token="$DO_TOKEN"
-  graph
+  generateDocs
 }
 
 
@@ -145,15 +145,20 @@ function destroy() {
 }
 
 
-# @description Generate diagram by running ``terraform graph`` and add this diagram to the documentation.
+# @description Generate diagram by running ``terraform graph`` and add this diagram to the documentation. Also generate
+# docs by running the ``terraform-docs`` Docker image and add the generated asciidoc to the documentation.
 #
 # @example
-#    echo "test: $(graph)"
-function graph() {
+#    echo "test: $(generateDocs)"
+function generateDocs() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate graph for this configuration"
 
-  DIAGRAM_FILENAME="terraform-graph-$TARGET_ENV.png"
+  BASE_FILENAME="terraform-$TARGET_ENV"
+  DIAGRAM_FILENAME="$BASE_FILENAME.png"
+  ADOC_FILENAME="$BASE_FILENAME.adoc"
+  ADOC_FILENAME_TMP="$BASE_FILENAME-with-CRLF.adoc"
   ANTORA_IMAGES_DIR="docs/modules/ROOT/assets/images/_generated/terraform"
+  ANTORA_PARTIALS_DIR="docs/modules/ROOT/partials/_generated/terraform"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate diagram specs and prettify diagram"
   diagram=$(tf graph)
@@ -172,12 +177,26 @@ function graph() {
     --workdir "$(pwd)" \
     nshine/dot:latest > "../../target/$DIAGRAM_FILENAME"
 
-  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Move diagram to antora module and add to git repo"
+  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate text documentation for this configuration"
+  # append $TF_CONFIG_PATH because this command is not delegated to `tf` function (which handles this for terraform commands)
+  docker run -it --rm \
+    --volume "$(pwd):$(pwd)" \
+    --workdir "$(pwd)" \
+    -u "$(id -u)" \
+    quay.io/terraform-docs/terraform-docs:latest asciidoc "$(pwd)/$TF_CONFIG_PATH" > "../../target/$ADOC_FILENAME_TMP"
+
+  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Move diagram and asciidoc to antora module and add to git repo"
   (
     cd ../../ || exit
     mv "target/$DIAGRAM_FILENAME" "$ANTORA_IMAGES_DIR/$DIAGRAM_FILENAME"
     git add "$ANTORA_IMAGES_DIR/$DIAGRAM_FILENAME"
+
+    tr -d '\015' < "target/$ADOC_FILENAME_TMP" > "target/$ADOC_FILENAME" # CRLF to LF
+    mv "target/$ADOC_FILENAME" "$ANTORA_PARTIALS_DIR/$ADOC_FILENAME"
+    git add "$ANTORA_PARTIALS_DIR/$ADOC_FILENAME"
   )
+
+
 }
 
 

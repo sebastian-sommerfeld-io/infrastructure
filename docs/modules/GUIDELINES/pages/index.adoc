@@ -17,4 +17,12 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 == Terraform
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+. General conventions
+.. Use `_` (underscore) instead of `-` (dash) everywhere (resource names, data source names, variable names, outputs, etc).
+.. Prefer to use lowercase letters and numbers (even though UTF-8 is supported).
+. Resource and data source arguments
+.. Do not repeat resource type in resource name (not partially, nor completely): use `resource "aws_route_table" "public" {}`, don't use `resource "aws_route_table" "public_route_table" {}`.
+.. Always use singular nouns for names.
+. Variables
+.. Use the plural form in a variable name when type is list(...) or map(...).
+.. Prefer using simple types (`number`, `string`, `list(...),` `map(...)`, `any`) over specific type like `object()` unless you need to have strict constraints on each key.

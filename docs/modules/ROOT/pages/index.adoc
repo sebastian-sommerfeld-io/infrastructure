@@ -96,11 +96,7 @@ FTP -up-> ClassicHosting
 @enduml
 ----
 
-The latest and up-to-date Terraform configuration for all *.sommerfeld.io services running in the cloud:
-
-image:ROOT:_generated/terraform/terraform-graph-sommerfeld-io.png[]
-
-For docs on Digital Ocean with Terraform see https://docs.digitalocean.com/reference/terraform and https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs. Also see the link:https://www.digitalocean.com/community/conceptual_articles/infrastructure-as-code-explained[Tutorial Series: How To Manage Infrastructure with Terraform] on the Digital Ocean website.
+For information on the DigitalOcean setup take a look at the xref:cloud.adoc[] page.
 
 === On-Premise Homelab
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.

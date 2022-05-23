@@ -1,0 +1,12 @@
+= Homelab Infrastructure
+Sebastian Sommerfeld <sebastian@sommerfeld.io>
+
+This is the latest and up-to-date Terraform configuration for all services running in my local homelab (= on my xref:ROOT:homelab/physical/proxmox/index.adoc[proxmox server]).
+
+== Building Block View / Whitebox Overall System
+image:ROOT:_generated/terraform/terraform-homelab.png[]
+
+include::ROOT:partial$_generated/terraform/terraform-homelab.adoc[]
+
+== Further Information
+For docs on proxmox with Terraform see https://registry.terraform.io/providers/Telmate/proxmox/latest/docs.
