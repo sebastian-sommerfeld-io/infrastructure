@@ -13,6 +13,9 @@
 # . ``apply`` -> Run ``terraform apply -auto-approve -var=do_token=<THE_DIGITAL_OCEAN_TOKEN>`` and ``terraform graph`` (runs ``validate`` first)
 # . ``destroy`` -> Run ``terraform destroy -auto-approve -var=do_token=<THE_DIGITAL_OCEAN_TOKEN>`` and clean up some files (runs ``validate`` first)
 #
+# Steps, that change the infrastructure (plan, apply) also auto-generate some documentation and component graphs. These
+# docs are added to the corresponding Antora module.
+#
 # ==== Arguments
 #
 # The script does not accept any parameters.
@@ -178,7 +181,7 @@ function generateDocs() {
     nshine/dot:latest > "../../target/$DIAGRAM_FILENAME"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate text documentation for this configuration"
-  # append $TF_CONFIG_PATH because this command is not delegated to `tf` function (which handles this for terraform commands)
+  # append $TF_CONFIG_PATH because this command is not delegated to the `tf` function (which handles this for terraform commands)
   docker run -it --rm \
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
@@ -195,8 +198,6 @@ function generateDocs() {
     mv "target/$ADOC_FILENAME" "$ANTORA_PARTIALS_DIR/$ADOC_FILENAME"
     git add "$ANTORA_PARTIALS_DIR/$ADOC_FILENAME"
   )
-
-
 }
 
 
