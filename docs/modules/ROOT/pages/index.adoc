@@ -46,7 +46,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 CAUTION: todo ... summary on how my remote and on-prem artifacts are updated ... docs.sommefeld.io = digitalocean = terraform ...
 
 === Public Sites hosted on the Internet
-Public sites are divided into two parts. The first part is hosted traditionally by a classic hosting provider and the second part is hosted in the cloud (xref:ADRs:architecture-decision-records/cloud-provider.adoc[by default at Digital Ocean]).
+Public sites are divided into two parts. The first part is hosted traditionally by a classic hosting provider and the second part is hosted in the cloud (xref:ADRs:architecture-decision-records/cloud-provider.adoc[by default at DigitalOcean]).
 
 [plantuml, rendered-plantuml-image, svg]
 ----

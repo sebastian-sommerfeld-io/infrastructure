@@ -32,7 +32,7 @@ No modules.
 |===
 |Name |Description |Type |Default |Required
 |[[input_do_token]] <<input_do_token,do_token>>
-|Access token for Digital Ocean API (read in `tf.sh` from local file that is not pushed to the remote git repo)
+|Access token for DigitalOcean API (read in `tf.sh` from local file that is not pushed to the remote git repo)
 |`string`
 |n/a
 |yes
