@@ -1,6 +1,14 @@
 = Cloud Infrastructure
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
 
+++++
+<div style="float: left; margin: 0 2em 1em 0">
+    <a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg" alt="DigitalOcean Referral Badge" /></a>
+    <!--<a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg" alt="DigitalOcean Referral Badge" /></a>-->
+    <!--<a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>-->
+</div>
+++++
+
 This is the latest and up-to-date Terraform configuration for all *.sommerfeld.io services running in the cloud. The cloud provider of choice is Digital Ocean. For further information on the desicion process take a look at xref:ADRs:architecture-decision-records/cloud-provider.adoc[].
 
 == Building Block View / Whitebox Overall System
