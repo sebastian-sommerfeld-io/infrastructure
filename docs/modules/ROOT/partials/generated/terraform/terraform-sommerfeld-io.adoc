@@ -28,9 +28,8 @@ No modules.
 |===
 |Name |Type
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/app[digitalocean_app.docs-page] |resource
-|https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/domain[digitalocean_domain.cloud] |resource
-|https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/record[digitalocean_record.CNAME-docs] |resource
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/data-sources/account[digitalocean_account.do_account] |data source
+|https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/data-sources/app[digitalocean_app.docs-page-data] |data source
 |https://registry.terraform.io/providers/linode/linode/1.27.1/docs/data-sources/account[linode_account.linode_account] |data source
 |===
 
@@ -42,7 +41,7 @@ No modules.
 |[[input_do_base_domain]] <<input_do_base_domain,do_base_domain>>
 |Domain used for DigitalOcean -> all Services will act as subdomains to this base domain name
 |`string`
-|`"cloud.sommerfeld.io"`
+|`"sommerfeld.io"`
 |no
 
 |[[input_do_instance_smallest]] <<input_do_instance_smallest,do_instance_smallest>>
@@ -97,6 +96,8 @@ No modules.
 |===
 |Name |Description
 |[[output_do_account_email]] <<output_do_account_email,do_account_email>> |The email address of the DigitalOcean account in use
+|[[output_do_docs_page_default_url]] <<output_do_docs_page_default_url,do_docs_page_default_url>> |The <random-subdomain>.ondigitalocean.app domain
+|[[output_do_docs_page_live_url]] <<output_do_docs_page_live_url,do_docs_page_live_url>> |The <subdomain>.sommerfeld.io domain
 |[[output_linode_account_email]] <<output_linode_account_email,linode_account_email>> |The email address of the Linode account in use
 |===
 

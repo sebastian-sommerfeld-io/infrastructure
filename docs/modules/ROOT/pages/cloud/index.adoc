@@ -50,7 +50,6 @@ skinparam activity {
 
 rectangle allinkl as "all-inkl" <<classic hosting>> {
     file www <<Subdomain>>
-    file cloud <<Subdomain>>
     file linode <<Subdomain>>
     file sio as "sommerfeld.io" <<Domain>>
     collections dns as "DNS settings"
@@ -65,21 +64,22 @@ rectangle Linode <<cloud provider>> {
 }
 
 www -right-> sio
-cloud -left-> sio
 linode -up-> sio
-docs -right-> cloud
-dns ~up~> cloud
+docs -right-> sio
 dns ~down~> linode
-dns ~right~> DigitalOcean
+dns ~right~> docs
 
 Linode -left-> linode
 
 @enduml
 ----
 
-The domain provider needs some DNS settings to ensure all *.cloud.sommerfeld.io subdomains work.
-
-image:ROOT:cloud/nameserver-config-digitalocean.png[]
+The domain provider needs some DNS settings to ensure all *.sommerfeld.io subdomains work. Each subdomain need the same DNS settings to make sure the services deployed at DigitalOcean are reachable through <subdomain>.sommerfeld.io and not only through the <random-subdomain>.ondigitalocean.app. For information on "How to Manage Domains in App Platform" take a look DigitalOcean docs, especially the "link:https://docs.digitalocean.com/products/app-platform/how-to/manage-domains[Option 2: Using a CNAME Pointer]" section.
+[cols="2,1,5",options="header"]
+|===
+|(Sub-) Domain |Type |Value
+|docs |CNAME |<random-subdomain>.ondigitalocean.app.
+|===
 
 Same would be necessary for services running as *.linode.sommerfeld.io.
 

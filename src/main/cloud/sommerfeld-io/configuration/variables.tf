@@ -19,7 +19,7 @@ variable "do_instance_smallest" {
 variable "do_base_domain" {
   description = "Domain used for DigitalOcean -> all Services will act as subdomains to this base domain name"
   type        = string
-  default     = "cloud.sommerfeld.io"
+  default     = "sommerfeld.io"
 }
 
 # ----------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,8 @@
 resource "digitalocean_app" "docs-page" {
   spec {
     domains = [
-      "${digitalocean_record.CNAME-docs.name}.${digitalocean_domain.cloud.name}",
+      #"${digitalocean_record.CNAME-docs.name}.${digitalocean_domain.cloud.name}",
+      "docs.${var.do_base_domain}",
     ]
     name   = "docs-page"
     region = var.do_region
@@ -29,13 +30,17 @@ resource "digitalocean_app" "docs-page" {
   }
 }
 
-resource "digitalocean_domain" "cloud" {
-  name = var.do_base_domain
+data "digitalocean_app" "docs-page-data" {
+  app_id = digitalocean_app.docs-page.id
 }
 
-resource "digitalocean_record" "CNAME-docs" {
-  domain = digitalocean_domain.cloud.name
-  type   = "CNAME"
-  name   = "docs"
-  value  = "@"
-}
+#resource "digitalocean_domain" "cloud" {
+#  name = var.do_base_domain
+#}
+#
+#resource "digitalocean_record" "CNAME-docs" {
+#  domain = digitalocean_domain.cloud.name
+#  type   = "CNAME"
+#  name   = "docs"
+#  value  = "@"
+#}
