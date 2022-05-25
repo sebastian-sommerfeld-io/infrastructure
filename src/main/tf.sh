@@ -43,6 +43,7 @@ CMD_PLAN="plan"
 CMD_APPLY="apply"
 CMD_DESTROY="destroy"
 CMD_CLEAN="clean"
+CMD_DOCS="generate_docs"
 
 
 # @description Wrapper function to encapsulate terraform in a docker container. The current working directory is mounted
@@ -229,7 +230,7 @@ done
 
 
 echo -e "$LOG_INFO Select the command set to run against $P$TARGET_ENV$D configuration"
-select s in "$CMD_INIT" "$CMD_VALIDATE" "$CMD_PLAN" "$CMD_APPLY" "$CMD_DESTROY" "$CMD_CLEAN"; do
+select s in "$CMD_INIT" "$CMD_VALIDATE" "$CMD_PLAN" "$CMD_APPLY" "$CMD_DESTROY" "$CMD_CLEAN" "$CMD_DOCS"; do
   case "$s" in
     "$CMD_INIT" ) initialize; break;;
     "$CMD_VALIDATE" ) validate; break;;
@@ -237,5 +238,6 @@ select s in "$CMD_INIT" "$CMD_VALIDATE" "$CMD_PLAN" "$CMD_APPLY" "$CMD_DESTROY" 
     "$CMD_APPLY" ) apply; break;;
     "$CMD_DESTROY" ) destroy; break;;
     "$CMD_CLEAN" ) clean; break;;
+    "$CMD_DOCS" ) generateDocs; break;;
   esac
 done

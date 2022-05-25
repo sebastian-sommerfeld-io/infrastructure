@@ -12,8 +12,7 @@ resource "digitalocean_app" "docs-page" {
       instance_count     = 1
       instance_size_slug = var.do_instance_smallest
       internal_ports     = []
-      #name               = "docs-page-app"
-      source_dir = "/"
+      source_dir         = "/"
 
       image {
         registry_type = "DOCKER_HUB"
