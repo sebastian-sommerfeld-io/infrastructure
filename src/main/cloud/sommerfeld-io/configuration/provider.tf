@@ -16,8 +16,10 @@ provider "digitalocean" {
   token = var.do_token
 }
 
+data "digitalocean_account" "do_account" {}
+
 provider "linode" {
   token = var.linode_token
 }
 
-data "linode_account" "account" {}
+data "linode_account" "linode_account" {}

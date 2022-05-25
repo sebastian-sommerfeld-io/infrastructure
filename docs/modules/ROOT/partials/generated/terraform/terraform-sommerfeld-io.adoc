@@ -30,7 +30,8 @@ No modules.
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/app[digitalocean_app.docs-page] |resource
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/domain[digitalocean_domain.cloud] |resource
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/record[digitalocean_record.CNAME-docs] |resource
-|https://registry.terraform.io/providers/linode/linode/1.27.1/docs/data-sources/account[linode_account.account] |data source
+|https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/data-sources/account[digitalocean_account.do_account] |data source
+|https://registry.terraform.io/providers/linode/linode/1.27.1/docs/data-sources/account[linode_account.linode_account] |data source
 |===
 
 == Inputs
@@ -87,13 +88,15 @@ No modules.
 |yes
 
 |===
-Take a look at https://api.linode.com/v4/linode/types for Linode resource types (node sizes to use with Terraform).
+* Take a look at https://api.linode.com/v4/linode/types for Linode resource types (node sizes to use with Terraform).
+* For DigitalOcean resource types take a look at https://slugs.do-api.dev (the slugs are the node sizes to use with Terraform).
 
 == Outputs
 
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Description
+|[[output_do_account_email]] <<output_do_account_email,do_account_email>> |The email address of the DigitalOcean account in use
 |[[output_linode_account_email]] <<output_linode_account_email,linode_account_email>> |The email address of the Linode account in use
 |===
 
