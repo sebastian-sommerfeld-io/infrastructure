@@ -1,20 +1,42 @@
-# https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/app
-resource "digitalocean_app" "docs_page" {
+resource "digitalocean_app" "docs-page" {
   spec {
-    name   = "docs_page"
-    region = "fra1"
-
-    # domain
+    domains = [
+      "${digitalocean_record.CNAME-docs.name}.${digitalocean_domain.cloud.name}",
+    ]
+    name   = "docs-page"
+    region = var.do_region
 
     service {
-      name      = "docs_page_image"
-      http_port = 3000
+      name               = "docs-page-app"
+      http_port          = 80
+      instance_count     = 1
+      instance_size_slug = var.do_instance_smallest
+      internal_ports     = []
+      #name               = "docs-page-app"
+      source_dir = "/"
 
       image {
         registry_type = "DOCKER_HUB"
-        repository    = "sommerfeldio/docs-website"
+        registry      = "sommerfeldio"
+        repository    = "docs-website"
         tag           = "stable"
+      }
+
+      routes {
+        path                 = "/"
+        preserve_path_prefix = false
       }
     }
   }
+}
+
+resource "digitalocean_domain" "cloud" {
+  name = var.do_base_domain
+}
+
+resource "digitalocean_record" "CNAME-docs" {
+  domain = digitalocean_domain.cloud.name
+  type   = "CNAME"
+  name   = "docs"
+  value  = "@"
 }

@@ -32,6 +32,7 @@ TARGET_ENV="$NOT_SET"
 TF_CONFIG_PATH="$NOT_SET"
 
 DO_TOKEN=$(cat "../../resources/.secrets/digitalocean.token")
+LINODE_TOKEN=$(cat "../../resources/.secrets/linode.token")
 
 LABEL_HOMELAB="homelab"
 LABEL_SOMMERFELD_IO="sommerfeld-io"
@@ -41,6 +42,7 @@ CMD_VALIDATE="validate"
 CMD_PLAN="plan"
 CMD_APPLY="apply"
 CMD_DESTROY="destroy"
+CMD_CLEAN="clean"
 
 
 # @description Wrapper function to encapsulate terraform in a docker container. The current working directory is mounted
@@ -110,7 +112,7 @@ function plan() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Plan this configuration"
 
   validate
-  tf plan -var=do_token="$DO_TOKEN"
+  tf plan -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
   generateDocs
 }
 
@@ -123,12 +125,12 @@ function apply() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Apply this configuration"
 
   validate
-  tf apply -auto-approve -var=do_token="$DO_TOKEN"
+  tf apply -auto-approve -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
   generateDocs
 }
 
 
-# @description Destroy this configuration by running ``terraform destroy`` and cleanup the local file system.
+# @description Destroy this configuration by running ``terraform destroy``.
 #
 # @example
 #    echo "test: $(destroy)"
@@ -136,7 +138,17 @@ function destroy() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Shutdown this configuration"
 
   validate
-  tf destroy -auto-approve -var=do_token="$DO_TOKEN"
+  tf destroy -auto-approve -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
+}
+
+# @description Cleanup local filesystem.
+#
+# CAUTION: Only clean up after destroying the infrastructure!
+#
+# @example
+#    echo "test: $(clean)"
+function clean() {
+  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Cleanup local file system"
 
   (
     cd "$TF_CONFIG_PATH" || exit
@@ -160,8 +172,8 @@ function generateDocs() {
   DIAGRAM_FILENAME="$BASE_FILENAME.png"
   ADOC_FILENAME="$BASE_FILENAME.adoc"
   ADOC_FILENAME_TMP="$BASE_FILENAME-with-CRLF.adoc"
-  ANTORA_IMAGES_DIR="docs/modules/ROOT/assets/images/_generated/terraform"
-  ANTORA_PARTIALS_DIR="docs/modules/ROOT/partials/_generated/terraform"
+  ANTORA_IMAGES_DIR="docs/modules/ROOT/assets/images/generated/terraform"
+  ANTORA_PARTIALS_DIR="docs/modules/ROOT/partials/generated/terraform"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate diagram specs and prettify diagram"
   diagram=$(tf graph)
@@ -217,12 +229,13 @@ done
 
 
 echo -e "$LOG_INFO Select the command set to run against $P$TARGET_ENV$D configuration"
-select s in "$CMD_INIT" "$CMD_VALIDATE" "$CMD_PLAN" "$CMD_APPLY" "$CMD_DESTROY"; do
+select s in "$CMD_INIT" "$CMD_VALIDATE" "$CMD_PLAN" "$CMD_APPLY" "$CMD_DESTROY" "$CMD_CLEAN"; do
   case "$s" in
     "$CMD_INIT" ) initialize; break;;
     "$CMD_VALIDATE" ) validate; break;;
     "$CMD_PLAN" ) plan; break;;
     "$CMD_APPLY" ) apply; break;;
     "$CMD_DESTROY" ) destroy; break;;
+    "$CMD_CLEAN" ) clean; break;;
   esac
 done

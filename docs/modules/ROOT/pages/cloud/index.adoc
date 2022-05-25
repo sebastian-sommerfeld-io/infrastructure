@@ -4,28 +4,83 @@ Sebastian Sommerfeld <sebastian@sommerfeld.io>
 ++++
 <div style="float: right;">
     <div style="margin: 0 0 1em 2em">
-        <!--<a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg" alt="DigitalOcean Referral Badge" /></a>-->
+        <a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg" alt="DigitalOcean Referral Badge" /></a>
         <!--<a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg" alt="DigitalOcean Referral Badge" /></a>-->
-        <a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+        <!--<a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>-->
     </div>
+    <!--<div style="margin: 0 0 1em 2em">
+        <a href="https://www.linode.com"><img src="https://www.linode.com/wp-content/uploads/2021/01/Linode-Logo-Black.svg" alt="Lindode Badge" /></a>
+    </div>-->
     <div style="margin: 0 0 1em 2em">
         <a href="https://www.terraform.io"><img style="width: 200px;" src="https://www.datocms-assets.com/2885/1620155113-brandhcterraformprimaryattributedcolor.svg" alt="Terraform Badge" /></a>
     </div>
 </div>
 ++++
 
-This is the latest and up-to-date Terraform configuration for all *.sommerfeld.io services running in the cloud. The cloud provider of choice is DigitalOcean. For further information on the desicion process take a look at xref:ADRs:architecture-decision-records/cloud-provider.adoc[].
+This is the latest and up-to-date Terraform configuration for all *.sommerfeld.io services running in the cloud (meaning every service/subdomain outside www.sommerfeld.io). The cloud provider of choice is DigitalOcean although some services might run at Linode.
 
-For information on when to use which DigitalOcean object / platform, take a look at the "xref:GUIDELINES:index.adoc[]" page.
+For further information on the decision process take a look at xref:ADRs:architecture-decision-records/cloud-provider.adoc[].
+
+For information when to use which DigitalOcean object / platform, take a look at the "xref:GUIDELINES:index.adoc[]" page.
 
 == Building Block View / Whitebox Overall System
-All services are running in DigitalOcean App Platform.
+[plantuml, rendered-plantuml-image, svg]
+----
+@startuml
 
-All services as DigitalOcean Droplets with surrounding components (e.g. load balancer).
+skinparam linetype ortho
+skinparam monochrome false
+skinparam componentStyle uml2
+skinparam backgroundColor transparent
+skinparam ArrowColor black
+skinparam FrameBackgroundColor #fff
+skinparam CollectionsBackgroundColor #fefece
+skinparam CollectionsBorderColor black
+skinparam ComponentBorderColor black
+skinparam ComponentBackgroundColor #fefece
+skinparam RectangleBorderColor black
+skinparam RectangleBackgroundColor #fefece
+skinparam QueueBorderColor black
+skinparam NoteBorderColor Grey
+skinparam NoteBackgroundColor #fdfdfd
+skinparam defaultTextAlignment center
+skinparam activity {
+  FontName Ubuntu
+}
 
-All services are running in DigitalOcean App Platform or as DigitalOcean Droplets with surrounding components (e.g. load balancer).
+rectangle allinkl as "all-inkl" <<classic hosting>> {
+    file www <<Subdomain>>
+    file cloud <<Subdomain>>
+    file sio as "sommerfeld.io" <<Domain>>
+    collections dns as "DNS settings"
+}
 
-CAUTION: todo ... select one of the three sentences above depending on best practices
+rectangle DigitalOcean <<cloud provider>> {
+    file docs <<Subdomain>>
+}
+
+rectangle Linode <<cloud provider>> {
+    label nothing as "nothing\nso far"
+}
+
+www -right-> sio
+cloud -left-> sio
+docs -right-> cloud
+dns ~down~> cloud
+dns ~right~> docs
+
+Linode -[hidden]left- DigitalOcean
+
+@enduml
+----
+
+The domain provider needs some DNS settings to ensure all *.cloud.sommerfeld.io subdomains work.
+
+image:ROOT:cloud/nameserver-config-digitalocean.png[]
+
+Same would be neccesary for services running as *.linode.sommerfeld.io.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 image:ROOT:generated/terraform/terraform-sommerfeld-io.png[]
 
