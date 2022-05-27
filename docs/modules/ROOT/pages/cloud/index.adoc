@@ -34,7 +34,7 @@ The domain provider needs some DNS settings to ensure the name resoulution for a
 |linode |Linode |KAS Subdomain |Reserved for Linode (similar to `cloud`)
 |===
 
-== Services
+=== Services
 This configuration is currently running across all service providers (as set up by Terraform).
 
 image:ROOT:generated/terraform/terraform-sommerfeld-io.png[]

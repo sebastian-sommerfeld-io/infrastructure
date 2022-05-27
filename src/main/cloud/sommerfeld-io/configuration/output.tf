@@ -5,7 +5,7 @@ output "do_account_email" {
 
 output "do_docs_page_live_url" {
   value       = data.digitalocean_app.docs-page-data.live_url
-  description = "The <subdomain>.sommerfeld.io domain"
+  description = "The <subdomain>.cloud.sommerfeld.io domain"
 }
 
 output "do_docs_page_default_url" {
