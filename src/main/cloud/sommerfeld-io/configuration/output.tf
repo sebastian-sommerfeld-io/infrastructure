@@ -4,12 +4,12 @@ output "do_account_email" {
 }
 
 output "do_docs_page_live_url" {
-  value = data.digitalocean_app.docs-page-data.live_url
+  value       = data.digitalocean_app.docs-page-data.live_url
   description = "The <subdomain>.sommerfeld.io domain"
 }
 
 output "do_docs_page_default_url" {
-  value = data.digitalocean_app.docs-page-data.default_ingress
+  value       = data.digitalocean_app.docs-page-data.default_ingress
   description = "The <random-subdomain>.ondigitalocean.app domain"
 }
 

@@ -14,7 +14,7 @@
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
-|[[provider_digitalocean]] <<provider_digitalocean,digitalocean>> |2.19.0
+|[[provider_digitalocean]] <<provider_digitalocean,digitalocean>> |2.20.0
 |[[provider_linode]] <<provider_linode,linode>> |1.27.1
 |===
 
@@ -41,7 +41,7 @@ No modules.
 |[[input_do_base_domain]] <<input_do_base_domain,do_base_domain>>
 |Domain used for DigitalOcean -> all Services will act as subdomains to this base domain name
 |`string`
-|`"sommerfeld.io"`
+|`"cloud.sommerfeld.io"`
 |no
 
 |[[input_do_instance_smallest]] <<input_do_instance_smallest,do_instance_smallest>>

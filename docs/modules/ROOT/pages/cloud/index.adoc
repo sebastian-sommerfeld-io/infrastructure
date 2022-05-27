@@ -24,69 +24,34 @@ For further information on the decision process take a look at xref:ADRs:archite
 For information when to use which DigitalOcean object / platform, take a look at the "xref:GUIDELINES:index.adoc[]" page.
 
 == Building Block View / Whitebox Overall System
-[plantuml, rendered-plantuml-image, svg]
-----
-@startuml
+The domain provider needs some DNS settings to ensure the name resoulution for all subdomains for sommerfeld.io point to the right cloud provider. Each cloud provider has its own subdomain and for which the proper NS recores are set. The NS records need to be added under the DNS zone of the main (sub-) domain. This way name resolution for further subdomains is delegated to the respective cloud provider.
 
-skinparam linetype ortho
-skinparam monochrome false
-skinparam componentStyle uml2
-skinparam backgroundColor transparent
-skinparam ArrowColor black
-skinparam FrameBackgroundColor #fff
-skinparam CollectionsBackgroundColor #fefece
-skinparam CollectionsBorderColor black
-skinparam ComponentBorderColor black
-skinparam ComponentBackgroundColor #fefece
-skinparam RectangleBorderColor black
-skinparam RectangleBackgroundColor #fefece
-skinparam QueueBorderColor black
-skinparam NoteBorderColor Grey
-skinparam NoteBackgroundColor #fdfdfd
-skinparam defaultTextAlignment center
-skinparam activity {
-  FontName Ubuntu
-}
-
-rectangle allinkl as "all-inkl" <<classic hosting>> {
-    file www <<Subdomain CNAME>>
-    file linode <<Subdomain>>
-    file sio as "sommerfeld.io" <<Domain>>
-    collections dns as "DNS settings"
-}
-
-rectangle DigitalOcean <<cloud provider>> {
-    file docs <<Subdomain>>
-}
-
-rectangle Linode <<cloud provider>> {
-    label nothing as "nothing\nso far"
-}
-
-www -right-> sio
-linode -up-> sio
-docs -right-> sio
-dns ~down~> linode
-dns ~right~> docs
-
-Linode -left-> linode
-
-@enduml
-----
-
-The domain provider needs some DNS settings to ensure all *.sommerfeld.io subdomains work. Each subdomain need the same DNS settings to make sure the services deployed at DigitalOcean are reachable through <subdomain>.sommerfeld.io and not only through the <random-subdomain>.ondigitalocean.app. For information on "How to Manage Domains in App Platform" take a look DigitalOcean docs, especially the "link:https://docs.digitalocean.com/products/app-platform/how-to/manage-domains[Option 2: Using a CNAME Pointer]" section.
-[cols="2,1,5",options="header"]
+[cols="1,1,1,5",options="header"]
 |===
-|(Sub-) Domain |Type |Target
-|docs |CNAME |<random-subdomain>.ondigitalocean.app.
+|(Sub-) Domain |Provider |Type |Target
+|apps |tbd |KAS Subdomain |Reserved for different cloud (similar to `cloud`)
+|cloud |DigitalOcean |KAS Subdomain |Used for DNS settings -> NS records point to http://ns1.digitialocean.com, http://ns2.digitialocean.com and http://ns3.digitialocean.com.
+|linode |Linode |KAS Subdomain |Reserved for Linode (similar to `cloud`)
 |===
 
-Same would be necessary for services running as *.linode.sommerfeld.io.
+== Services
+This configuration is currently running across all service providers (as set up by Terraform).
 
-.This configuration is currently running across all service providers.
 image:ROOT:generated/terraform/terraform-sommerfeld-io.png[]
 
 include::ROOT:partial$generated/terraform/terraform-sommerfeld-io.adoc[]
+
+== Architecture Decisions
+. xref:ADRs:architecture-decision-records/cloud-provider.adoc[]
+
+== Risks and Technical Debts
+Scale for Probability and Impact: Low, Medium and High
+
+[cols="1,3,5,1,1,1", options="header"]
+|===
+|# |Title |Description |Probability |Impact |Response
+|{counter:usage} |none |none |none |none |none ||none
+|===
 
 == Further Information
 * For docs on DigitalOcean with Terraform see https://docs.digitalocean.com/reference/terraform and https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs.
