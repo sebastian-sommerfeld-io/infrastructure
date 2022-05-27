@@ -97,7 +97,7 @@ No modules.
 |Name |Description
 |[[output_do_account_email]] <<output_do_account_email,do_account_email>> |The email address of the DigitalOcean account in use
 |[[output_do_docs_page_default_url]] <<output_do_docs_page_default_url,do_docs_page_default_url>> |The <random-subdomain>.ondigitalocean.app domain
-|[[output_do_docs_page_live_url]] <<output_do_docs_page_live_url,do_docs_page_live_url>> |The <subdomain>.sommerfeld.io domain
+|[[output_do_docs_page_live_url]] <<output_do_docs_page_live_url,do_docs_page_live_url>> |The <subdomain>.cloud.sommerfeld.io domain
 |[[output_linode_account_email]] <<output_linode_account_email,linode_account_email>> |The email address of the Linode account in use
 |===
 

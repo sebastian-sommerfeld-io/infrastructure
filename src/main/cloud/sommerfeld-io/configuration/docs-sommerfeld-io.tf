@@ -1,9 +1,8 @@
 resource "digitalocean_app" "docs-page" {
   spec {
-    domains = [
-      #"${digitalocean_record.CNAME-docs.name}.${digitalocean_domain.cloud.name}",
-      "docs.${var.do_base_domain}",
-    ]
+    domain {
+      name = "docs.${var.do_base_domain}"
+    }
     name   = "docs-page"
     region = var.do_region
 
