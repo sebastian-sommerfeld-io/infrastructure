@@ -17,7 +17,7 @@ variable "do_instance_smallest" {
 }
 
 variable "do_base_domain" {
-  description = "Domain used for DigitalOcean -> all Services will act as subdomains to this base domain name"
+  description = "Domain used for DigitalOcean -> all Services will be subdomains of this base domain"
   type        = string
   default     = "cloud.sommerfeld.io"
 }
@@ -49,7 +49,7 @@ variable "linode_instance_smallest" {
 }
 
 variable "linode_base_domain" {
-  description = "Domain used for Linode -> all Services will act as subdomains to this base domain name"
+  description = "Domain used for Linode -> all Services will be subdomains of this base domain"
   type        = string
   default     = "linode.sommerfeld.io"
 }

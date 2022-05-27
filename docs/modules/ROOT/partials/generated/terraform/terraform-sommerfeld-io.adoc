@@ -41,7 +41,7 @@ No modules.
 |===
 |Name |Description |Type |Default |Required
 |[[input_do_base_domain]] <<input_do_base_domain,do_base_domain>>
-|Domain used for DigitalOcean -> all Services will act as subdomains to this base domain name
+|Domain used for DigitalOcean -> all Services will be subdomains of this base domain
 |`string`
 |`"cloud.sommerfeld.io"`
 |no
@@ -71,7 +71,7 @@ No modules.
 |yes
 
 |[[input_linode_base_domain]] <<input_linode_base_domain,linode_base_domain>>
-|Domain used for Linode -> all Services will act as subdomains to this base domain name
+|Domain used for Linode -> all Services will be subdomains of this base domain
 |`string`
 |`"linode.sommerfeld.io"`
 |no
