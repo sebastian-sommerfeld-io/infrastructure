@@ -22,6 +22,12 @@ variable "do_base_domain" {
   default     = "cloud.sommerfeld.io"
 }
 
+variable "do_subdomain_docs" {
+  description = "Subdomain for docs-page"
+  type        = string
+  default     = "docs"
+}
+
 # ----------------------------------------------------------------------------------------------------------------------
 
 variable "linode_token" {

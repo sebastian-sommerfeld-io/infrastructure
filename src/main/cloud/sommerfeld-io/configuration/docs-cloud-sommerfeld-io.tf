@@ -1,7 +1,7 @@
 resource "digitalocean_app" "docs-page" {
   spec {
     domain {
-      name = "docs.${var.do_base_domain}"
+      name = "${var.do_subdomain_docs}.${var.do_base_domain}"
     }
     name   = "docs-page"
     region = var.do_region
@@ -33,13 +33,10 @@ data "digitalocean_app" "docs-page-data" {
   app_id = digitalocean_app.docs-page.id
 }
 
-#resource "digitalocean_domain" "cloud" {
-#  name = var.do_base_domain
-#}
-#
-#resource "digitalocean_record" "CNAME-docs" {
-#  domain = digitalocean_domain.cloud.name
-#  type   = "CNAME"
-#  name   = "docs"
-#  value  = "@"
-#}
+resource "digitalocean_record" "CNAME-docs" {
+  domain = digitalocean_domain.cloud.id
+  type   = "CNAME"
+  name   = var.do_subdomain_docs
+  #value  = "@"
+  value = "${replace(data.digitalocean_app.docs-page-data.default_ingress, "https://", "")}." # replace protocol with empty string
+}
