@@ -9,7 +9,7 @@ Infrastructure repository with configs and docs for my local workstations, my ho
 |===
 |What |Where to find
 |Repository |{url-project}
-|Documentation |https://docs.cloud.sommerfeld.io/{project-name}/main
+|Documentation |https://docs.cloud.sommerfeld.io/{project-name}-docs/main
 |===
 
 [IMPORTANT]
