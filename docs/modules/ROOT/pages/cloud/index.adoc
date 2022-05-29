@@ -4,6 +4,9 @@ Sebastian Sommerfeld <sebastian@sommerfeld.io>
 ++++
 <div style="float: right;">
     <div style="margin: 0 0 1em 2em">
+        <a href="https://www.terraform.io"><img style="width: 200px;" src="https://www.datocms-assets.com/2885/1620155113-brandhcterraformprimaryattributedcolor.svg" alt="Terraform Badge" /></a>
+    </div>
+    <div style="margin: 0 0 1em 2em">
         <a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg" alt="DigitalOcean Referral Badge" /></a>
         <!--<a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg" alt="DigitalOcean Referral Badge" /></a>-->
         <!--<a href="https://www.digitalocean.com/?refcode=4fd3122a67c0&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>-->
@@ -11,9 +14,6 @@ Sebastian Sommerfeld <sebastian@sommerfeld.io>
     <!--<div style="margin: 0 0 1em 2em">
         <a href="https://www.linode.com"><img src="https://www.linode.com/wp-content/uploads/2021/01/Linode-Logo-Black.svg" alt="Lindode Badge" /></a>
     </div>-->
-    <div style="margin: 0 0 1em 2em">
-        <a href="https://www.terraform.io"><img style="width: 200px;" src="https://www.datocms-assets.com/2885/1620155113-brandhcterraformprimaryattributedcolor.svg" alt="Terraform Badge" /></a>
-    </div>
 </div>
 ++++
 
@@ -31,7 +31,8 @@ These basic subdomains are configured for the domain "sommerfeld.io" through the
 |===
 |Ddomain |Provider |Target
 |apps.sommerfeld.io |tbd |Reserved for different cloud (similar to `cloud`)
-|cloud.sommerfeld.io |DigitalOcean |Used for DNS settings -> NS records point to http://ns1.digitialocean.com, http://ns2.digitialocean.com and http://ns3.digitialocean.com.
+|cloud.sommerfeld.io |DigitalOcean |Used for DNS settings -> NS records point to http://ns1.digitalocean.com, http://ns2.digitalocean.com and http://ns3.digitalocean.com.
+|digitalocean.sommerfeld.io |DigitalOcean |DNS config is exactly the same config as `cloud` -> used for temporary and testing purposes
 |linode.sommerfeld.io |Linode |Reserved for Linode (similar to `cloud`) - _no running service yet_
 |===
 

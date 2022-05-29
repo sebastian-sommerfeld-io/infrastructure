@@ -1,6 +1,17 @@
 = Homelab Infrastructure
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
 
+++++
+<div style="float: right;">
+    <div style="margin: 0 0 1em 2em">
+        <a href="https://www.terraform.io"><img style="width: 200px;" src="https://www.datocms-assets.com/2885/1620155113-brandhcterraformprimaryattributedcolor.svg" alt="Terraform Badge" /></a>
+    </div>
+    <div style="margin: 0 0 1em 2em">
+        <a href="https://www.proxmox.com"><img style="width: 200px;" src="https://www.proxmox.com/images/proxmox/Proxmox_logo_standard_hex_400px.png" alt="Proxmox Badge" /></a>
+    </div>
+</div>
+++++
+
 This is the latest and up-to-date Terraform configuration for all services running in my local homelab (= on my xref:ROOT:homelab/physical/proxmox/index.adoc[proxmox server]).
 
 == Building Block View / Whitebox Overall System
