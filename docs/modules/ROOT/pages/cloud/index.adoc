@@ -27,6 +27,7 @@ For information when to use which DigitalOcean object / platform, take a look at
 The domain provider needs some DNS settings to ensure the name resoulution for all subdomains for sommerfeld.io point to the right cloud provider. Each cloud provider has its own subdomain and for which the proper NS recores are set. The NS records need to be added under the DNS zone of the main (sub-) domain. This way name resolution for further subdomains is delegated to the respective cloud provider.
 
 These basic subdomains are configured for the domain "sommerfeld.io" through the link:https://kas.all-inkl.com[domain providers management console]. This initial setup takes place once for each subdomain.
+
 [cols="1,1,3",options="header"]
 |===
 |Domain |Provider |Target
@@ -35,6 +36,8 @@ These basic subdomains are configured for the domain "sommerfeld.io" through the
 |digitalocean.sommerfeld.io |DigitalOcean |DNS config is exactly the same config as `cloud` -> used for temporary and testing purposes
 |linode.sommerfeld.io |Linode |Reserved for Linode (similar to `cloud`) - _no running service yet_
 |===
+
+The subdomain cloud.sommerfeld.io with correct NS records (configured at the domain hosters web ui) takes care of name resolution. A domain record inside DigitalOcean, which has the same name and NS records, ensures apps can use CNAME records and subdomains inside DigitalOcean.  This way the cloud.sommerfeld.io subdomain "controls" the name resolution for all subdomains nested under cloud.sommerfeld.io without the need for additional configs at the domain providers management console. These subdomains / CNAME records (<xyz>.cloud.sommerfeld.io) point to a services <random>.ondigitalocean.app URL.
 
 === Services
 This configuration is currently running across all service providers (as set up by Terraform).
