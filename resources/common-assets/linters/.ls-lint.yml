@@ -25,6 +25,7 @@ ls:
 ignore:
   - .directoryvalidator.json
   - .ls-lint.yml
+  - .terraform-docs.yml
   - .yamllint.yml
   - resources/common-assets/linters/.directoryvalidator.json
   - resources/common-assets/linters/.ls-lint.yml

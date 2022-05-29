@@ -1,0 +1,60 @@
+= Guidelines and Conventions
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ...
+
+== Global Conventions for all Projects
+Lint everything ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ...
+
+== Git Conventions
+Commit with prefix ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ...
+
+How to handle branches ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ...
+
+== CICD Pipelines
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ...
+
+== Build Docker Images
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ...
+
+== Terraform
+. General conventions
+.. Use `_` (underscore) instead of `-` (dash) everywhere (resource names, data source names, variable names, outputs, etc).
+.. Prefer to use lowercase letters and numbers (even though UTF-8 is supported).
+. Resource and data source arguments
+.. Do not repeat resource type in resource name (not partially, nor completely): use `resource "aws_route_table" "public" {}`, don't use `resource "aws_route_table" "public_route_table" {}`.
+.. Always use singular nouns for names.
+. Variables
+.. Use the plural form in a variable name when type is list(...) or map(...).
+.. Prefer using simple types (`number`, `string`, `list(...),` `map(...)`, `any`) over specific type like `object()` unless you need to have strict constraints on each key.
+
+=== When to use DigitalOcean Droplets
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ...
+
+=== When to use DigitalOcean App Platform
+The Docker applications use link:https://docs.digitalocean.com/products/app-platform[DigitalOceans App Platform]. App Platform is a Platform-as-a-Service (PaaS) offering that allows developers to publish code directly to DigitalOcean servers without worrying about the underlying infrastructure.
+
+App Platform can either automatically analyze and build code from your GitHub, GitLab or public Git repositories and publish your application to the cloud, or publish a container image you have already uploaded to DigitalOcean Container Registry or Docker Hub.
+
+. link:https://docs.digitalocean.com/products/kubernetes[DigitalOcean Kubernetes] gives users control of a managed Kubernetes cluster that can run their container-based applications. It supports private registries, autoscaling, and push-to-deploy (through GitHub actions). It also provides a DigitalOcean-hosted instance of the Kubernetes dashboard for each cluster, and replaces the concept of “master nodes” with a node pool that manages capacity for you, resulting in a Kubernetes experience that is significantly simpler than the native experience.
+. You can build your own infrastructure solution that uses link:https://docs.digitalocean.com/products/droplets/[Droplets] (Linux based virtual machines) for compute capacity. Common techniques and workflows for configuration management tools like Terraform and Ansible are covered in the link:https://github.com/digitalocean/navigators-guide/releases[Navigator's Guide]. You can also get a sense of how the various products work together by reading the link:https://www.digitalocean.com/business[Solutions guides].
+
+CAUTION: todo ...
+
+=== When Not to Use App Platform
+While you can control the scaling of your app, manage the individual services that comprise your app, and integrate databases using App Platform, that may not be enough. App Platform is optimized for ease of code deployment rather than deep customization of the underlying infrastructure. Teams that require more control over their production environment and the design and behavior of their infrastructure may prefer one of our other two compute options:
+
+CAUTION: todo ...

@@ -1,11 +1,10 @@
-= Kobol vs. Pegasus
+= ADR: Kobol vs. Pegasus
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
-// ADR spreadsheet = https://docs.google.com/spreadsheets/d/13trHjYR6NSg2-XDDzEx_Wt-AH2becUVeto5abweKdF0/edit#gid=0
 
 The decision at hand is whether to run all development tools directly on my local workstation (kobol) or inside a Vagrantbox (pegasus). This ARD only affects "normal" development workstations. The Virtualization solution of choice is Virtualbox with Vagrant.  My dedicated VM server is running Proxmox.
 
 ====
-Status: Done
+Status: Done +
 Date of decision: 2022-05-16
 ====
 
@@ -29,7 +28,6 @@ The setup of choice uses a Vagrantbox for all development tools. This The main r
 
 . Run as much as possible in containers! This way separating tools from themselves and repairing broken configs becomes much easier, even when the development tools are not encapsulated in a Vagrantbox.
 . Every new tool installation should get its own git branch. This way rolling back becomes as easy as possible.
-
 ====
 
 === Todos resulting from architecture decision
@@ -60,4 +58,5 @@ The setup of choice uses a Vagrantbox for all development tools. This The main r
 |Fast startup, ready when Laptop is up-and-running |- |- |Wait for full VM startup every time. Takes even more time when VM is deleted and recreated because provisioning needs some time. |Docker handling is the same for both setups. Docker downloads missing images and does not care if the image is downloaded to the host or the guest VM.
 |- |Keeping environments up to date keeps a lot more effort. Everything must be commited to a git repo. So running everything in Docker is a must. Still there might be differences because the OS is not necessarily the same. |Multiple (Linux) machines can be set up exactly the same way. Every machine is kept up to date by pulling from the remote git repository. |- |-
 |New SSH keys can be used right away |- |- |When adding new SSH keys (on the host since the host is the master) the VM must be destroyed and re-provisioned from scratch |-
+| |Security breaches like Log4Shell might take over the whole system. |Security breaches like Log4Shell don't take over the whole system. Just the VM. Cleanup can be done easily by dumping the VM.  | |
 |===

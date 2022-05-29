@@ -16,7 +16,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 . Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
 . At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-This machine cannot conform to all requirements from the xref:server-nodes/installation-guide.adoc[]. Since the Proxmox Wizard asks to set a password for its default user "root", it is not (easily) possible to run proxmox with a user other than root.
+This machine cannot conform to all requirements from the xref:homelab/installation-guide.adoc[]. Since the Proxmox Wizard asks to set a password for its default user "root", it is not (easily) possible to run proxmox with a user other than root.
 
 == Quality Goals
 . Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
@@ -25,7 +25,7 @@ This machine cannot conform to all requirements from the xref:server-nodes/insta
 . Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
 . At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-As mentioned in the xref:server-nodes/installation-guide.adoc[] this setup is done (partially) by hand and not fully automated. This page describes the setup process in order to re-install the machine in the same way if needed.
+As mentioned in the xref:homelab/installation-guide.adoc[] this setup is done (partially) by hand and not fully automated. This page describes the setup process in order to re-install the machine in the same way if needed.
 
 == Install
 
@@ -102,7 +102,7 @@ workstation ~> wifi_network
 
 . Running Proxmox via Wifi means that VMs cannot access the outside world because most access Points drop their packages. The VM comes with their own Mac and IP which are unknown to the access point.
 .. From link:https://pve.proxmox.com/wiki/WLAN[Proxmox Docs]: Avoid using WLAN if possible, it has several technical limitations making it not really suitable as single interface of a hyper-visor like PVE. Wi-Fi adapters can only be used as Linux bridge interface through workarounds, as most Access Points (APs) will reject frames that have a source address that didn't authenticate with the AP.
-. To avoid this behavior the xref:server-nodes/physical/proxmox-bridge/index.adoc[] accepts WLAN connections and bridges them to the proxmox server via cable.
+. To avoid this behavior the xref:homelab/physical/proxmox-bridge/index.adoc[] accepts WLAN connections and bridges them to the proxmox server via cable.
 
 === Services
 [cols="3,1,2", options="header"]

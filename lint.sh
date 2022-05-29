@@ -42,7 +42,7 @@ find . -not \( -path "*node_modules*" \) -name Dockerfile -exec \
     sh -c 'src=${1#./} && echo "$LOG_INFO Lint $1" && docker run -i  --rm hadolint/hadolint < $1' sh "{}" \;
 
 echo -e "$LOG_INFO lint Vagrantfile"
-# todo ...
+echo -e "$LOG_WARN todo ..." # todo ...
 
 echo -e "$LOG_INFO lslint"
 docker run -it --rm --volume "$(pwd):/data" --workdir "/data" lslintorg/ls-lint:1.11.0

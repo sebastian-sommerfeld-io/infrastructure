@@ -6,5 +6,11 @@ node_modules
 *.log
 
 # terraform
-.terraform*
+.terraform
+.terraform.lock*
 *.tfstate*
+
+# secrets
+*.token
+*.pass
+*.user

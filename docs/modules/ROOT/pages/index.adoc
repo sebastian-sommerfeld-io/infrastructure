@@ -46,40 +46,9 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 CAUTION: todo ... summary on how my remote and on-prem artifacts are updated ... docs.sommefeld.io = digitalocean = terraform ...
 
 === Public Sites hosted on the Internet
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Public sites are divided into two parts. The first part is hosted traditionally by a classic hosting provider and the second part is hosted in the cloud (by default at DigitalOcean, see xref:ADRs:architecture-decision-records/cloud-provider.adoc[]).
 
-[plantuml, rendered-plantuml-image, svg]
-----
-@startuml
-
-skinparam linetype ortho
-skinparam monochrome false
-skinparam componentStyle uml2
-skinparam backgroundColor transparent
-skinparam ArrowColor black
-skinparam FrameBackgroundColor #fff
-skinparam CollectionsBackgroundColor #fefece
-skinparam CollectionsBorderColor black
-skinparam ComponentBorderColor black
-skinparam ComponentBackgroundColor #fefece
-skinparam RectangleBorderColor black
-skinparam RectangleBackgroundColor #fefece
-skinparam QueueBorderColor black
-skinparam NoteBorderColor Grey
-skinparam NoteBackgroundColor #fdfdfd
-skinparam defaultTextAlignment center
-skinparam activity {
-  FontName Ubuntu
-}
-
-rectangle DigitalOcean {
-    component docs as "docs.sommerfeld.io" <<docker_image>>
-}
-
-@enduml
-----
-
-CAUTION: todo ... text plus diagram
+For information on the DigitalOcean setup take a look at the "xref:cloud/index.adoc[]" page.
 
 === On-Premise Homelab
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
