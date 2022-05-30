@@ -1,19 +1,16 @@
-= ADR: Kobol vs. Pegasus
+= ADR: Kobol vs Pegasus
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
 
 The decision at hand is whether to run all development tools directly on my local workstation (kobol) or inside a Vagrantbox (pegasus). This ARD only affects "normal" development workstations. The Virtualization solution of choice is Virtualbox with Vagrant.  My dedicated VM server is running Proxmox.
 
-====
-Status: Done +
-Date of decision: 2022-05-16
-====
+IMPORTANT: Status = Done (2022-05-16)
 
 == Requirements Overview
 . Setup with minimal manual interactions and minimal development tools installed directly onto my workstation.
 . Encapsulated as much as possible inside Docker Containers and/or Vagrantboxes to ensure (broken) updates can easily be rolled back and the setup is portable in case I have to reset my workstation or have to switch to another workstation.
 .. Add or update packages without any risk -> avoid having to repair broken installations (dumping the broken setup and reverting to a working one is preferred).
 .. Instead of using `apt-get install` use Docker and create a Symlink in `/usr/bin` to a wrapper-script which delegates commands to a Docker contaner.
-. Use the same setup for the workstation I use at work (as far as possible -> at least ssh keys won't be not the same!)
+. Use the same setup for the workstation I use at work (as far as possible -> Windows vs Linux -> at least ssh keys won't be not the same!)
 
 === Quality Goals
 . The whole setup is Infrastructure as Code.
@@ -22,41 +19,36 @@ Date of decision: 2022-05-16
 == Decision
 The setup of choice uses a Vagrantbox for all development tools. This The main reasons are the simple setup and the clearly defined baseline which allows to easily revert to a working setup in case the setup gets messy.
 
-[NOTE]
-====
-*General Takeaways*
-
-. Run as much as possible in containers! This way separating tools from themselves and repairing broken configs becomes much easier, even when the development tools are not encapsulated in a Vagrantbox.
-. Every new tool installation should get its own git branch. This way rolling back becomes as easy as possible.
-====
-
-=== Todos resulting from architecture decision
-. Merge Repo "kobol-scripts", "kobol-vagrant" and "kobol-config" into new repo "infrastructure"
-. Reset kobol machine from scratch
-. Use git in container instead of fix installation from `apt-get install git`
+=== Todos resulting from this decision
+. Make VM idempotent
+.. Remove dependencies other than synced folders and ssh keyes -> provide dedicated .gitconfig file instead of mounting from the host
 
 === Decision details
-[cols="1,1,1,1,1", options="header"]
+General takeaways are:
+
+. Every new tool installation should get its own git branch. This way rolling back becomes as easy as possible.
+. Run as much as possible in containers! This way separating tools from themselves and repairing broken configs becomes much easier, even when the development tools are not encapsulated in a Vagrantbox.
+
+[cols="1,1,1", options="header"]
 |===
-2+|Run everything directly on physical machine "kobol" (in Docker) 2+|Encapsulate everything inside Vagrantbox "pegasus" .2+|Info / Comment
-|*Pro* |*Con* |*Pro* |*Con*
-|Terraform can manage Docker Containers and Vagrantboxes. |- |- |Terraform can only manage Docker Containers. Terraform cannot connect to Vagrant on host (and use this to spin up VMs). |No real usecase so far -> When do I need to spin up multiple Vagrantboxes on my host machine?
-|- |Docker image leftovers remain on host machine. |Docker image leftovers are gone when VM is removed. |- |-
-|- |Broken configs must be repaired, simple rollback more complicated (when not encapsuled in Docker). |No need to repair broken configs. Just revert to an older version. Especially when new features are developed in Git branches. |- |-
-|No need to Sync SSH Keys into VM |- |- |SSH Keys must be synced into VM |This is not really a pain either
-|No (additional) issues with network / SSH when connection to other nodes on the network. |- |- |Some connections to other nodes on the network don't work as expected (especially from Docker Container inside Vagrantbox). |Rundeck in a Docker Container from inside the Vagrantbox has trouble connecting to my prometheus-RasPi
-|- |Setup is not easily portable. Scripts can be used on other machines but one might have to update the scripts according to the new machine. |- |Dependencies must be met (`~/.ssh`, `~/.tmp`, `~/.work` directories, `.gitconfig file`) -> so the setup is not portable without adjustments. Escpecially not to Windows machines. |-
-|No difference between IntelliJ terminal and "regular" terminal. |- |- |Some GUI tools are still running on kobol directly (IntelliJ, Postman). IntelliJ terminal differs from terminal inside Vagrantbox (not the same toolset as inside the VM although scripts depend on it.). |-
-|No need to SSH into a Vagrantbox for terminal commands |- |- |Need to SSH into a Vagrantbox for terminal commands |This is not really a pain either
-|- |Resources and services not strictly isolated from one another. Heavy crashes can take down the host system as well. In a worst case scenario the host machine must be cleaned up and repaired manually. |Stricter isolation of resources and services for development tools. Harder to crash whole system. In case of a bad crash, VM can be reset from scratch easily. |- |-
-|- |Running updates of tools, which are not wrapped in a Docker Container, comes with a higher risk and higher expense in case of rollback. |Running any update comes without any risk because reverting to a working setup can be done easily. This becomes even easier when every update has a dedicated git branch. |- |-
-|- |Staging ground (dedicated VM?) for new tools needed to avoid leftovers on the host machine. |No staging ground to test new tools needed. The VM can be trashed and setup from scratch without these tools leafing no trace of any PoC. |- |-
-|No port forwarding needed |- |- |Dedicated port-forwarding needed. In case more ports than the currently forwarded ports are needed, a VM restart is necessary. |Can get anoying ... *Todo:* Check if port-forwarding is needed when accessing the VM via IP or hostname (only needed for access via localhost?)
-|- |- |- |Duplicate Git Installation. Git is installed on the host anyway (e.g. to allow IntelliJ to use Git) |-
-|- |Some tools still have to run on the host machine (node_exporter, portainer, cAdvisor) to provide monitoring information to Prometheus |- |Same monitoring tools should run inside the VM as well. But collecting these information cannot be done easily because the VM is not reachable by its name from everywhere on my local network. Name resolution for Vagrantboxes only works from my workstation (= the VM host) |-
-|- |Some utility tooly have to run on the host (export Firefox bookmarks regularly for FTP upload) |- |Not possible from VM because the Firefox of choice is installed on the host and not reachable from the VM. |-
-|Fast startup, ready when Laptop is up-and-running |- |- |Wait for full VM startup every time. Takes even more time when VM is deleted and recreated because provisioning needs some time. |Docker handling is the same for both setups. Docker downloads missing images and does not care if the image is downloaded to the host or the guest VM.
-|- |Keeping environments up to date keeps a lot more effort. Everything must be commited to a git repo. So running everything in Docker is a must. Still there might be differences because the OS is not necessarily the same. |Multiple (Linux) machines can be set up exactly the same way. Every machine is kept up to date by pulling from the remote git repository. |- |-
-|New SSH keys can be used right away |- |- |When adding new SSH keys (on the host since the host is the master) the VM must be destroyed and re-provisioned from scratch |-
-| |Security breaches like Log4Shell might take over the whole system. |Security breaches like Log4Shell don't take over the whole system. Just the VM. Cleanup can be done easily by dumping the VM.  | |
+|Run everything directly on physical machine "kobol" (in Docker) |Encapsulate everything inside Vagrantbox "pegasus" |Info / Comment
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Terraform can manage Docker Containers and Vagrantboxes. |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Terraform can only manage Docker Containers. Terraform cannot connect to Vagrant on host (and use this to spin up VMs). |No real usecase so far -> When do I need to spin up multiple Vagrantboxes on my host machine?
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Docker image leftovers remain on host machine. |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Docker image leftovers are gone when VM is removed. |
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Broken configs must be repaired, simple rollback more complicated (when not encapsuled in Docker). |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ No need to repair broken configs. Just revert to an older version. Especially when new features are developed in Git branches. |
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ No need to Sync SSH Keys into VM |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ SSH Keys must be synced into VM |This is not really a pain either
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ No (additional) issues with network / SSH when connection to other nodes on the network. |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Some connections to other nodes on the network don't work as expected (especially from Docker Container inside Vagrantbox). |Rundeck in a Docker Container from inside the Vagrantbox has trouble connecting to my prometheus-RasPi
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Setup is not easily portable. Scripts can be used on other machines but one might have to update the scripts according to the new machine. |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Dependencies must be met (`~/.ssh`, `~/.tmp`, `~/.work` directories, `.gitconfig file`) -> so the setup is not portable without adjustments. Escpecially not to Windows machines. |
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ No difference between IntelliJ terminal and "regular" terminal. |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Some GUI tools are still running on kobol directly (IntelliJ, Postman). IntelliJ terminal differs from terminal inside Vagrantbox (not the same toolset as inside the VM although scripts depend on it.). |
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ No need to SSH into a Vagrantbox for terminal commands |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Need to SSH into a Vagrantbox for terminal commands |This is not really a pain either
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Resources and services not strictly isolated from one another. Heavy crashes can take down the host system as well. In a worst case scenario the host machine must be cleaned up and repaired manually. |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Stricter isolation of resources and services for development tools. Harder to crash whole system. In case of a bad crash, VM can be reset from scratch easily. |
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Running updates of tools, which are not wrapped in a Docker Container, comes with a higher risk and higher expense in case of rollback. |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Running any update comes without any risk because reverting to a working setup can be done easily. This becomes even easier when every update has a dedicated git branch. |
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Staging ground (dedicated VM?) for new tools needed to avoid leftovers on the host machine. |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ No staging ground to test new tools needed. The VM can be trashed and setup from scratch without these tools leafing no trace of any PoC. |
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ No port forwarding needed |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Dedicated port-forwarding needed. In case more ports than the currently forwarded ports are needed, a VM restart is necessary. |This is not really a pain either
+| |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Duplicate Git Installation. Git is installed on the host anyway (e.g. to allow IntelliJ to use Git) |
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Some tools still have to run on the host machine (node_exporter, portainer, cAdvisor) to provide monitoring information to Prometheus |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Same monitoring tools should run inside the VM as well. But collecting these information cannot be done easily because the VM is not reachable by its name from everywhere on my local network. Name resolution for Vagrantboxes only works from my workstation (= the VM host) |
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Some utility tooly have to run on the host (export Firefox bookmarks regularly for FTP upload) |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Not possible from VM because the Firefox of choice is installed on the host and not reachable from the VM. |
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Fast startup, ready when Laptop is up-and-running |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Wait for full VM startup every time. Takes even more time when VM is deleted and recreated because provisioning needs some time. |Docker handling is the same for both setups. Docker downloads missing images and does not care if the image is downloaded to the host or the guest VM.
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Keeping environments up to date keeps a lot more effort. Everything must be commited to a git repo. So running everything in Docker is a must. Still there might be differences because the OS is not necessarily the same. |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Multiple (Linux) machines can be set up exactly the same way. Every machine is kept up to date by pulling from the remote git repository. |
+|+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ New SSH keys can be used right away |+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ When adding new SSH keys (on the host since the host is the master) the VM must be destroyed and re-provisioned from scratch |
+|+++<i class="fa fa-minus-circle" style="color: #ea4335;" aria-hidden="true"></i>+++ Security breaches like Log4Shell might take over the whole system. |+++<i class="fa fa-plus-circle" style="color: #34a853;" aria-hidden="true"></i>+++ Security breaches like Log4Shell don't take over the whole system. Just the VM. Cleanup can be done easily by dumping the VM.  |
 |===
