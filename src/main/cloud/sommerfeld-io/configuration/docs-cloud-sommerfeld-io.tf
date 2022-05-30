@@ -1,3 +1,12 @@
+data "docker_registry_image" "docs-image" {
+  name = "sommerfeldio/docs-website:stable"
+}
+
+resource "docker_image" "docs-image" {
+  name          = data.docker_registry_image.docs-image.name
+  pull_triggers = [data.docker_registry_image.docs-image.sha256_digest]
+}
+
 resource "digitalocean_app" "docs-page" {
   spec {
     domain {
