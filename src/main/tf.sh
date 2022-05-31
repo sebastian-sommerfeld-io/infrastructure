@@ -5,6 +5,8 @@
 # @description The script triggers terraform commands for a set of configurations. Terraform itself is started from in a
 # docker container, so there is no need to install Terraform on your machine.
 #
+# NOTE: This script controls the configurations for ``cloud`` and ``homelab``.
+#
 # The script supports the following options (after selecting the configuration for which terraform runs the commands):
 #
 # . ``init`` -> Initialize providers etc.
