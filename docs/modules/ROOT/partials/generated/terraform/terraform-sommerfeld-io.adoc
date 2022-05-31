@@ -6,7 +6,6 @@
 |===
 |Name |Version
 |[[requirement_digitalocean]] <<requirement_digitalocean,digitalocean>> |~> 2.0
-|[[requirement_docker]] <<requirement_docker,docker>> |2.16.0
 |[[requirement_linode]] <<requirement_linode,linode>> |1.27.1
 |===
 
@@ -16,7 +15,6 @@
 |===
 |Name |Version
 |[[provider_digitalocean]] <<provider_digitalocean,digitalocean>> |2.20.0
-|[[provider_docker]] <<provider_docker,docker>> |2.16.0
 |[[provider_linode]] <<provider_linode,linode>> |1.27.1
 |===
 
@@ -32,10 +30,8 @@ No modules.
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/app[digitalocean_app.docs-page] |resource
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/domain[digitalocean_domain.cloud] |resource
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/record[digitalocean_record.CNAME-docs] |resource
-|https://registry.terraform.io/providers/kreuzwerker/docker/2.16.0/docs/resources/image[docker_image.docs-image] |resource
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/data-sources/account[digitalocean_account.do_account] |data source
 |https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/data-sources/app[digitalocean_app.docs-page-data] |data source
-|https://registry.terraform.io/providers/kreuzwerker/docker/2.16.0/docs/data-sources/registry_image[docker_registry_image.docs-image] |data source
 |https://registry.terraform.io/providers/linode/linode/1.27.1/docs/data-sources/account[linode_account.linode_account] |data source
 |===
 
