@@ -6,6 +6,7 @@
 ** xref:homelab/index.adoc[]
 *** xref:homelab/installation-guide.adoc[]
 *** Nodes
+**** xref:homelab/physical/desktop-pi/index.adoc[]
 **** xref:homelab/physical/prometheus/index.adoc[]
 **** xref:homelab/physical/proxmox-bridge/index.adoc[]
 **** xref:homelab/physical/tron/index.adoc[]
