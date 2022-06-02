@@ -4,6 +4,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 [cols="1,3", options="header"]
 |===
+|Key |Value
 |Hostname |prometheus
 |FQDN |prometheus.fritz.box
 |User (Password) |root (admin)

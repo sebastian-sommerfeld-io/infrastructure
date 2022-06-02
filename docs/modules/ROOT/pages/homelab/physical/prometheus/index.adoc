@@ -2,6 +2,7 @@
 
 [cols="1,3", options="header"]
 |===
+|Key |Value
 |Hostname |prometheus
 |FQDN |prometheus.fritz.box
 |User (Password) |pi (raspberry), ubuntu (raspberry)
