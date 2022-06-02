@@ -67,6 +67,9 @@ CAUTION: todo ... text plus diagram
 For information on the homelab setup take a look at the "xref:homelab/index.adoc[]" page.
 
 == Usage
+=== Guidelines and Conventions
+See xref:GUIDELINES:index.adoc[]
+
 === Linters
 The link:https://github.com/sebastian-sommerfeld-io/infrastructure[Infrastructure Repository] contains ready-to-use linter definitions which other projects can download and use (see link:https://github.com/sebastian-sommerfeld-io/infrastructure/blob/main/lint.sh[lint.sh]).
 
