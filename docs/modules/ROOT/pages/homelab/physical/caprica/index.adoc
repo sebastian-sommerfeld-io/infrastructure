@@ -1,9 +1,9 @@
-= RasPi: {hostname}
-:hostname: tron
+= Server: {hostname}
+:hostname: caprica
 
-include::ROOT:partial$badges/raspi.adoc[]
+include::ROOT:partial$badges/lenovo-thinkcentre.adoc[]
 
-A Raspberry Pi node which is connected to a screen and speakers. The node serves desktop purposes and does not act as a server node.
+Lenovo ThinkCentre machine which acts as my toolserver. Vagrantboxes and Docker containers are running here.
 
 [cols="1,3", options="header"]
 |===
@@ -11,27 +11,19 @@ A Raspberry Pi node which is connected to a screen and speakers. The node serves
 |Hostname |{hostname}
 |FQDN |{hostname}.fritz.box
 |User (Password) |pi (raspberry)
-|OS |Ubuntu Desktop 22.04 LTS (RPI 4/400) -> 64 Bit ??????????????
+|OS |Ubuntu Server 22.04 64 bit
 |===
 
 == Requirements Overview
-. Screen and speakers
-. Allow password-less SSH connections
+. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
 
 == Quality Goals
 . The whole setup is Infrastructure as Code (as much as possible)
 
-This setup is done (partially) by hand and not fully automated (although the xref:homelab/installation-guide.adoc[] states otherwise). This page describes the setup process in order to re-install the machine in the same way if needed.
-
 == Install
-* Complete setup wizard
-* Connect to Wifi (part of the setup wizard)
-* Adjust appearance (dock size, dark mode, ...)
-* Enable SSH Server
-** Install by running `sudo apt update && sudo apt-get install -y openssh-server`
-** Open the SSH port by running `sudo ufw allow ssh`
-** Permanently enable SSH by running `sudo systemctl enable --now ssh`
-* Connect to Firefox sync
+. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
 
 == Building Block View / Whitebox Overall System
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.

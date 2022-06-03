@@ -1,0 +1,7 @@
+++++
+<div style="float: right;">
+    <div style="margin: 0 0 1em 2em">
+        <img style="width: 100px;" src="https://upload.wikimedia.org/wikipedia/de/c/cb/Raspberry_Pi_Logo.svg" alt="RasPi Badge" />
+    </div>
+</div>
+++++

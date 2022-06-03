@@ -1,0 +1,7 @@
+++++
+<div style="float: right;">
+    <div style="margin: 0 0 1em 2em">
+        <img style="width: 200px;" src="https://logos-download.com/wp-content/uploads/2022/01/ThinkCentre_Logo-700x190.png" alt="ThinkCentre Badge" />
+    </div>
+</div>
+++++

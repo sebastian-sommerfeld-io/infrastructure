@@ -1,6 +1,8 @@
 = Vagrantbox: pegasus
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
 
+include::ROOT:partial$badges/vagrant.adoc[]
+
 Vagrantbox providing the main development tools for my every day use. The Vagrantbox runs on my main workstation "xref:workstations/kobol/index.adoc[kobol]".
 
 == Why is this Vagrantbox called Pegasus?
