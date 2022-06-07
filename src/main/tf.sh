@@ -77,7 +77,9 @@ function tf() {
     cd "$TF_CONFIG_PATH" || exit
 
     docker run -it --rm \
-      --volume "/var/run/docker.sock:/var/run/docker.sock" \
+      --volume /var/run/docker.sock:/var/run/docker.sock \
+      --volume /etc/timezone:/etc/timezone:ro \
+      --volume /etc/localtime:/etc/localtime:ro \
       --volume "$(pwd):$(pwd)" \
       --workdir "$(pwd)" \
       hashicorp/terraform:latest "$@"
