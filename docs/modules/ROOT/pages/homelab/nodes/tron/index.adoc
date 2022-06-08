@@ -19,19 +19,19 @@ A Raspberry Pi node which is connected to a screen and speakers. The node serves
 . Allow password-less SSH connections
 
 == Quality Goals
-. The whole setup is Infrastructure as Code (as much as possible)
-
-This setup is done (partially) by hand and not fully automated (although the xref:homelab/installation-guide.adoc[] states otherwise). This page describes the setup process in order to re-install the machine in the same way if needed.
+. The whole setup is Infrastructure as Code (as much as possible) -> This setup is run partially by hand.
 
 == Install
-* Complete setup wizard
-* Connect to Wifi (part of the setup wizard)
-* Adjust appearance (dock size, dark mode, ...)
-* Enable SSH Server
-** Install by running `sudo apt update && sudo apt-get install -y openssh-server`
-** Open the SSH port by running `sudo ufw allow ssh`
-** Permanently enable SSH by running `sudo systemctl enable --now ssh`
-* Connect to Firefox sync
+. From machine "kobol"
+.. Write OS to SD card image:ROOT:homelab/physical/tron/tron-sd-card.png[]
+. From RasPi node
+.. Start RasPi node with SD card
+.. Complete setup wizard
+.. Adjust appearance (dock size, dark mode, ...)
+. From machine "kobol"
+.. Run `src/main/provision-nodes.sh` to provision the RasPi node
+. From RasPi node
+.. Connect to Firefox sync
 
 == Building Block View / Whitebox Overall System
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.

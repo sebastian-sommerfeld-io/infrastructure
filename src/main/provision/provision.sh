@@ -1,5 +1,5 @@
 #!/bin/bash
-# @file run.sh
+# @file provision.sh
 # @brief Run Ansible playbooks for Raspberry Pi nodes.
 #
 # @description This script runs Ansible playbooks for Raspberry Pi nodes. Ansible runs in Docker.
@@ -7,6 +7,10 @@
 # ==== Arguments
 #
 # The script does not accept any parameters.
+
+
+ANSIBLE_PLAYBOOK="playbooks/common-ubuntu.yml"
+ANSIBLE_INVENTORY="hosts.ini"
 
 
 # @description Wrapper function to encapsulate link:https://hub.docker.com/r/cytopia/ansible[ansible in a docker container].
@@ -31,12 +35,12 @@ function ansible() {
     --volume /etc/localtime:/etc/localtime:ro \
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
-    cytopia/ansible:latest "$@" --inventory hosts.ini
+    cytopia/ansible:latest "$@"
 }
 
 
 echo -e "$LOG_INFO Ansible version"
 ansible ansible --version
 
-echo -e "$LOG_INFO Run playbook"
-ansible ansible-playbook playbook.yml
+echo -e "$LOG_INFO Run $ANSIBLE_PLAYBOOK"
+ansible ansible-playbook "$ANSIBLE_PLAYBOOK" --inventory "$ANSIBLE_INVENTORY"

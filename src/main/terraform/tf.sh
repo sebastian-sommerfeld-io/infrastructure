@@ -33,8 +33,8 @@ NOT_SET="n/a"
 TARGET_ENV="$NOT_SET"
 TF_CONFIG_PATH="$NOT_SET"
 
-DO_TOKEN=$(cat "../../resources/.secrets/digitalocean.token")
-LINODE_TOKEN=$(cat "../../resources/.secrets/linode.token")
+DO_TOKEN=$(cat "../../../resources/.secrets/digitalocean.token")
+LINODE_TOKEN=$(cat "../../../resources/.secrets/linode.token")
 
 LABEL_HOMELAB="homelab"
 LABEL_SOMMERFELD_IO="sommerfeld-io"
@@ -188,14 +188,14 @@ function generateDocs() {
     pegasus/tf-graph-beautifier:latest terraform-graph-beautifier --exclude="module.root.provider" --output-type=graphviz)
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Prepare target dir and antora images dir"
-  mkdir -p ../../target
-  mkdir -p "../../$ANTORA_IMAGES_DIR"
+  mkdir -p ../../../target
+  mkdir -p "../../../$ANTORA_IMAGES_DIR"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate diagram image"
   echo "$pretty" | docker run -i --rm \
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
-    nshine/dot:latest > "../../target/$DIAGRAM_FILENAME"
+    nshine/dot:latest > "../../../target/$DIAGRAM_FILENAME"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate text documentation for this configuration"
   # append $TF_CONFIG_PATH because this command is not delegated to the `tf` function (which handles this for terraform commands)
@@ -203,11 +203,11 @@ function generateDocs() {
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
     -u "$(id -u)" \
-    quay.io/terraform-docs/terraform-docs:latest asciidoc "$(pwd)/$TF_CONFIG_PATH" > "../../target/$ADOC_FILENAME_TMP"
+    quay.io/terraform-docs/terraform-docs:latest asciidoc "$(pwd)/$TF_CONFIG_PATH" > "../../../target/$ADOC_FILENAME_TMP"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Move diagram and asciidoc to antora module and add to git repo"
   (
-    cd ../../ || exit
+    cd ../../../ || exit
     mv "target/$DIAGRAM_FILENAME" "$ANTORA_IMAGES_DIR/$DIAGRAM_FILENAME"
     git add "$ANTORA_IMAGES_DIR/$DIAGRAM_FILENAME"
 
@@ -223,8 +223,8 @@ select s in "$LABEL_HOMELAB" "$LABEL_SOMMERFELD_IO"; do
   TARGET_ENV="$s"
 
   case "$TARGET_ENV" in
-    "$LABEL_HOMELAB" ) TF_CONFIG_PATH="homelab/configuration";;
-    "$LABEL_SOMMERFELD_IO" ) TF_CONFIG_PATH="cloud/sommerfeld-io/configuration";;
+    "$LABEL_HOMELAB" ) TF_CONFIG_PATH="configs/homelab";;
+    "$LABEL_SOMMERFELD_IO" ) TF_CONFIG_PATH="configs/sommerfeld-io";;
   esac
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Selected as the configuration for which terraform will run its commands"
