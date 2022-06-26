@@ -3,9 +3,9 @@
 # @brief Wrapper to use git from Docker container when using the default ``git`` command.
 #
 # @description The script is a wrapper to use git from a Docker container when using the default ``git`` command.
-# The script delegates the git commands to a container using image ``pegasus/git``.
+# The script delegates the git commands to a container using image ``sommerfeldio/git``.
 #
-# In order to use the ``git`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure.sh]``
+# In order to use the ``git`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure-wrappers.sh]``
 # script adds a symlink to access this script via ``/usr/bin/git``. Beforehand ``xref:src_main_vagrantboxes_pegasus_provision_uninstall.adoc[uninstall.sh]``
 # removes the git installation which is shipped with the Vagrant Base Box for Ubuntu.
 #
@@ -21,7 +21,7 @@
 echo -e "$LOG_INFO Using the wrapper for git inside Docker from this Vagrantbox"
 echo -e "$LOG_INFO Working dir = $(pwd)"
 
-IMAGE="pegasus/git"
+IMAGE="sommerfeldio/git"
 TAG="latest"
 
 docker run -t --rm  \

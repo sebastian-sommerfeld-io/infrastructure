@@ -185,7 +185,7 @@ function generateDocs() {
   pretty=$(echo "$diagram" | docker run -i --rm \
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
-    pegasus/tf-graph-beautifier:latest terraform-graph-beautifier --exclude="module.root.provider" --output-type=graphviz)
+    sommerfeldio/tf-graph-beautifier:latest terraform-graph-beautifier --exclude="module.root.provider" --output-type=graphviz)
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Prepare target dir and antora images dir"
   mkdir -p ../../../target

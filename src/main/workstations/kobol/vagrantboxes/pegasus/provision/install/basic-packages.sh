@@ -13,10 +13,8 @@
 #
 # Additionally the script installs basic software packages:
 #
-# * jq -> handle json in bash
 # * ncdu
 # * neofetch
-# * yq -> handle yaml files in bash
 #
 # Lastly the script prints some information from packages shipped with the Box Image:
 #

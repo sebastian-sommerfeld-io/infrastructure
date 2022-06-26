@@ -38,10 +38,9 @@ Vagrant.configure(2) do |config|
         # provisioning
         pegasus.vm.provision "shell", :inline => "sudo rm /etc/localtime && sudo ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime", run: "always"
         pegasus.vm.provision "shell", path: "provision/install/uninstall.sh"
-        pegasus.vm.provision "shell", path: "provision/configure.sh"
+        pegasus.vm.provision "shell", path: "provision/configure-wrappers.sh"
         pegasus.vm.provision "shell", path: "provision/ssh-keys.sh", privileged: false # Use default user (vagrant) instead of root
         pegasus.vm.provision :docker
-        pegasus.vm.provision "shell", path: "docker/images/build-images.sh"
         pegasus.vm.provision :docker_compose, yml: "/vagrant/docker/services/ops/docker-compose.yml", run: "always"
         #pegasus.vm.provision :docker_compose, yml: "/vagrant/docker/services/services/docker-compose.yml", run: "always"
         pegasus.vm.provision "shell", path: "provision/install/update-upgrade.sh"

@@ -7,7 +7,7 @@
 #
 # image::https://raw.githubusercontent.com/docker-library/docs/01c12653951b2fe592c1f93a13b4e289ada0e3a1/python/logo.png[]
 #
-# In order to use the ``py`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure.sh]``
+# In order to use the ``py`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure-wrappers.sh]``
 # script adds a symlink to access this script via ``/usr/bin/py``.
 #
 # CAUTION: Ubuntu ships with Python 3.9 pre-installed and allocates the ``python``, ``python3`` and ``python3.9``

@@ -1,5 +1,5 @@
 #!/bin/bash
-# @file configure.sh
+# @file configure-wrappers.sh
 # @brief Provisioning script for Vagrantbox pegasus.
 #
 # @description The scripts adds settings to the ``~/.bashrc`` file of the user "vagrant".
@@ -66,15 +66,14 @@ function set_executable() {
 }
 
 WRAPPERS_PATH="$home/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/workstations/kobol/vagrantboxes/pegasus"
-set_executable "$WRAPPERS_PATH/provision/wrappers/folderslint.sh" folderslint
-set_executable "$WRAPPERS_PATH/provision/wrappers/git.sh" git
-set_executable "$WRAPPERS_PATH/provision/wrappers/groovy.sh" groovy
-set_executable "$WRAPPERS_PATH/provision/wrappers/jq.sh" jq
-set_executable "$WRAPPERS_PATH/provision/wrappers/hadolint.sh" hadolint
-set_executable "$WRAPPERS_PATH/provision/wrappers/hugo.sh" hugo
-set_executable "$WRAPPERS_PATH/provision/wrappers/mvn.sh" mvn
-set_executable "$WRAPPERS_PATH/provision/wrappers/python.sh" py
-set_executable "$WRAPPERS_PATH/provision/wrappers/shellcheck.sh" shellcheck
-set_executable "$WRAPPERS_PATH/provision/wrappers/yamllint.sh" yamllint
-set_executable "$WRAPPERS_PATH/provision/wrappers/yq.sh" yq
+set_executable "$WRAPPERS_PATH/docker/wrappers/git.sh" git
+set_executable "$WRAPPERS_PATH/docker/wrappers/groovy.sh" groovy
+set_executable "$WRAPPERS_PATH/docker/wrappers/jq.sh" jq
+set_executable "$WRAPPERS_PATH/docker/wrappers/hadolint.sh" hadolint
+set_executable "$WRAPPERS_PATH/docker/wrappers/hugo.sh" hugo
+set_executable "$WRAPPERS_PATH/docker/wrappers/mvn.sh" mvn
+set_executable "$WRAPPERS_PATH/docker/wrappers/python.sh" py
+set_executable "$WRAPPERS_PATH/docker/wrappers/shellcheck.sh" shellcheck
+set_executable "$WRAPPERS_PATH/docker/wrappers/yamllint.sh" yamllint
+set_executable "$WRAPPERS_PATH/docker/wrappers/yq.sh" yq
 echo "[DONE] Symlink setup for Docker wrapper scripts"

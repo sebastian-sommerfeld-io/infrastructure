@@ -8,7 +8,7 @@
 #
 # image::https://raw.githubusercontent.com/docker-library/docs/bb5fc730ed18c45d86425f9fa4265d50cb795ec8/groovy/logo.png[]
 #
-# In order to use the ``groovy`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure.sh]``
+# In order to use the ``groovy`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure-wrappers.sh]``
 # script adds a symlink to access this script via ``/usr/bin/groovy``.
 #
 # ==== Arguments

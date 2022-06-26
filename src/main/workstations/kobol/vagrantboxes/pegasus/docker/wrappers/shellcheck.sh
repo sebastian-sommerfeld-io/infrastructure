@@ -6,7 +6,7 @@
 # command. The script delegates the all tasks to the shellcheck runtime inside a container using image
 # ``link:https://hub.docker.com/r/koalaman/shellcheck[koalaman/shellcheck]``.
 #
-# In order to use the ``shellcheck`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure.sh]``
+# In order to use the ``shellcheck`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure-wrappers.sh]``
 # script adds a symlink to access this script via ``/usr/bin/shellcheck``.
 #
 # ==== Arguments

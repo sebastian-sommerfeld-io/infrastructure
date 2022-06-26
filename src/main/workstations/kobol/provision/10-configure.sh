@@ -1,5 +1,5 @@
 #!/bin/bash
-# @file 10-configure.sh
+# @file 10-configure-wrappers.sh
 # @brief Prepare the filesystem structure, set up aliases and variables in users .bashrc file and restore SSH keys from
 # USB drive (if mounted).
 #

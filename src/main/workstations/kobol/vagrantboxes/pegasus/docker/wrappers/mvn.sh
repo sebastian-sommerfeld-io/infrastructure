@@ -7,7 +7,7 @@
 #
 # image::https://raw.githubusercontent.com/docker-library/docs/e2782b8942c1af41419536078c8d0176665a005d/maven/logo.png[]
 #
-# In order to use the ``mvn`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure.sh]``
+# In order to use the ``mvn`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure-wrappers.sh]``
 # script adds a symlink to access this script via ``/usr/bin/mvn``.
 #
 # The maven installation from inside the container shares its repository with the host. The maven home directory is
