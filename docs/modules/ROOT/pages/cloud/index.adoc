@@ -31,7 +31,7 @@ This configuration is currently running across all service providers (as set up 
 
 image:ROOT:generated/terraform/terraform-configs-sommerfeld-io.png[]
 
-include::ROOT:partial$generated/terraform/terraform-sommerfeld-io.adoc[]
+include::ROOT:partial$generated/terraform/terraform-configs-sommerfeld-io.adoc[]
 
 == Architecture Decisions
 . xref:ADRs:architecture-decision-records/cloud-provider.adoc[]

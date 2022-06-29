@@ -1,13 +1,6 @@
 * xref:index.adoc[]
 ** xref:cloud/index.adoc[]
-** Local Workstations
-*** xref:workstations/kobol/index.adoc[]
-**** xref:workstations/kobol/vagrantboxes/pegasus.adoc[]
-** xref:homelab/index.adoc[]
-*** Nodes
-**** xref:homelab/nodes/prometheus/index.adoc[]
-**** xref:homelab/nodes/tron/index.adoc[]
-**** xref:homelab/nodes/caprica/index.adoc[]
-**** VM: tbd
-**** VM: tbd
-**** VM: tbd
+** xref:workstations/kobol/index.adoc[]
+*** xref:workstations/kobol/vagrantboxes/pegasus.adoc[]
+** xref:workstations/caprica/index.adoc[]
+** xref:raspi/prometheus/index.adoc[]

@@ -1,1 +1,0 @@
-Error: stat /home/vagrant/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/terraform/configs/homelab/provider.tf: no such file or directory

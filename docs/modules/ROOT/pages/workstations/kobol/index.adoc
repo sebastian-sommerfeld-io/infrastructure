@@ -9,7 +9,7 @@ Setup, configuration and documentation for my local Ubuntu workstation following
 . Test the setup regularly (automated) to ensure a new installation from scratch will work.
 
 == Quality Goals
-. The whole setup of my local workstation, all my Vagrantboxes and all my Docker Images is Infrastructure as Code.
+. The whole setup of my local workstation, all my Vagrantboxes and all my Docker images is Infrastructure as Code.
 . Software installations through the classic package managers like `apt` should be avoided. As much as possible should run inside docker containers. This is true for the host machine as well as Vagrantboxes.
 
 == Install
@@ -57,7 +57,7 @@ Since each service brings its own set of features, requirements and dependencies
 
 == Building Block View / Whitebox Overall System
 === Services
-The following services are up and running when the Vagrantbox is started (and provisioned).
+The following services are up and running when the machine is started.
 
 [cols="3,1,2", options="header"]
 |===
