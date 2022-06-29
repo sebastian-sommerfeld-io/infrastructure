@@ -1,5 +1,5 @@
 #!/bin/bash
-# @file configure-wrappers.sh
+# @file 11-configure-wrappers.sh
 # @brief Add executables for wrapper scripts.
 #
 # @description The scripts adds executables in ``/usr/bin`` for wrapper scripts.
@@ -28,6 +28,7 @@ function set_executable() {
   chmod +x "/usr/bin/$2"
 }
 
-#WRAPPERS_PATH="$HOME/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/workstations/kobol/docker/wrappers"
-#set_executable "$WRAPPERS_PATH/git.sh" git
+WRAPPERS_PATH="$HOME/work/repos/sebastian-sommerfeld-io/infrastructure/src/main/workstations/kobol/docker/wrappers"
+#set_executable "$WRAPPERS_PATH/ansible.sh" ansible
+#set_executable "$WRAPPERS_PATH/ansible.sh" ansible-playbook
 echo -e "$LOG_DONE Symlink setup for Docker wrapper scripts"

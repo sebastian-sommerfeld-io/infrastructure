@@ -14,6 +14,7 @@
 
 bash install/update-upgrade.sh
 bash install/install-basics.sh
+bash install/install-ansible.sh
 bash install/install-conky.sh
 bash install/install-desktop-software.sh
 bash install/install-docker.sh
