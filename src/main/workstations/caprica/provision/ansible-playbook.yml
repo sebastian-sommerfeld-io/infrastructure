@@ -50,6 +50,6 @@
         name: docker
     - name: Add the vagrant user to Docker group
       user:
-        name: vagrant
+        name: vagrant # todo: add default user "cy" of real "caprica" machine, not just vagrant
         groups: docker
         append: yes
