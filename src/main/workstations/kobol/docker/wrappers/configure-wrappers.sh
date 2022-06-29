@@ -9,14 +9,6 @@
 # The script does not accept any parameters.
 
 
-echo -e "$LOG_INFO Build local Docker images"
-(
-  echo -e "$LOG_INFO Delegate to build script"
-  cd ../images/ || exit
-  bash build-images.sh
-)
-
-
 # @description Write an entry to /usr/bin for a given script to make it executable from everywhere. Permissions are set
 # to ``+x`` as well.
 #

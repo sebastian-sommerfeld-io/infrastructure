@@ -1,4 +1,3 @@
 * xref:index.adoc[Architecture Decision Records]
-** xref:architecture-decision-records/chef-vs-ansible.adoc[]
 ** xref:architecture-decision-records/cloud-provider.adoc[]
 ** xref:architecture-decision-records/kobol-vs-pegasus.adoc[]

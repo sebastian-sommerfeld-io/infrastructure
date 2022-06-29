@@ -2,7 +2,7 @@
 # @file lint.sh
 # @brief Update und run linters.
 #
-# @description The script updates linter definitions from ``assets`` Repo and runs linters.
+# @description The script updates linter definitions from the ``infrastructure`` repo and runs linters.
 #
 # ==== Arguments
 #
@@ -11,7 +11,7 @@
 
 echo -e "$LOG_INFO Download latest linter definitions"
 linterDefinitions=(
-  '.directoryvalidator.json'
+  '.folderslintrc'
   '.ls-lint.yml'
   '.yamllint.yml'
 )
@@ -25,8 +25,8 @@ echo -e "$LOG_INFO -------------------------------------------------------------
 
 echo -e "$LOG_INFO Run linter containers"
 
-echo -e "$LOG_INFO check mandatory files"
-docker run -it --rm --volume "$(pwd):$(pwd)" --workdir "$(pwd)" pegasus/directory-validator:latest directory-validator .
+echo -e "$LOG_INFO Lint filesystem structure"
+docker run -it --rm --volume "$(pwd):$(pwd)" --workdir "$(pwd)" pegasus/folderslint:latest folderslint
 
 echo -e "$LOG_INFO yamllint"
 docker run -it --rm --volume "$(pwd):/data" --workdir "/data" cytopia/yamllint:latest .

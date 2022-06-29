@@ -1,7 +1,7 @@
 ++++
 <div style="float: right;">
     <div style="margin: 0 0 1em 2em">
-        <img style="width: 200px;" src="https://png2.cleanpng.com/sh/0e6ffe3f9937e68fb60b0eaf3382b634/L0KzQYm3WMA5N5Jrj5H0aYP2gLBuTgZib6NmhuY2aHH2eLrqjCJxNZ10f9G2b4Dofn76jCVza5Yyi9HvdIfkgra0gwJidpUyTdQBYXG1dYXohPQzOmYzS6oDNEa6Qoe4VcM0P2I6Sak7N0G1PsH1h5==/kisspng-vagrant-hashicorp-logo-open-source-software-brand-5b6aa2e4add225.388467261533715172712.png" alt="Vagrant Badge" />
+        <img style="width: 200px;" src="https://www.vagrantup.com/vagrant/img/logo-hashicorp.svg" alt="Vagrant Badge" />
     </div>
 </div>
 ++++

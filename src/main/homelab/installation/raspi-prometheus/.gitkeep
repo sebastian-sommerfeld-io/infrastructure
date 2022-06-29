@@ -1,2 +1,0 @@
-todo ... basic provisioning for physical RasPi node "prometheus"
-todo ... maybe change to raspi-common or similar -> provide a common base image / base setup and handle the rest with terraform, chef, clout-init, etc.

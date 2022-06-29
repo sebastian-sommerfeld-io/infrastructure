@@ -1,0 +1,10 @@
+++++
+<div style="float: right;">
+    <div style="margin: 0 0 1em 2em">
+        <a href="https://www.terraform.io"><img style="width: 200px;" src="https://www.datocms-assets.com/2885/1620155113-brandhcterraformprimaryattributedcolor.svg" alt="Terraform Badge" /></a>
+    </div>
+    <div style="margin: 0 0 1em 2em">
+        <img style="width: 200px;" src="https://www.vagrantup.com/vagrant/img/logo-hashicorp.svg" alt="Vagrant Badge" />
+    </div>
+</div>
+++++

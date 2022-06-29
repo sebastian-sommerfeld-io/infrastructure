@@ -21,12 +21,13 @@ These basic subdomains are configured for the domain "sommerfeld.io" through the
 |cloud.sommerfeld.io |DigitalOcean |Used for DNS settings -> NS records point to http://ns1.digitalocean.com, http://ns2.digitalocean.com and http://ns3.digitalocean.com.
 |digitalocean.sommerfeld.io |DigitalOcean |DNS config is exactly the same config as `cloud` -> used for temporary and testing purposes
 |linode.sommerfeld.io |Linode |Reserved for Linode (similar to `cloud`) - _no running service yet_
+|www.sommerfeld.io |All-Inkl |Classic webhosting - no cloud
 |===
 
 The subdomain cloud.sommerfeld.io with correct NS records (configured at the domain hosters web ui) takes care of name resolution. A domain record inside DigitalOcean, which has the same name and NS records, ensures apps can use CNAME records and subdomains inside DigitalOcean.  This way the cloud.sommerfeld.io subdomain "controls" the name resolution for all subdomains nested under cloud.sommerfeld.io without the need for additional configs at the domain providers management console. These subdomains / CNAME records (<xyz>.cloud.sommerfeld.io) point to a services <random>.ondigitalocean.app URL.
 
 === Services
-This configuration is currently running across all service providers (as set up by Terraform).
+This configuration is currently running across all service providers (as set up by Terraform) for all *.sommerfeld.io cloud services (subdomains other than www.sommerfeld.io).
 
 image:ROOT:generated/terraform/terraform-sommerfeld-io.png[]
 

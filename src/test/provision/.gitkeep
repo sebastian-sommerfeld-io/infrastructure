@@ -1,0 +1,1 @@
+todo ... test playbook "server-caprica" -> provision vagrantbox with same OS, start and run playbook for this Vagrantbox (override name server-caprica with Vagrantbox name)

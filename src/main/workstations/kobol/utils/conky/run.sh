@@ -1,5 +1,5 @@
 #!/bin/bash
-# @file run.sh
+# @file provision.sh
 # @brief Run Conky instances on kobol laptop.
 #
 # @description The script starts all Conky instances on kobol laptop. Normally this script is triggered automatically
