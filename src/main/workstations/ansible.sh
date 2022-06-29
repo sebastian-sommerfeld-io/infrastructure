@@ -22,12 +22,12 @@ ANSIBLE_INVENTORY="ansible-hosts.ini"
 # available to ansible. Paths are preserved.
 #
 # @example
-#    echo "test: $(tf -version)"
+#    echo "test: $(invoke ansible --version)"
 #
 # @arg $@ String The ansible commands (1-n arguments) - $1 is mandatory
 #
 # @exitcode 8 If param with ansible command is missing
-function ansible() {
+function invoke() {
   if [ -z "$1" ]; then
     echo -e "$LOG_ERROR No command passed to the ansible container"
     echo -e "$LOG_ERROR exit" && exit 8
@@ -43,8 +43,30 @@ function ansible() {
 }
 
 
+# @description Facade to map ``ansible`` command.
+#
+# @example
+#    echo "test: $(ansible --version)"
+#
+# @arg $@ String The ansible-playbook commands (1-n arguments) - $1 is mandatory
+function ansible() {
+  invoke ansible "$@"
+}
+
+
+# @description Facade to map ``ansible-playbook`` command.
+#
+# @example
+#    echo "test: $(ansible-playbook playbook.yml)"
+#
+# @arg $@ String The ansible-playbook commands (1-n arguments) - $1 is mandatory
+function ansible-playbook() {
+  invoke ansible-playbook "$@"
+}
+
+
 echo -e "$LOG_INFO Ansible version"
-ansible ansible --version
+ansible --version
 
 echo -e "$LOG_INFO Run $ANSIBLE_PLAYBOOK"
-ansible ansible-playbook "$ANSIBLE_PLAYBOOK" --inventory "$ANSIBLE_INVENTORY"
+ansible-playbook "$ANSIBLE_PLAYBOOK" --inventory "$ANSIBLE_INVENTORY"
