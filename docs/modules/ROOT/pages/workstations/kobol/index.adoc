@@ -12,11 +12,23 @@ Setup, configuration and documentation for my local Ubuntu workstation following
 . The whole setup of my local workstation, all my Vagrantboxes and all my Docker images is Infrastructure as Code.
 . Software installations through the classic package managers like `apt` should be avoided. As much as possible should run inside docker containers. This is true for the host machine as well as Vagrantboxes.
 
+== Building Block View / Whitebox Overall System
+=== Services
+The following services are up and running when the machine is started.
+
+[cols="3,1,2", options="header"]
+|===
+|Service |URL |User (Password)
+|Node Exporter |http://localhost:9100 |-
+|cAdvisor |http://localhost:9110 |-
+|Portainer |http://localhost:9990 |admin (admin)
+|===
+
 == Install
 Download and install a fresh link:https://ubuntu.com[Ubuntu] from an iso image:
 
 . Download iso image from https://ubuntu.com/download/desktop
-. Create bootable USB stick using the application "Startup Disk Creator" (shipped with Ubuntu) or something else like https://www.balena.io/etcher[Etcher]
+. Create bootable USB stick using the application "Startup Disk Creator" (shipped with Ubuntu) or some other software like https://www.balena.io/etcher[Etcher]
 . Install the OS on the machine
 
 Once the basic OS is installed, perform the following steps on your machine:
@@ -51,21 +63,6 @@ Once the basic OS is installed, perform the following steps on your machine:
 
 === Monitor Setup
 image::workstations/kobol/screens.drawio.png[]
-
-== Usage
-Since each service brings its own set of features, requirements and dependencies the way how to setup and use a respective service is highly dependent on the respective service. For details take a look at the respective docs for the service.
-
-== Building Block View / Whitebox Overall System
-=== Services
-The following services are up and running when the machine is started.
-
-[cols="3,1,2", options="header"]
-|===
-|Service |URL |User (Password)
-|Node Exporter |http://localhost:9100 |-
-|cAdvisor |http://localhost:9110 |-
-|Portainer |http://localhost:9990 |admin (admin)
-|===
 
 == Architecture Decisions
 . xref:ADRs:architecture-decision-records/kobol-vs-pegasus.adoc[]

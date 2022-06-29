@@ -3,7 +3,7 @@ Sebastian Sommerfeld <sebastian@sommerfeld.io>
 :project-name: infrastructure
 :url-project: https://github.com/sebastian-sommerfeld-io/{project-name}
 
-Infrastructure repository with configs and docs for my local workstations, my homelab with virtualization server and RasPi nodes and my public website hosted in the cloud.
+Infrastructure repository with configs and docs for my local workstations, my homelab with virtualization server and RasPi nodes and my public cloud-hosted website.
 
 [cols="1,4", options="header"]
 |===
@@ -12,23 +12,10 @@ Infrastructure repository with configs and docs for my local workstations, my ho
 |Documentation |https://docs.cloud.sommerfeld.io/{project-name}-docs/main
 |===
 
-[IMPORTANT]
-====
-*Todos*
-
-. Do I really need the separate prometheus-grafana repo? Can I merge the repo into this project? Or is this a service on its own? If so, create a Docker image and deploy via terraform.
-.. Can terraform deploy containers to remote raspi nodes? Withoput kubernetes etc?!
-. Make Vagrantbox "pegasus" idempotent -> handle secrets differently (make sure VM is startable from several machines)
-====
-
 == Requirements Overview
 . Centrally manage all my infrastructure components.
-.. My physical workstations and all link:/playgrounds-docs/main[non-playground] Vagrantboxes
-.. My homelab (physical and virtual)
-.. My public website (classic web hosting and link:https://cloud.digitalocean.com[DigitalOcean])
 . Every single setup for every component should work with as little manual interaction as possible.
-. Manage assets which are common to all projects in one place.
-.. Allow other projects, to load these assets into their respective repo (each project takes care of this on its own)
+. Manage assets which are common to all projects in one place. Allow other projects, to load these assets into their respective repo (each project takes care of this on its own)
 
 == Quality Goals
 . Lint everything inside this repo
@@ -36,48 +23,18 @@ Infrastructure repository with configs and docs for my local workstations, my ho
 .. Add or update packages without any risk -> avoid having to repair broken installations (dumping the broken setup and reverting to a working one is preferred).
 .. Instead of using e.g. `apt-get install`, use Docker Containers and create a Symlink in `/usr/bin` to a wrapper-script which delegates commands to a Docker contaner.
 
-== Building Block View / Whitebox Overall System
-
-
-=== Public Sites hosted on the Internet
-Public sites are divided into two parts. One part is hosted traditionally by a classic hosting provider and the other half is hosted in the cloud (see xref:ADRs:architecture-decision-records/cloud-provider.adoc[]).
-
-For information on the cloud setup take a look at the "xref:cloud/index.adoc[]" page.
-
-=== On-Premise Homelab
-My on premise homelab consists of several RasPi nodes, one virtualization server and some virtual machines.
-
-For information on the homelab setup take a look at the "xref:homelab/index.adoc[]" page.
-
-=== Technologies used in this project
+== Technologies used in this project
 The following technologies are the big building blocks of this project. Other technologies and helpers like several linters although being useful and essential as well don't qualify as building block technologies and are not listed here.
 
 [cols="1,3,1", options="header"]
 |===
 |Technology |Purpose |Website
 |Ansible |Provisioning and configuration for server nodes (physical, virtual and RasPi) on my homelab |https://www.ansible.com/
-|Asciidoc in Antora Module |Docs as Code for this project |https://asciidoc.org & https://antora.org
+|Asciidoc & Antora |Docs as Code for this project |https://asciidoc.org & https://antora.org
 |Bash scripts |Automate installations, wrap commands into repeatable scripts, utilities, etc. |-
 |Docker & Docker Compose |Run containers on on xref:workstations/kobol/index.adoc[my local workstation] and in Vagrantboxes |https://www.docker.com & https://hub.docker.com
 |Terraform |Provision xref:cloud/index.adoc[] and local VMs on my xref:homelab/index.adoc[Proxmox machine] |https://www.terraform.io
 |Vagrant |Virtual machines on xref:workstations/kobol/index.adoc[my local workstation] |https://www.vagrantup.com
-|===
-
-== Usage
-The main sources of this repository are organized into dedicated folders:
-
-. `src/main/install` -> Scripts and utils used for basic installation tasks to make sure a node (most of the time physical) comes with some basic configs (e.g. uses the correct hostname, connects to Wifi, has SSH server enabled)..
-. `src/main/provision` -> Ansible scripts used to provision and configure physical and virtual nodes on my homelab.
-. `src/main/install` -> Terraform modules used to run services on my homelab and with my xref:ADRs:architecture-decision-records/cloud-provider.adoc[cloud provider of choice].
-. `src/main/install` -> Scripts and utils for my local workstations (= regular client machines which are not part of my homelab server infrastructure).
-
-== Risks and Technical Debts
-Scale for Probability and Impact: Low, Medium and High
-
-[cols="^1,2,5a,1,1,5a", options="header"]
-|===
-|# |Title |Description |Probability |Impact |Response
-|{counter:usage} |- |- |- |- |-
 |===
 
 == See also

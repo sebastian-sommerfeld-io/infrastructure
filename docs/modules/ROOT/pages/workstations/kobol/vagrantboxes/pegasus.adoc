@@ -3,7 +3,7 @@ Sebastian Sommerfeld <sebastian@sommerfeld.io>
 
 include::ROOT:partial$badges/vagrant.adoc[]
 
-Vagrantbox providing the main development tools for my every day use. The Vagrantbox runs on my main workstation "xref:workstations/kobol/index.adoc[kobol]".
+Vagrantbox providing the main development tools for my every day use. The Vagrantbox runs on the main workstation "xref:workstations/kobol/index.adoc[kobol]".
 
 == Why is this Vagrantbox called Pegasus?
 
@@ -21,6 +21,21 @@ Since this Vagrantbox contains all essential development tools, it is the "crown
 
 == Quality Goals
 . The whole setup of my local workstation is Infrastructure as Code
+
+== Building Block View / Whitebox Overall System
+. Folders and Config from host are mounted into Vagrantbox to make sure the host machine supplies all secrets to the Vagrantbox.
+. Wrappers scripts are wrapping Docker containers to use them by their respective default command (e.g. running `git` starts a Docker container and delegates the git command to the container).
+
+=== Services
+The following services are up and running when the Vagrantbox is started (and provisioned).
+
+[cols="1,1,3", options="header"]
+|===
+|Service |URL |User (Password)
+|Node Exporter |http://localhost:7100 |-
+|cAdvisor |http://localhost:7101 |-
+|Portainer |http://localhost:7990 |admin (see `src/main/workstations/kobol/vagrantboxes/pegasus/docker/services/ops/assets/portainer.passwd`)
+|===
 
 == Install
 In order to run this project, the following dependencies must be met:
@@ -44,10 +59,10 @@ In order to run this project, the following dependencies must be met:
 |===
 
 === Use this Vagrantbox
-. Start Vagrantbox by running start.sh
+. Start Vagrantbox by running `start.sh`
 . Connect to Bash using vagrant ssh (no username / password needed)
-. Stop Vagrantbox using stop.sh
-. Remove all generated files, artifacts and Virtualbox files associated with this Vagrantbox by running clean.sh.
+. Stop Vagrantbox using `stop.sh`
+. Remove all generated files, artifacts and Virtualbox files associated with this Vagrantbox by running `clean.sh`.
 
 === Provisioning
 This Vagrantbox is provisioned on (initial) startup. To provision the Vagrantbox again, run vagrant up --provision on a stopped environment and vagrant provision or vagrant reload --provision on a running environment.
@@ -55,7 +70,7 @@ This Vagrantbox is provisioned on (initial) startup. To provision the Vagrantbox
 IMPORTANT: Before you add packages to provisioning, make sure installing the package is the best way to got. Always try to use a Docker image first!
 
 === Expose port when Vagrantbox is up and running
-Add port forwarding (`pegasus.vm.network "forwarded_port", host: 7777, guest: 7777`) to Vagrantfile and reload config using vagrant reload.
+Add port forwarding (`pegasus.vm.network "forwarded_port", host: 7777, guest: 7777`) to Vagrantfile and reload config using `vagrant reload`.
 
 === Expose rage of ports
 To expose a range of ports, add this snippet to Vagrantfile. Keep in mind that all ports will be allocated on the host machine.
@@ -66,21 +81,6 @@ for i in 7800..7888
     config.vm.network :forwarded_port, guest: i, host: i
 end
 ----
-
-== Building Block View / Whitebox Overall System
-. Folders and Config from host are mounted into Vagrantbox to make sure the host machine supplies all secrets to the Vagrantbox.
-. Wrappers are scripts wrapping Docker containers to use them by their respective default command.
-
-=== Services
-The following services are up and running when the Vagrantbox is started (and provisioned).
-
-[cols="3,1,2", options="header"]
-|===
-|Service |URL |User (Password)
-|Node Exporter |http://localhost:7100 |-
-|cAdvisor |http://localhost:7101 |-
-|Portainer |http://localhost:7990 |admin (see `src/main/workstations/kobol/vagrantboxes/pegasus/docker/services/ops/assets/portainer.passwd`)
-|===
 
 == Architecture Decisions
 . The actual development tools are encapsulated to make sure a working environment can always be started. This way running any update comes without any risk because reverting to a working setup can be done easily. This becomes even easier when every update has a dedicated git branch. Therefore the actual tools are built into a Vagrantbox.
