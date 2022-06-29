@@ -29,7 +29,7 @@ The subdomain cloud.sommerfeld.io with correct NS records (configured at the dom
 === Services
 This configuration is currently running across all service providers (as set up by Terraform) for all *.sommerfeld.io cloud services (subdomains other than www.sommerfeld.io).
 
-image:ROOT:generated/terraform/terraform-sommerfeld-io.png[]
+image:ROOT:generated/terraform/terraform-configs-sommerfeld-io.png[]
 
 include::ROOT:partial$generated/terraform/terraform-sommerfeld-io.adoc[]
 

@@ -31,13 +31,9 @@
 
 NOT_SET="n/a"
 TARGET_ENV="$NOT_SET"
-TF_CONFIG_PATH="$NOT_SET"
 
 DO_TOKEN=$(cat "../../../resources/.secrets/digitalocean.token")
 LINODE_TOKEN=$(cat "../../../resources/.secrets/linode.token")
-
-LABEL_HOMELAB="homelab"
-LABEL_SOMMERFELD_IO="sommerfeld-io"
 
 CMD_INIT="initialize"
 CMD_VALIDATE="validate"
@@ -57,16 +53,11 @@ CMD_DOCS="generate_docs"
 # @arg $@ String The terraform commands (1-n arguments) - $1 is mandatory
 #
 # @exitcode 4 If the target environment (= terraform configuration) is not set
-# @exitcode 5 If the path to the terraform configuration files is not set
 # @exitcode 8 If param with terraform command is missing
 function tf() {
   if [ "$TARGET_ENV" == "$NOT_SET" ]; then
-    echo -e "$LOG_ERROR [$P$TARGET_ENV$D] Stage not set"
+    echo -e "$LOG_ERROR [$P$TARGET_ENV$D] Stage (= path to *.tf files) not set"
     echo -e "$LOG_ERROR [$P$TARGET_ENV$D] exit" && exit 4
-  fi
-  if [ "$TF_CONFIG_PATH" == "$NOT_SET" ]; then
-    echo -e "$LOG_ERROR [$P$TARGET_ENV$D] Path to *.tf files not set"
-    echo -e "$LOG_ERROR [$P$TARGET_ENV$D] exit" && exit 5
   fi
   if [ -z "$1" ]; then
     echo -e "$LOG_ERROR [$P$TARGET_ENV$D] No command passed to the terraform container"
@@ -74,7 +65,7 @@ function tf() {
   fi
 
   (
-    cd "$TF_CONFIG_PATH" || exit
+    cd "$TARGET_ENV" || exit
 
     docker run -it --rm \
       --volume /var/run/docker.sock:/var/run/docker.sock \
@@ -156,7 +147,7 @@ function clean() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Cleanup local file system"
 
   (
-    cd "$TF_CONFIG_PATH" || exit
+    cd "$TARGET_ENV" || exit
 
     echo -e "$LOG_INFO [$P$TARGET_ENV$D] Cleanup local filesystem"
     rm -rf .terraform*
@@ -173,7 +164,10 @@ function clean() {
 function generateDocs() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate graph for this configuration"
 
-  BASE_FILENAME="terraform-$TARGET_ENV"
+  search="/" # escape "/"
+  replace="-"
+  BASE_FILENAME="terraform-$(echo $TARGET_ENV | sed -e "s|$search|$replace|g")"
+
   DIAGRAM_FILENAME="$BASE_FILENAME.png"
   ADOC_FILENAME="$BASE_FILENAME.adoc"
   ADOC_FILENAME_TMP="$BASE_FILENAME-with-CRLF.adoc"
@@ -198,12 +192,11 @@ function generateDocs() {
     nshine/dot:latest > "../../../target/$DIAGRAM_FILENAME"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Generate text documentation for this configuration"
-  # append $TF_CONFIG_PATH because this command is not delegated to the `tf` function (which handles this for terraform commands)
   docker run -it --rm \
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
     -u "$(id -u)" \
-    quay.io/terraform-docs/terraform-docs:latest asciidoc "$(pwd)/$TF_CONFIG_PATH" > "../../../target/$ADOC_FILENAME_TMP"
+    quay.io/terraform-docs/terraform-docs:latest asciidoc "$(pwd)/$TARGET_ENV" > "../../../target/$ADOC_FILENAME_TMP"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Move diagram and asciidoc to antora module and add to git repo"
   (
@@ -219,16 +212,11 @@ function generateDocs() {
 
 
 echo -e "$LOG_INFO Select the terraform configuration"
-select s in "$LABEL_HOMELAB" "$LABEL_SOMMERFELD_IO"; do
-  TARGET_ENV="$s"
-
-  case "$TARGET_ENV" in
-    "$LABEL_HOMELAB" ) TF_CONFIG_PATH="configs/homelab";;
-    "$LABEL_SOMMERFELD_IO" ) TF_CONFIG_PATH="configs/sommerfeld-io";;
-  esac
+select d in configs/*/; do
+  TARGET_ENV="${d::-1}"
 
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Selected as the configuration for which terraform will run its commands"
-  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Set path to *.tf files to $Y$TF_CONFIG_PATH$D"
+  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Set path to *.tf files to $Y$TARGET_ENV$D"
   break
 done
 

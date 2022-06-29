@@ -6,7 +6,7 @@ include::ROOT:partial$badges/homelab.adoc[]
 This is the latest and up-to-date Terraform configuration for all services running in my local homelab.
 
 == Building Block View / Whitebox Overall System
-image:ROOT:generated/terraform/terraform-homelab.png[]
+image:ROOT:generated/terraform/terraform-configs-homelab.png[]
 
 include::ROOT:partial$generated/terraform/terraform-homelab.adoc[]
 
