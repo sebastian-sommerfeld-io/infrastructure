@@ -19,7 +19,7 @@ echo -e "$LOG_INFO Remove all virtual machines"
 
   echo -e "$LOG_INFO Cleanup filesystem (.vagrant and target folders)"
   rm -rf .vagrant
-  #rm -rf .target
+  rm -rf ./*.log
   rm -rf ../../../../../../target/*
 )
 
