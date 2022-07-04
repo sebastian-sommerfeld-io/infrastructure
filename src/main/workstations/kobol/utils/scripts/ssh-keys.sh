@@ -7,7 +7,7 @@
 #
 # ==== Arguments
 #
-# * *$1* (String): KEY_NAME
+# * *$1* (String): KEY_NAME (mandatory)
 
 KEY_NAME="$1"
 KEY_FILE=""
