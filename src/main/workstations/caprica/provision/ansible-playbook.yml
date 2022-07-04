@@ -28,7 +28,7 @@
 
     - name: Copy SSH keys (allow `vagrant ssh` with non-default user)
       ansible.builtin.copy:
-        src: /home/sebastian/.ssh/id_rsa.pub
+        src: /home/sebastian/.ssh/id_rsa.pub # the path on the host
         dest: "/home/{{ default_username }}/.ssh/{{ item }}"
         owner: "{{ default_username }}"
         group: "{{ default_username }}"
@@ -39,6 +39,8 @@
       ansible.builtin.shell: "cat /home/{{ default_username }}/.ssh/{{ item }} >> /home/{{ default_username }}/.ssh/authorized_keys"
       with_items:
         - id_rsa.pub
+      args:
+        executable: /bin/bash
 
     ######################################
     #    config                          #
@@ -138,7 +140,7 @@
         repo: deb https://download.docker.com/linux/ubuntu focal stable
         state: present
 
-    - name: Update apt and install docker-ce
+    - name: Update apt and install docker-ce and docker-compose
       apt:
         name:
           - docker-ce
@@ -169,17 +171,23 @@
         state: latest
         update_cache: true
 
-    - name: Set virtual machine folder
-      ansible.builtin.shell: "vboxmanage setproperty machinefolder /home/{{ default_username }}/virtualmachines"
+    - name: Set virtual machine folder # todo ... FIX THIS !!!!!
+      ansible.builtin.shell: "vboxmanage setproperty machinefolder '/home/{{ default_username }}/virtualmachines'"
+      args:
+        executable: /bin/bash
 
     - name: Install Vagrant
       ansible.builtin.shell: |
         curl https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb --output vagrant.deb
         sudo dpkg -i vagrant.deb
         rm vagrant.deb
+      args:
+        executable: /bin/bash
 
     - name: Install Vagrant plugins
       ansible.builtin.shell: |
         vagrant plugin install vagrant-cachier
         vagrant plugin install vagrant-vbguest
         vagrant plugin install vagrant-docker-compose
+      args:
+        executable: /bin/bash
