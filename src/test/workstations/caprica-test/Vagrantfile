@@ -4,6 +4,8 @@
 IMAGE_NAME = "ubuntu/jammy64" # jammy = 22.04
 HOSTNAME = "caprica-test"
 
+VAGRANT_COMMAND = ARGV[0]
+
 Vagrant.configure(2) do |config|
     config.vm.box = IMAGE_NAME
     config.vm.hostname = HOSTNAME
@@ -16,7 +18,12 @@ Vagrant.configure(2) do |config|
     end
 
     config.vm.provision "ansible" do |ansible|
-        ansible.verbose = "v"
+        ansible.verbose = "vv"
         ansible.playbook = "../../../main/workstations/caprica/provision/ansible-playbook.yml"
+    end
+
+    # provision box as user "vagrant", but connect as different user (when running `vagrant ssh`)
+    if VAGRANT_COMMAND == "ssh"
+        config.ssh.username = 'sebastian'
     end
 end

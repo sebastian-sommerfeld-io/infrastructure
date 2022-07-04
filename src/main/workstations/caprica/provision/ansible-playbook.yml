@@ -1,14 +1,107 @@
 ---
 - name: Caprica Playbook
   hosts: all
+  vars:
+    default_username: sebastian
+    default_password: start123
   become: true
   tasks:
+
+    ######################################
+    #    create + config default user    #
+    ######################################
+
+    - name: "Add user '{{ default_username }}'"
+      ansible.builtin.user:
+        name: "{{ default_username }}"
+        password: "{{ default_password | password_hash('sha512', 'gz4a83m5mz2x') }}"
+        generate_ssh_key: true
+        shell: /bin/bash
+        groups: adm, sudo, vagrant
+        append: true
+        state: present
+        create_home: true
+
+    ######################################
+    #    ssh config                      #
+    ######################################
+
+    - name: Copy SSH keys (allow `vagrant ssh` with non-default user)
+      ansible.builtin.copy:
+        src: /home/sebastian/.ssh/id_rsa.pub
+        dest: "/home/{{ default_username }}/.ssh/{{ item }}"
+        owner: "{{ default_username }}"
+        group: "{{ default_username }}"
+      with_items:
+        - id_rsa.pub
+
+    - name: Add to authorized_keys (allow `vagrant ssh` with non-default user)
+      ansible.builtin.shell: "cat /home/{{ default_username }}/.ssh/{{ item }} >> /home/{{ default_username }}/.ssh/authorized_keys"
+      with_items:
+        - id_rsa.pub
+
+    ######################################
+    #    config                          #
+    ######################################
+
+    - name: Copy motd
+      ansible.builtin.copy:
+        src: assets/motd-caprica.txt
+        dest: /etc/motd
+
+    - name: Copy git configuration
+      ansible.builtin.copy:
+        src: assets/.gitconfig
+        dest: "/home/{{ default_username }}/.gitconfig"
+        owner: "{{ default_username }}"
+        group: "{{ default_username }}"
+
+    - name: Write aliases to .bashrc
+      lineinfile:
+        dest: "/home/{{ default_username }}/.bashrc"
+        state: present
+        line: "{{ item }}"
+      with_items:
+        - alias ll="ls -alFh --color=auto"
+        - alias ls="ls -a --color=auto"
+        - alias grep="grep --color=auto"
+        - alias pull-all-repos="git all pull"
+        - export LOG_DONE="[\e[32mDONE\e[0m]"
+        - export LOG_ERROR="[\e[1;31mERROR\e[0m]"
+        - export LOG_INFO="[\e[34mINFO\e[0m]"
+        - export LOG_WARN="[\e[93mWARN\e[0m]"
+        - export Y="\e[93m" # yellow
+        - export P="\e[35m" # pink
+        - export D="\e[0m"  # default (= white)
+
+    - name: Update bash prompt in .bashrc
+      lineinfile:
+        dest: "/home/{{ default_username }}/.bashrc"
+        regexp: '^PS1='
+        line: 'PS1="${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "'
+        state: present
+
+    - name: Create directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ default_username }}"
+        group: "{{ default_username }}"
+      with_items:
+        - "/home/{{ default_username }}/repos"
+        - "/home/{{ default_username }}/tmp"
+        - "/home/{{ default_username }}/virtualmachines"
+
+    ######################################
+    #    install basic packages          #
+    ######################################
 
     - name: Install aptitude
       apt:
         name: aptitude
         state: latest
         update_cache: true
+
     - name: Install required system packages
       apt:
         pkg:
@@ -21,6 +114,7 @@
           - python3-setuptools
         state: latest
         update_cache: true
+
     - name: Install tools
       apt:
         pkg:
@@ -30,14 +124,20 @@
         state: latest
         update_cache: true
 
+    ######################################
+    #    install docker                  #
+    ######################################
+
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
+
     - name: Add Docker Repository
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu focal stable
         state: present
+
     - name: Update apt and install docker-ce
       apt:
         name:
@@ -45,11 +145,41 @@
           - docker-compose
         state: latest
         update_cache: true
+
     - name: Install Docker Module for Python
       pip:
         name: docker
-    - name: Add the vagrant user to Docker group
+
+    - name: Add user to Docker group
       user:
-        name: vagrant # todo: add default user "cy" of real "caprica" machine, not just vagrant
+        name: "{{ default_username }}"
         groups: docker
-        append: yes
+        append: true
+
+    ######################################
+    #    install vagrant + virtualbox    #
+    ######################################
+
+    - name: Install Virtualbox
+      apt:
+        pkg:
+          - virtualbox
+          - virtualbox-qt
+          - virtualbox-dkms
+        state: latest
+        update_cache: true
+
+    - name: Set virtual machine folder
+      ansible.builtin.shell: "vboxmanage setproperty machinefolder /home/{{ default_username }}/virtualmachines"
+
+    - name: Install Vagrant
+      ansible.builtin.shell: |
+        curl https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb --output vagrant.deb
+        sudo dpkg -i vagrant.deb
+        rm vagrant.deb
+
+    - name: Install Vagrant plugins
+      ansible.builtin.shell: |
+        vagrant plugin install vagrant-cachier
+        vagrant plugin install vagrant-vbguest
+        vagrant plugin install vagrant-docker-compose
