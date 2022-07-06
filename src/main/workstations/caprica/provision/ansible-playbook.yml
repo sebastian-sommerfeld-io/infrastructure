@@ -170,8 +170,8 @@
         state: latest
         update_cache: true
 
-    - name: Set virtual machine folder # todo ... FIX THIS !!!!!
-      shell: "vboxmanage setproperty machinefolder '/home/{{ default_username }}/virtualmachines'"
+    - name: Set virtual machine folder
+      ansible.builtin.shell: "vboxmanage setproperty machinefolder '/home/{{ default_username }}/virtualmachines'"
       args:
         executable: /bin/bash
 
