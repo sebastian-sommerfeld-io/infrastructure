@@ -102,3 +102,7 @@ echo -e "$LOG_INFO Copy image files to '$wpFolder'"
 cp -a "assets/wallpapers/." "$wpFolder"
 echo -e "$LOG_INFO Update wallpaper"
 gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/Pictures/wallpapers/$wpFile"
+
+
+echo -e "$LOG_INFO Show Battery Percentage"
+gsettings set org.gnome.desktop.interface show-battery-percentage true
