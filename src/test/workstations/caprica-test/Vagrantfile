@@ -3,12 +3,20 @@
 
 IMAGE_NAME = "ubuntu/jammy64" # jammy = 22.04
 HOSTNAME = "caprica-test"
+IP = "192.168.56.99"
 
 VAGRANT_COMMAND = ARGV[0]
 
+#
+# Vagrantbox "caprica-test"
+# Acts as a staging ground for the physical machine "caprica".
+# Used for automated testing of provisioning and configuration done by Ansible.
+#
 Vagrant.configure(2) do |config|
+
     config.vm.box = IMAGE_NAME
     config.vm.hostname = HOSTNAME
+    config.vm.network :private_network, ip: IP
 
     config.vm.provider "virtualbox" do |v|
         v.memory = 2048
@@ -28,6 +36,7 @@ Vagrant.configure(2) do |config|
 
     # provision box as user "vagrant", but connect as different user (when running `vagrant ssh`)
     if VAGRANT_COMMAND == "ssh"
-        config.ssh.username = 'sebastian'
+        config.ssh.username = 'starbuck'
     end
+
 end

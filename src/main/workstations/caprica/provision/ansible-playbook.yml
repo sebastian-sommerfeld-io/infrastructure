@@ -2,7 +2,7 @@
 - name: Caprica Playbook
   hosts: all
   vars:
-    default_username: sebastian
+    default_username: starbuck
     default_password: start123
   become: true
   tasks:
@@ -45,6 +45,10 @@
     ######################################
     #    config                          #
     ######################################
+
+    - name: Set timezone
+      timezone:
+        name: Europe/Berlin
 
     - name: Copy motd
       ansible.builtin.copy:
@@ -98,12 +102,6 @@
     #    install basic packages          #
     ######################################
 
-    - name: Install aptitude
-      apt:
-        name: aptitude
-        state: latest
-        update_cache: true
-
     - name: Install required system packages
       apt:
         pkg:
@@ -112,17 +110,18 @@
           - curl
           - software-properties-common
           - python3-pip
-          - virtualenv
           - python3-setuptools
+          - virtualenv
         state: latest
         update_cache: true
 
     - name: Install tools
       apt:
         pkg:
+          - aptitude
           - ncdu
           - htop
-          - neofetch
+          - git
         state: latest
         update_cache: true
 
@@ -172,7 +171,7 @@
         update_cache: true
 
     - name: Set virtual machine folder # todo ... FIX THIS !!!!!
-      ansible.builtin.shell: "vboxmanage setproperty machinefolder '/home/{{ default_username }}/virtualmachines'"
+      shell: "vboxmanage setproperty machinefolder '/home/{{ default_username }}/virtualmachines'"
       args:
         executable: /bin/bash
 
