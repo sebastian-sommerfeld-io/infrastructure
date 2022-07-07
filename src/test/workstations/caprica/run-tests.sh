@@ -14,9 +14,7 @@
 # The script does not accept any parameters.
 
 
-tmp=$(cat ./Vagrantfile | grep 'IP = ')
-BOX_IP="${tmp:6:${#name}-1}" # substring from start-pos 6 to length-1
-
+BOX_IP=""
 
 case $HOSTNAME in
   ("caprica") echo -e "$LOG_INFO Run tests on machine '$HOSTNAME'";;
@@ -54,7 +52,13 @@ function startup() {
 
   echo -e "$LOG_INFO SSH config for this Vagrantbox"
   vagrant ssh-config
+
+  echo -e "$LOG_INFO Read IP address from vagrantbox"
+  tmp=$(vagrant ssh -c "hostname -I | cut -d' ' -f2" 2>/dev/null)
+  BOX_IP=$(echo "$tmp" |sed 's/\r$//') # remove \r from end of string
+  echo -e "$LOG_INFO IP = $P$BOX_IP$D"
 }
+
 
 # @description Step 3: Print some information about the virtual environment.
 function info() {
@@ -89,14 +93,14 @@ function validate() {
     --network host \
     chef/inspec:latest exec inspec-profiles/baseline --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
 
-#  echo -e "$LOG_INFO Run inspec linux baseline"
-#  docker run -it --rm \
-#    --volume "$HOME/.ssh:/root/.ssh:ro" \
-#    --volume "$SSH_AUTH_SOCK:$SSH_AUTH_SOCK" \
-#    --volume "$(pwd):$(pwd)" \
-#    --workdir "$(pwd)" \
-#    --network host \
-#    chef/inspec:latest supermarket exec dev-sec/linux-baseline --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
+  # echo -e "$LOG_INFO Run inspec linux baseline"
+  # docker run -it --rm \
+  #   --volume "$HOME/.ssh:/root/.ssh:ro" \
+  #   --volume "$SSH_AUTH_SOCK:$SSH_AUTH_SOCK" \
+  #   --volume "$(pwd):$(pwd)" \
+  #   --workdir "$(pwd)" \
+  #   --network host \
+  #   chef/inspec:latest exec https://github.com/dev-sec/linux-baseline --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
 }
 
 
@@ -110,7 +114,7 @@ function test() {
 
   echo -e "$LOG_INFO Test git: clone repository from github via SSH"
   echo -e "$P"
-  vagrant ssh -c "(cd repos && git clone https://github.com/sebastian-sommerfeld-io/playgrounds.git)" # todo ... clone via ssh
+  vagrant ssh -c "(cd repos && git clone https://github.com/sebastian-sommerfeld-io/playgrounds.git)"
   echo -e "$D"
 }
 
