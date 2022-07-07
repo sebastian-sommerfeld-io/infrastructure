@@ -4,6 +4,7 @@ ls:
   .puml: kebab-case
 
   .json: kebab-case
+  .rb: kebab-case
   .tf: kebab-case
   .yml: kebab-case
   .yaml: kebab-case
