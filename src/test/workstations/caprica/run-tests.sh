@@ -65,9 +65,7 @@ function info() {
   echo && docker run --rm mwendler/figlet:latest "Info" && echo
 
   echo -e "$LOG_INFO Show remote user"
-  echo -e "$P"
-  vagrant ssh -c "whoami"
-  echo -e "$D"
+  echo -e "$P$(vagrant ssh -c 'whoami')$D"
 }
 
 
