@@ -34,7 +34,13 @@ function prepare() {
   docker run -it --rm \
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
-    chef/inspec:latest check inspec-tests --chef-license=accept
+    chef/inspec:latest check inspec-profiles/caprica-test --chef-license=accept
+  
+  echo -e "$LOG_INFO Validate inspec profile"
+  docker run -it --rm \
+    --volume "$(pwd):$(pwd)" \
+    --workdir "$(pwd)" \
+    chef/inspec:latest check inspec-profiles/baseline --chef-license=accept
 }
 
 
@@ -72,7 +78,16 @@ function validate() {
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
     --network host \
-    chef/inspec:latest exec inspec-tests --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
+    chef/inspec:latest exec inspec-profiles/caprica-test --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
+
+  echo -e "$LOG_INFO Run inspec profile"
+  docker run -it --rm \
+    --volume "$HOME/.ssh:/root/.ssh:ro" \
+    --volume "$SSH_AUTH_SOCK:$SSH_AUTH_SOCK" \
+    --volume "$(pwd):$(pwd)" \
+    --workdir "$(pwd)" \
+    --network host \
+    chef/inspec:latest exec inspec-profiles/baseline --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
 
 #  echo -e "$LOG_INFO Run inspec linux baseline"
 #  docker run -it --rm \

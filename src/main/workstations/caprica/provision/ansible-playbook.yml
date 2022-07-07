@@ -171,7 +171,7 @@
         update_cache: true
 
     - name: Set virtual machine folder
-      ansible.builtin.shell: "vboxmanage setproperty machinefolder '/home/{{ default_username }}/virtualmachines'"
+      ansible.builtin.shell: "vboxmanage setproperty machinefolder /home/{{ default_username }}/virtualmachines"
       args:
         executable: /bin/bash
 
