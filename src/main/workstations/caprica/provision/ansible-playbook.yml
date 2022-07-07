@@ -4,6 +4,7 @@
   vars:
     default_username: starbuck
     default_password: start123
+    vm_folder: "/home/{{ default_username }}/virtualmachines"
   become: true
   tasks:
 
@@ -96,7 +97,7 @@
       with_items:
         - "/home/{{ default_username }}/repos"
         - "/home/{{ default_username }}/tmp"
-        - "/home/{{ default_username }}/virtualmachines"
+        - "{{ vm_folder }}"
 
     ######################################
     #    install basic packages          #
@@ -171,7 +172,7 @@
         update_cache: true
 
     - name: Set virtual machine folder
-      ansible.builtin.shell: "vboxmanage setproperty machinefolder /home/{{ default_username }}/virtualmachines"
+      ansible.builtin.shell: "vboxmanage setproperty machinefolder {{ vm_folder }}"
       args:
         executable: /bin/bash
 
