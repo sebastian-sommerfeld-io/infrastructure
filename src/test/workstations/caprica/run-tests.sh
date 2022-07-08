@@ -55,7 +55,7 @@ function startup() {
 
   echo -e "$LOG_INFO Read IP address from vagrantbox"
   tmp=$(vagrant ssh -c "hostname -I | cut -d' ' -f2" 2>/dev/null)
-  BOX_IP=$(echo "$tmp" |sed 's/\r$//') # remove \r from end of string
+  BOX_IP=$(echo "$tmp" | sed 's/\r$//') # remove \r from end of string
   echo -e "$LOG_INFO IP = $P$BOX_IP$D"
 }
 

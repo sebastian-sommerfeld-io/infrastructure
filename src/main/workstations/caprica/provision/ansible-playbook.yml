@@ -1,5 +1,5 @@
 ---
-- name: Caprica Playbook
+- name: Caprica play
   hosts: all
   vars:
     default_username: starbuck
@@ -12,7 +12,7 @@
     #    create + config default user    #
     ######################################
 
-    - name: "Add user '{{ default_username }}'"
+    - name: "Add default user"
       ansible.builtin.user:
         name: "{{ default_username }}"
         password: "{{ default_password | password_hash('sha512', 'gz4a83m5mz2x') }}"
@@ -190,4 +190,4 @@
         vagrant plugin install vagrant-vbguest
         vagrant plugin install vagrant-docker-compose
       args:
-        executable: /bin/bash
+        executable: /bin/bash4
