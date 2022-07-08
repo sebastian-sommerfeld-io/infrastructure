@@ -190,4 +190,4 @@
         vagrant plugin install vagrant-vbguest
         vagrant plugin install vagrant-docker-compose
       args:
-        executable: /bin/bash4
+        executable: /bin/bash
