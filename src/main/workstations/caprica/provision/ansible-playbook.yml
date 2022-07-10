@@ -1,6 +1,10 @@
 ---
+# 
+# This play is run with the already existing user (ubuntu or vagrant ).
+# 
 - name: Caprica main play
   hosts: all
+  gather_facts: true
   vars:
     - default_username: starbuck
     - default_password: start123
@@ -106,6 +110,7 @@
     - name: Install required system packages
       apt:
         pkg:
+          - acl
           - apt-transport-https
           - ca-certificates
           - curl
@@ -171,6 +176,12 @@
         state: latest
         update_cache: true
 
+    - name: Set virtual machine folder
+      ansible.builtin.shell: "vboxmanage setproperty machinefolder {{ vm_folder }}"
+      become_user: "{{ default_username }}"
+      args:
+        executable: /bin/bash
+
     - name: Install Vagrant
       ansible.builtin.shell: |
         curl https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb --output vagrant.deb
@@ -184,10 +195,5 @@
         vagrant plugin install vagrant-cachier
         vagrant plugin install vagrant-vbguest
         vagrant plugin install vagrant-docker-compose
-      args:
-        executable: /bin/bash
-
-    - name: Set virtual machine folder
-      ansible.builtin.shell: "vboxmanage setproperty machinefolder {{ vm_folder }}"
       args:
         executable: /bin/bash

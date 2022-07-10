@@ -87,8 +87,12 @@ control "vagrant-and-virtualbox-packages" do
         it { should be_installed }
     end
 
-    describe bash('vboxmanage list systemproperties | grep folder') do
+    describe bash('vboxmanage list systemproperties | grep folder | tr -d "\n"') do
         its('stdout') { should cmp 'Default machine folder:          /home/starbuck/virtualmachines' }
+        its('stdout') { should eq 'Default machine folder:          /home/starbuck/virtualmachines' }
+    end
+
+    describe bash('command') do
     end
 
     describe package('vagrant') do
