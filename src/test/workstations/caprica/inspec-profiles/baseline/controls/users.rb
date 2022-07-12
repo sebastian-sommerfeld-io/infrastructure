@@ -12,6 +12,12 @@ control "default_user" do
         its('shell') { should cmp '/bin/bash' }
     end
 
+    describe file("/home/starbuck/.ssh/authorized_keys") do
+        it { should exist }
+        it { should be_file }
+        it { should_not be_directory }
+    end
+
     describe file("/home/starbuck/.ssh/id_rsa") do
         it { should exist }
         it { should be_file }
@@ -30,6 +36,7 @@ control "default_user" do
         it { should_not be_directory }
     end
 
+    # SEE https://docs.chef.io/inspec/resources/key_rsa
     # describe key_rsa('/home/starbuck/.ssh/id_rsa') do
     #     it { should be_private }
     #     it { should be_public }
