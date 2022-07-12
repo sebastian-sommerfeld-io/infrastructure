@@ -15,6 +15,7 @@
 
 
 BOX_IP=""
+BOX_USER="starbuck"
 
 case $HOSTNAME in
   ("caprica") echo -e "$LOG_INFO Run tests on machine '$HOSTNAME'";;
@@ -27,6 +28,13 @@ esac
 function prepare() {
   echo -e "$LOG_INFO Validate Vagrantfile"
   vagrant validate
+
+  (
+    cd ../../../../ || exit
+
+    echo -e "$LOG_INFO Validate yaml"
+    docker run -it --rm --volume "$(pwd):/data" --workdir "/data" cytopia/yamllint:latest src/main/workstations/caprica/provision/ansible-playbook.yml
+  )
 
   echo -e "$LOG_INFO Validate inspec profile"
   docker run -it --rm \
@@ -69,9 +77,9 @@ function info() {
 }
 
 
-# @description Step 4: Validate the installation by running Chef InSpec tests.
-function validate() {
-  echo && docker run --rm mwendler/figlet:latest "Validate" && echo
+# @description Step 4: Run tests to check the correct setup of the Vagrantbox.
+function test() {
+  echo && docker run --rm mwendler/figlet:latest "Test" && echo
 
   echo -e "$LOG_INFO Run inspec profile"
   docker run -it --rm \
@@ -80,7 +88,7 @@ function validate() {
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
     --network host \
-    chef/inspec:latest exec inspec-profiles/caprica-test --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
+    chef/inspec:latest exec inspec-profiles/caprica-test --target="ssh://$BOX_USER@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
 
   echo -e "$LOG_INFO Run inspec profile"
   docker run -it --rm \
@@ -89,7 +97,7 @@ function validate() {
     --volume "$(pwd):$(pwd)" \
     --workdir "$(pwd)" \
     --network host \
-    chef/inspec:latest exec inspec-profiles/baseline --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
+    chef/inspec:latest exec inspec-profiles/baseline --target="ssh://$BOX_USER@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
 
   # echo -e "$LOG_INFO Run inspec linux baseline"
   # docker run -it --rm \
@@ -98,13 +106,8 @@ function validate() {
   #   --volume "$(pwd):$(pwd)" \
   #   --workdir "$(pwd)" \
   #   --network host \
-  #   chef/inspec:latest exec https://github.com/dev-sec/linux-baseline --target="ssh://starbuck@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
-}
+  #   chef/inspec:latest exec https://github.com/dev-sec/linux-baseline --target="ssh://$BOX_USER@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
 
-
-# @description Step 5: Run tests to check the correct setup of the Vagrantbox.
-function test() {
-  echo && docker run --rm mwendler/figlet:latest "Test" && echo
   echo -e "$LOG_INFO Test Docker installation"
   echo -e "$P"
   vagrant ssh -c "docker run --rm hello-world:latest"
@@ -112,12 +115,17 @@ function test() {
 
   echo -e "$LOG_INFO Test git: clone repository from github via SSH"
   echo -e "$P"
-  vagrant ssh -c "(cd repos && git clone https://github.com/sebastian-sommerfeld-io/playgrounds.git)"
+  vagrant ssh -c "(cd repos && git clone https://github.com/sebastian-sommerfeld-io/playgrounds.git)" # todo ... ssh
+  echo -e "$D"
+
+  echo -e "$LOG_INFO List ssh keys for user $BOX_USER"
+  echo -e "$P"
+  vagrant ssh -c "ls -alF /home/$BOX_USER/.ssh"
   echo -e "$D"
 }
 
 
-# @description Step 6: Shutdown and destroy the Vagrantbox and cleanup the local filesystem.
+# @description Step 5: Shutdown and destroy the Vagrantbox and cleanup the local filesystem.
 function shutdown() {
   echo && docker run --rm mwendler/figlet:latest "Shutdown" && echo
 
@@ -135,6 +143,5 @@ echo -e "$LOG_INFO Run tests from $P$(pwd)$D"
 prepare
 startup
 info
-validate
 test
 shutdown

@@ -7,28 +7,31 @@ control "filesystem" do
 
     describe file("/home/starbuck/repos") do
         it { should exist }
+        it { should_not be_file }
         it { should be_directory }
     end
 
     describe file("/home/starbuck/tmp") do
         it { should exist }
+        it { should_not be_file }
         it { should be_directory }
     end
 
     describe file("/home/starbuck/virtualmachines") do
         it { should exist }
+        it { should_not be_file }
         it { should be_directory }
-    end
-
-    describe file("/home/starbuck/.ssh/id_rsa.pub") do
-        it { should exist }
     end
 
     describe file("/etc/motd") do
         it { should exist }
+        it { should be_file }
+        it { should_not be_directory }
     end
 
     describe file("/home/starbuck/.gitconfig") do
         it { should exist }
+        it { should be_file }
+        it { should_not be_directory }
     end
 end
