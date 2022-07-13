@@ -15,3 +15,6 @@ rules:
   braces:
     max-spaces-inside: 1
     level: error
+  brackets:
+    max-spaces-inside: 1
+    level: error
