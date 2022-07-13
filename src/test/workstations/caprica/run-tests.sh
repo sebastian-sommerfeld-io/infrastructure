@@ -96,9 +96,6 @@ function test() {
   echo -e "$LOG_INFO Run inspec profiles"
   inspec exec inspec-profiles/caprica-test
   inspec exec inspec-profiles/baseline
-  # inspec exec https://github.com/dev-sec/linux-baseline
-  # todo ... make linux-baseline a git submodule (and somehow mark the folder als submodule)
-  # todo ... this way the files are part of the local filesystem and I avoid problems with git mounted into inspec container
 
   echo -e "$LOG_INFO List ssh keys for user $BOX_USER"
   vagrant ssh -c "ls -alF /home/$BOX_USER/.ssh"
