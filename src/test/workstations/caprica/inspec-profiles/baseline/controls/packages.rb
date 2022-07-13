@@ -88,8 +88,8 @@ control "vagrant-and-virtualbox-packages" do
     end
 
     describe bash('vboxmanage list systemproperties | grep folder | tr -d "\n"') do
-        its('stdout') { should cmp 'Default machine folder:          /home/starbuck/virtualmachines' }
-        its('stdout') { should eq 'Default machine folder:          /home/starbuck/virtualmachines' }
+        its('stdout') { should cmp 'Default machine folder:          /home/seb/virtualmachines' }
+        its('stdout') { should eq 'Default machine folder:          /home/seb/virtualmachines' }
     end
 
     describe bash('command') do

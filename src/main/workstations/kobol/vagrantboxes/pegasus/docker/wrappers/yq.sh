@@ -1,8 +1,8 @@
 #!/bin/bash
 # @file yq.sh
-# @brief Wrapper to use Groovy from Docker container when using the ``yq`` command.
+# @brief Wrapper to use yq from Docker container when using the ``yq`` command.
 #
-# @description The script is a wrapper to use Groovy from a Docker container when using the ``yq`` command. The script
+# @description The script is a wrapper to use yq from a Docker container when using the ``yq`` command. The script
 # delegates the all tasks to the yq installation runtime inside a custom container using image.
 #
 # In order to use the ``yq`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure-wrappers.sh]``
@@ -16,7 +16,7 @@
 # * *$@* (array): Original arguments
 
 
-echo -e "$LOG_INFO Using the wrapper for Groovy inside Docker from this Vagrantbox"
+echo -e "$LOG_INFO Using the wrapper for yq inside Docker from this Vagrantbox"
 echo -e "$LOG_INFO Working dir = $(pwd)"
 
 IMAGE="sommerfeldio/yq"

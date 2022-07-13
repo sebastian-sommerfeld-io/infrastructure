@@ -1,9 +1,21 @@
 = Server: caprica
 Sebastian Sommerfeld <sebastian@sommerfeld.io>
+:hostname: caprica
+include::ROOT:partial$generated/ansible/caprica-vars.adoc[]
 
 include::ROOT:partial$badges/homelab.adoc[]
 
-Setup, configuration and documentation for my local virtualization and container machine following an infrastructure as code approach. This machines takes care of Docker images and Vagrantboxes and handles some automation tasks.
+Setup, configuration and documentation for my local toolserver which also acts as a testing- and staging-ground for my container images. The Setup follows an infrastructure as code approach. This machines takes care of Docker images and Vagrantboxes and handles some automation tasks.
+
+[cols="1,3a", options="header"]
+|===
+|Key |Value
+|Hostname |{hostname} (FQDN = {hostname}.fritz.box)
+|OS |Ubuntu Server 22.04
+|User (Password) |{user} ({pass})
+|Hardware |Lenovo Think Centre (Core i5, 126GB RAM)
+|===
+
 
 == Requirements Overview
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
@@ -44,6 +56,11 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 CAUTION: todo ...
 
+==== Automated Tests
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+CAUTION: todo ...
+
 == Usage
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
@@ -57,7 +74,7 @@ CAUTION: todo ...
 == Architecture Decisions
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-CAUTION: todo ... (Ubuntu with Vagrant vs Proxmox ???)
+CAUTION: todo ... (Ubuntu with Vagrant vs Proxmox ???) -> Don't use Vagrant at all and run containers directly (because Jenkins should be able to start/stop Vagrantboxes)?!
 
 == Risks and Technical Debts
 Scale for Probability and Impact: Low, Medium and High

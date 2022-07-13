@@ -6,7 +6,7 @@
   hosts: all
   gather_facts: true
   vars:
-    - default_username: starbuck
+    - default_username: seb
     - default_password: start123
     - vm_folder: "/home/{{ default_username }}/virtualmachines"
   become: true

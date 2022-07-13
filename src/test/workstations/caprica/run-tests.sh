@@ -15,7 +15,7 @@
 
 
 BOX_IP=""
-BOX_USER="starbuck"
+BOX_USER="seb"
 
 case $HOSTNAME in
   ("caprica") echo -e "$LOG_INFO Run tests on machine '$HOSTNAME'";;
@@ -64,7 +64,7 @@ function startup() {
   echo -e "$LOG_INFO Read IP address from vagrantbox"
   tmp=$(vagrant ssh -c "hostname -I | cut -d' ' -f2" 2>/dev/null)
   BOX_IP=$(echo "$tmp" | sed 's/\r$//') # remove \r from end of string
-  echo -e "$LOG_INFO IP = $P$BOX_IP$D"
+  echo -e "$LOG_INFO IP = $BOX_IP"
 }
 
 
@@ -73,7 +73,7 @@ function info() {
   echo && docker run --rm mwendler/figlet:latest "Info" && echo
 
   echo -e "$LOG_INFO Show remote user"
-  echo -e "$P$(vagrant ssh -c 'whoami')$D"
+  vagrant ssh -c 'whoami'
 }
 
 
@@ -108,20 +108,14 @@ function test() {
   #   --network host \
   #   chef/inspec:latest exec https://github.com/dev-sec/linux-baseline --target="ssh://$BOX_USER@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
 
+  echo -e "$LOG_INFO List ssh keys for user $BOX_USER"
+  vagrant ssh -c "ls -alF /home/$BOX_USER/.ssh"
+
   echo -e "$LOG_INFO Test Docker installation"
-  echo -e "$P"
   vagrant ssh -c "docker run --rm hello-world:latest"
-  echo -e "$D"
 
   echo -e "$LOG_INFO Test git: clone repository from github via SSH"
-  echo -e "$P"
   vagrant ssh -c "(cd repos && git clone https://github.com/sebastian-sommerfeld-io/playgrounds.git)" # todo ... ssh
-  echo -e "$D"
-
-  echo -e "$LOG_INFO List ssh keys for user $BOX_USER"
-  echo -e "$P"
-  vagrant ssh -c "ls -alF /home/$BOX_USER/.ssh"
-  echo -e "$D"
 }
 
 
@@ -136,6 +130,31 @@ function shutdown() {
   vagrant destroy -f
   rm -rf .vagrant
   rm -rf ./*.log
+
+  echo -e "$LOG_INFO Read password from playbook and write to adoc"
+  (
+    cd ../../../../ || exit
+
+    playbook="src/main/workstations/caprica/provision/ansible-playbook.yml"
+    adoc="docs/modules/ROOT/partials/generated/ansible/caprica-vars.adoc"
+
+    default_username=$(docker run --rm \
+      --volume "$(pwd):$(pwd)" \
+      --workdir "$(pwd)" \
+      sommerfeldio/yq:latest yq eval '.[] | select(.name).vars.[] | select(.default_username).[]' $playbook)
+
+    default_password=$(docker run --rm \
+      --volume "$(pwd):$(pwd)" \
+      --workdir "$(pwd)" \
+      sommerfeldio/yq:latest yq eval '.[] | select(.name).vars.[] | select(.default_password).[]' $playbook)
+
+    rm "$adoc"
+    (
+      echo ":user: $default_username"
+      echo ":pass: $default_password"
+    ) > "$adoc"
+  )
+
 }
 
 

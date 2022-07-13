@@ -1,8 +1,8 @@
 #!/bin/bash
 # @file jq.sh
-# @brief Wrapper to use Groovy from Docker container when using the ``jq`` command.
+# @brief Wrapper to use jq from Docker container when using the ``jq`` command.
 #
-# @description The script is a wrapper to use Groovy from a Docker container when using the ``jq`` command. The script
+# @description The script is a wrapper to use jq from a Docker container when using the ``jq`` command. The script
 # delegates the all tasks to the jq installation runtime inside a custom container using image.
 #
 # In order to use the ``jq`` command, the ``xref:src_main_vagrantboxes_pegasus_provision_configure.adoc[configure-wrappers.sh]``
@@ -15,7 +15,7 @@
 # * *$@* (array): Original arguments
 
 
-echo -e "$LOG_INFO Using the wrapper for Groovy inside Docker from this Vagrantbox"
+echo -e "$LOG_INFO Using the wrapper for jq inside Docker from this Vagrantbox"
 echo -e "$LOG_INFO Working dir = $(pwd)"
 
 IMAGE="sommerfeldio/jq"

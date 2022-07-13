@@ -5,39 +5,39 @@ control "default_user" do
     title "Validate the default user and its ssh keys"
     desc "Ensure the default user is present and correctly set up"
 
-    describe user('starbuck') do
+    describe user('seb') do
         it { should exist }
-        its('groups') { should cmp ['starbuck', 'adm', 'sudo', 'vagrant', 'docker']}
-        its('home') { should cmp '/home/starbuck' }
+        its('groups') { should cmp ['seb', 'adm', 'sudo', 'vagrant', 'docker']}
+        its('home') { should cmp '/home/seb' }
         its('shell') { should cmp '/bin/bash' }
     end
 
-    describe file("/home/starbuck/.ssh/authorized_keys") do
+    describe file("/home/seb/.ssh/authorized_keys") do
         it { should exist }
         it { should be_file }
         it { should_not be_directory }
     end
 
-    describe file("/home/starbuck/.ssh/id_rsa") do
+    describe file("/home/seb/.ssh/id_rsa") do
         it { should exist }
         it { should be_file }
         it { should_not be_directory }
     end
 
-    describe file("/home/starbuck/.ssh/id_rsa.pub") do
+    describe file("/home/seb/.ssh/id_rsa.pub") do
         it { should exist }
         it { should be_file }
         it { should_not be_directory }
     end
 
-    describe file("/home/starbuck/.ssh/kobol_id_rsa.pub") do
+    describe file("/home/seb/.ssh/kobol_id_rsa.pub") do
         it { should exist }
         it { should be_file }
         it { should_not be_directory }
     end
 
-    # SEE https://docs.chef.io/inspec/resources/key_rsa
-    # describe key_rsa('/home/starbuck/.ssh/id_rsa') do
+    # todo https://docs.chef.io/inspec/resources/key_rsa
+    # describe key_rsa('/home/seb/.ssh/id_rsa') do
     #     it { should be_private }
     #     it { should be_public }
     #     its('public_key') { should match "-----BEGIN PUBLIC KEY-----\n3597459df9f3982" }
