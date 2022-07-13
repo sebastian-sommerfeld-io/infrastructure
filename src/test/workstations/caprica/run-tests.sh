@@ -105,6 +105,12 @@ function test() {
 
   echo -e "$LOG_INFO Test git: clone repository from github via SSH"
   vagrant ssh -c "(cd repos && git clone https://github.com/sebastian-sommerfeld-io/playgrounds.git)" # todo ... ssh
+
+  echo -e "$LOG_INFO Test deployments: deploy services using Terraform"
+  echo -e "$LOG_WARN not yet implemented"
+  # todo ... https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs
+  # todo ... You can also use the ssh protocol to connect to the docker host on a remote machine.
+  # todo ... place files in src/main/terraform/configs/caprica
 }
 
 

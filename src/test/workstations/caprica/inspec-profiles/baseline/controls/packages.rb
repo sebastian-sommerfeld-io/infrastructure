@@ -1,9 +1,9 @@
-title "audit software packages"
+title 'audit software packages'
 
-control "required-system-packages" do
+control 'required-system-packages' do
     impact 1.0
-    title "Validate software package installations"
-    desc "Ensure packages are installed"
+    title 'Validate software package installations'
+    desc 'Ensure packages are installed'
 
     describe package('apt-transport-https') do
         it { should be_installed }
@@ -34,10 +34,10 @@ control "required-system-packages" do
     end
 end
 
-control "tools-packages" do
+control 'tools-packages' do
     impact 1.0
-    title "Validate software package installations"
-    desc "Ensure packages are installed"
+    title 'Validate software package installations'
+    desc 'Ensure packages are installed'
 
     describe package('aptitude') do
         it { should be_installed }
@@ -56,10 +56,10 @@ control "tools-packages" do
     end
 end
 
-control "docker-packages" do
+control 'docker-packages' do
     impact 1.0
-    title "Validate software package installations"
-    desc "Ensure packages are installed"
+    title 'Validate software package installations'
+    desc 'Ensure packages are installed'
 
     describe package('docker-ce') do
         it { should be_installed }
@@ -70,10 +70,10 @@ control "docker-packages" do
     end
 end
 
-control "vagrant-and-virtualbox-packages" do
+control 'vagrant-and-virtualbox-packages' do
     impact 1.0
-    title "Validate software package installations"
-    desc "Ensure packages are installed"
+    title 'Validate software package installations'
+    desc 'Ensure packages are installed'
 
     describe package('virtualbox') do
         it { should be_installed }
