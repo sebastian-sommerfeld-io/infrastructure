@@ -12,6 +12,6 @@ rules:
     allow-non-breakable-inline-mappings: true
   new-lines:
     type: unix
-  brackets:
+  braces:
     max-spaces-inside: 1
     level: error

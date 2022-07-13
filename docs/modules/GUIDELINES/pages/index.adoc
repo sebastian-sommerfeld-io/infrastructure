@@ -15,10 +15,13 @@ Commit with prefix ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
 
 CAUTION: todo ...
 
-==== Branch Stategy
-How to handle branches ... Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+==== Branch Stategy and Versioning
+IMPORTANT: Develop everything in branches! Avoid pushes to the main branch. Use Pull Requests (Github) or Merge Requests (Gitlab) to sync changes into main.
 
-CAUTION: todo ...
+. The main branch represents the latest codebase which is running in production (most likely as a Docker container) or deployed to some kind of registry like DocherHub or Artifactory. Prefer the name "main" over "master".
+. Since my projects are small, trunk-based is the preferred way of handling branches. There are no other mandatory branches.
+. Branchnames need a prefix to show their intention: feat/<NAME> and fix/<NAME> are the only prefixes allowed. There is no need for other prefixes. 
+. When a branch is merges into main, a tag for the new version is needed as well. 
 
 === Linters
 The link:https://github.com/sebastian-sommerfeld-io/infrastructure[Infrastructure Repository] contains ready-to-use linter definitions which other projects can download and use (see link:https://github.com/sebastian-sommerfeld-io/infrastructure/blob/main/lint.sh[lint.sh]).
@@ -54,6 +57,8 @@ These requirements are common to all nodes (physical and virtual). They share th
 By default all servers are running some flavor of link:https://www.debian.org/index.html[Debian]. Normally the Operating System of choice is link:https://ubuntu.com[Ubuntu]. The virtualization server is running Ubuntu as well and uses Vagrant and Virtualbox on top. RasPi nodes with a desktop environment may use Raspberry Pi OS (not Ubuntu for performance reasons).
 
 === Ansible
+Ansible is designed to configure both Unix-like systems as well as Microsoft Windows. Ansible is agentless, relying on temporary remote connections via SSH or Windows Remote Management which allows PowerShell execution. The Ansible control node runs on most Unix-like systems that are able to run Python, including Windows with WSL installed.
+
 Each node utilizes the same basic configuration. This basic provisioning is done via Ansible.
 
 . Set the hostname for each node -> TODO: HOW CAN I SET THE HOSTNAME TO A DIFFERENT NAME OF MY CHOICE FOR EACH NODE??? -> Extract name from a file that is located in /tmp/hostname-for-cloud-init.txt on each machine?
@@ -64,7 +69,17 @@ Each node utilizes the same basic configuration. This basic provisioning is done
 
 CAUTION: todo ...
 
+=== Chef Inspec
+
+Chef InSpec is an open-source framework for testing and auditing your applications and infrastructure. Chef InSpec works by comparing the actual state of your system with the desired state that you express in easy-to-read and easy-to-write Chef InSpec code. Chef InSpec detects violations and displays findings in the form of a report, but puts you in control of remediation.
+
+https://megamorf.gitlab.io/cheat-sheets/inspec/
+
+CAUTION: todo ... adopt information from the link above
+
 === Terraform
+Terraform manages external resources (such as public cloud infrastructure, private cloud infrastructure, network appliances, software as a service, and platform as a service) with "providers". HashiCorp maintains an extensive list of official providers, and can also integrate with community-developed providers. Users can interact with Terraform providers by declaring resources or by calling data sources. Rather than using imperative commands to provision resources, Terraform uses declarative configuration to describe the desired final state. Once a user invokes Terraform on a given resource, Terraform will perform CRUD actions on the user's behalf to accomplish the desired state. The infrastructure as code can be written as modules, promoting reusability and maintainability.
+
 . General conventions
 .. Use `_` (underscore) instead of `-` (dash) everywhere (resource names, data source names, variable names, outputs, etc).
 .. Prefer to use lowercase letters and numbers (even though UTF-8 is supported).
