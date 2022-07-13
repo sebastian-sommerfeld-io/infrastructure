@@ -9,10 +9,6 @@ control "system" do
         it { should cmp 'debian' }
     end
 
-    describe sys_info do
-        its('hostname') { should cmp 'caprica-test' }
-    end
-
     describe timezone do
         its('identifier') { should cmp 'Europe/Berlin' }
     end
