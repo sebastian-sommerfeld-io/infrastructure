@@ -3,7 +3,7 @@ Sebastian Sommerfeld <sebastian@sommerfeld.io>
 :project-name: infrastructure
 :url-project: https://github.com/sebastian-sommerfeld-io/{project-name}
 
-Infrastructure repository with configs and docs for my local workstations, my homelab with virtualization server and RasPi nodes and my public cloud-hosted website.
+Infrastructure repository with configs and docs for my local workstations, my homelab with tool server and RasPi nodes and my public cloud-hosted website.
 
 [cols="1,4", options="header"]
 |===

@@ -2,7 +2,7 @@
 :project-name: infrastructure
 :url-project: https://github.com/sebastian-sommerfeld-io/{project-name}
 
-Infrastructure repository with configs and docs for my local workstations, my homelab with Proxmox and RasPi nodes and my public website hosted in the cloud.
+Infrastructure repository with configs and docs for my local workstations, my homelab with tool server and RasPi nodes and my public cloud-hosted website.
 
 [cols="1,4", options="header"]
 |===
