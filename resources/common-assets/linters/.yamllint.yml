@@ -10,3 +10,8 @@ rules:
   line-length:
     level: warning
     allow-non-breakable-inline-mappings: true
+  new-lines:
+    type: unix
+  brackets:
+    max-spaces-inside: 1
+    level: error

@@ -38,12 +38,12 @@
         owner: "{{ default_username }}"
         group: "{{ default_username }}"
       with_items:
-        - {host: 'id_rsa.pub', vm: 'kobol_id_rsa.pub'}
+        - { host: 'id_rsa.pub', vm: 'kobol_id_rsa.pub' }
 
     - name: Add to authorized_keys (allow `vagrant ssh` with non-default user)
       ansible.builtin.shell: "cat /home/{{ default_username }}/.ssh/{{ item.vm }} >> /home/{{ default_username }}/.ssh/authorized_keys"
       with_items:
-        - {host: 'id_rsa.pub', vm: 'kobol_id_rsa.pub'}
+        - { host: 'id_rsa.pub', vm: 'kobol_id_rsa.pub' }
       args:
         executable: /bin/bash
 
