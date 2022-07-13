@@ -29,6 +29,7 @@ extensions=(
   'timonwong.shellcheck'
   'wingrunr21.vscode-ruby'
   'redhat.vscode-yaml'
+  'jebbs.plantuml'
 )
 for extension in "${extensions[@]}"
 do
