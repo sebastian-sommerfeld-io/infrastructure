@@ -24,6 +24,26 @@ case $HOSTNAME in
 esac
 
 
+# @description Utility function to wrap inspec in Docker container. Calling this function avoids multiple ``docker run``
+# commands. The container uses the SSH setup and the git installation from the host.
+function inspec() {
+  if [ "$1" == "check" ]; then
+    docker run -it --rm \
+      --volume "$(pwd):$(pwd)" \
+      --workdir "$(pwd)" \
+      chef/inspec:latest "$@" --chef-license=accept
+  else
+    docker run -it --rm \
+      --volume "$HOME/.ssh:/root/.ssh:ro" \
+      --volume "$SSH_AUTH_SOCK:$SSH_AUTH_SOCK" \
+      --volume "$(pwd):$(pwd)" \
+      --workdir "$(pwd)" \
+      --network host \
+      chef/inspec:latest "$@" --target=ssh://"$BOX_USER@$BOX_IP" --key-files=/root/.ssh/id_rsa --chef-license=accept
+  fi
+}
+
+
 # @description Step 1: Validate the Vagrantfile and InSpec profile and prepare startup.
 function prepare() {
   echo -e "$LOG_INFO Validate Vagrantfile"
@@ -36,17 +56,9 @@ function prepare() {
     docker run -it --rm --volume "$(pwd):/data" --workdir "/data" cytopia/yamllint:latest src/main/workstations/caprica/provision/ansible-playbook.yml
   )
 
-  echo -e "$LOG_INFO Validate inspec profile"
-  docker run -it --rm \
-    --volume "$(pwd):$(pwd)" \
-    --workdir "$(pwd)" \
-    chef/inspec:latest check inspec-profiles/caprica-test --chef-license=accept
-  
-  echo -e "$LOG_INFO Validate inspec profile"
-  docker run -it --rm \
-    --volume "$(pwd):$(pwd)" \
-    --workdir "$(pwd)" \
-    chef/inspec:latest check inspec-profiles/baseline --chef-license=accept
+  echo -e "$LOG_INFO Validate inspec profiles"
+  inspec check inspec-profiles/caprica-test
+  inspec check inspec-profiles/baseline
 }
 
 
@@ -81,32 +93,12 @@ function info() {
 function test() {
   echo && docker run --rm mwendler/figlet:latest "Test" && echo
 
-  echo -e "$LOG_INFO Run inspec profile"
-  docker run -it --rm \
-    --volume "$HOME/.ssh:/root/.ssh:ro" \
-    --volume "$SSH_AUTH_SOCK:$SSH_AUTH_SOCK" \
-    --volume "$(pwd):$(pwd)" \
-    --workdir "$(pwd)" \
-    --network host \
-    chef/inspec:latest exec inspec-profiles/caprica-test --target="ssh://$BOX_USER@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
-
-  echo -e "$LOG_INFO Run inspec profile"
-  docker run -it --rm \
-    --volume "$HOME/.ssh:/root/.ssh:ro" \
-    --volume "$SSH_AUTH_SOCK:$SSH_AUTH_SOCK" \
-    --volume "$(pwd):$(pwd)" \
-    --workdir "$(pwd)" \
-    --network host \
-    chef/inspec:latest exec inspec-profiles/baseline --target="ssh://$BOX_USER@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
-
-  # echo -e "$LOG_INFO Run inspec linux baseline"
-  # docker run -it --rm \
-  #   --volume "$HOME/.ssh:/root/.ssh:ro" \
-  #   --volume "$SSH_AUTH_SOCK:$SSH_AUTH_SOCK" \
-  #   --volume "$(pwd):$(pwd)" \
-  #   --workdir "$(pwd)" \
-  #   --network host \
-  #   chef/inspec:latest exec https://github.com/dev-sec/linux-baseline --target="ssh://$BOX_USER@$BOX_IP" --key-files="/root/.ssh/id_rsa" --chef-license=accept
+  echo -e "$LOG_INFO Run inspec profiles"
+  inspec exec inspec-profiles/caprica-test
+  inspec exec inspec-profiles/baseline
+  # inspec exec https://github.com/dev-sec/linux-baseline
+  # todo ... make linux-baseline a git submodule (and somehow mark the folder als submodule)
+  # todo ... this way the files are part of the local filesystem and I avoid problems with git mounted into inspec container
 
   echo -e "$LOG_INFO List ssh keys for user $BOX_USER"
   vagrant ssh -c "ls -alF /home/$BOX_USER/.ssh"
