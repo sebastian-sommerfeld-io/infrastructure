@@ -3,7 +3,9 @@ Sebastian Sommerfeld <sebastian@sommerfeld.io>
 
 The decision at hand is whether to run all development tools directly on my local workstation (kobol) or inside a Vagrantbox (pegasus). This ARD only affects "normal" development workstations. The Virtualization solution of choice is Virtualbox with Vagrant.  My dedicated VM server is running Proxmox.
 
-IMPORTANT: Status = Done (2022-05-16)
+NOTE: Status = Done (2022-05-16)
+
+IMPORTANT: Update (2022-07-13) -> Decision withdrawn and turned in favor of kobol (see "Decision")
 
 == Requirements Overview
 . Setup with minimal manual interactions and minimal development tools installed directly onto my workstation.
@@ -19,11 +21,12 @@ IMPORTANT: Status = Done (2022-05-16)
 == Decision
 The setup of choice uses a Vagrantbox for all development tools. This The main reasons are the simple setup and the clearly defined baseline which allows to easily revert to a working setup in case the setup gets messy.
 
-=== Todos resulting from this decision
-. Make VM idempotent
-.. Remove dependencies other than synced folders and ssh keyes -> provide dedicated .gitconfig file instead of mounting from the host
+=== Decision Update
+Update (2022-07-13) -> Although the desicion to favor a Vagrantbox makes sence for several reasons, working with this VM Turned out to be rather uncomfortable. When Vagrantboxes are involved, the Vagrantbox is not usable because it cannot handle VMs. For this usecase one has to switch to the host machine. By doing this not all features and tools are available or are not installed the same way / at the same location. Because of this discrepancy the decision is cancelled and turned in favor of working directly on the host machine. This emphasizes the need to run as much as possible in Docker containers and enforces the disciplin to follow infrastructure as code principles.
 
-=== Decision details
+=== Decision Details
+NOTE: These details are part of the original decision which now is invalid.
+
 General takeaways are:
 
 . Every new tool installation should get its own git branch. This way rolling back becomes as easy as possible.
