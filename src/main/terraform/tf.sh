@@ -1,13 +1,19 @@
 #!/bin/bash
 # @file tf.sh
-# @brief Select a configuration and trigger terraform commands.
+# @brief Select a configuration and trigger Terraform commands.
 #
-# @description The script triggers terraform commands for a set of configurations. Terraform itself is started from in a
-# docker container, so there is no need to install Terraform on your machine.
+# @description The script triggers terraform commands for a set of configurations. Terraform itself is
+# started inside a docker container, so there is no need to install Terraform on your machine.
 #
-# NOTE: This script controls the configurations for ``cloud`` and ``homelab``.
+# This script controls the configurations for:
 #
-# The script supports the following options (after selecting the configuration for which terraform runs the commands):
+# . ``configs/caprica`` (which is a homelab server)
+# . ``configs/sommerfeld-io``
+#
+# These options also are the possible values for arg1.
+#
+# The script supports the following options (after selecting the configuration for which Terraform runs
+# the commands):
 #
 # . ``init`` -> Initialize providers etc.
 # . ``validate`` -> Run ``terraform validate && terraform fmt -recursive``
@@ -15,22 +21,30 @@
 # . ``apply`` -> Run ``terraform apply -auto-approve -var=do_token=<THE_DIGITAL_OCEAN_TOKEN>`` and ``terraform graph`` (runs ``validate`` first)
 # . ``destroy`` -> Run ``terraform destroy -auto-approve -var=do_token=<THE_DIGITAL_OCEAN_TOKEN>`` and clean up some files (runs ``validate`` first)
 #
-# Steps, that change the infrastructure (plan, apply) also auto-generate some documentation and component graphs. These
-# docs are added to the corresponding Antora module.
+# These options also are the possible values for arg2.
+#
+# Steps, that change the infrastructure (plan, apply) also auto-generate some documentation and component
+# graphs. These docs are added to the corresponding Antora module.
+#
+# The script also supports arguments. The arguments are the same as the select menu options. When started
+# with arguments, the select menus are skipped and the terraform commands are triggered directly. Running
+# with arguments allows calling this script from other bash scripts without human interaction.
 #
 # ==== Arguments
 #
-# The script does not accept any parameters.
+# . *$1* (string): Target environment (optional)
+# . *$2* (string): Terraform command (optional - becomes mandatory, when arg1 is present as well)
 #
 # ===== See also
 #
-# * https://hub.docker.com/r/hashicorp/terraform
-# * https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/image
-# * https://learn.hashicorp.com/tutorials/terraform/docker-build?in=terraform/docker-get-started
+# . https://hub.docker.com/r/hashicorp/terraform
+# . https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/image
+# . https://learn.hashicorp.com/tutorials/terraform/docker-build?in=terraform/docker-get-started
 
 
 NOT_SET="n/a"
 TARGET_ENV="$NOT_SET"
+COMMAND="$NOT_SET"
 
 DO_TOKEN=$(cat "../../../resources/.secrets/digitalocean.token")
 LINODE_TOKEN=$(cat "../../../resources/.secrets/linode.token")
@@ -211,25 +225,44 @@ function generateDocs() {
 }
 
 
-echo -e "$LOG_INFO Select the terraform configuration"
-select d in configs/*/; do
-  TARGET_ENV="${d::-1}"
+# which terraform configuration (select or from param)
+if [ -z "$1" ]
+then
+  echo -e "$LOG_INFO Select the terraform configuration"
+  select d in configs/*/; do
+    TARGET_ENV="${d::-1}"
 
-  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Selected as the configuration for which terraform will run its commands"
-  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Set path to *.tf files to $Y$TARGET_ENV$D"
-  break
-done
+    echo -e "$LOG_INFO [$P$TARGET_ENV$D] Selected as the configuration for which terraform will run its commands"
+    echo -e "$LOG_INFO [$P$TARGET_ENV$D] Set path to *.tf files to $Y$TARGET_ENV$D"
+    break
+  done
+else
+  TARGET_ENV="$1"
+  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Script is called with arguments: target environment = $P$TARGET_ENV$D"
+fi
 
 
-echo -e "$LOG_INFO Select the command set to run against $P$TARGET_ENV$D configuration"
-select s in "$CMD_INIT" "$CMD_VALIDATE" "$CMD_PLAN" "$CMD_APPLY" "$CMD_DESTROY" "$CMD_CLEAN" "$CMD_DOCS"; do
-  case "$s" in
-    "$CMD_INIT" ) initialize; break;;
-    "$CMD_VALIDATE" ) validate; break;;
-    "$CMD_PLAN" ) plan; break;;
-    "$CMD_APPLY" ) apply; break;;
-    "$CMD_DESTROY" ) destroy; break;;
-    "$CMD_CLEAN" ) clean; break;;
-    "$CMD_DOCS" ) generateDocs; break;;
-  esac
-done
+# which terraform command (select or from param)
+if [ -z "$2" ]
+then
+  echo -e "$LOG_INFO Select the command set to run against $P$TARGET_ENV$D configuration"
+  select s in "$CMD_INIT" "$CMD_VALIDATE" "$CMD_PLAN" "$CMD_APPLY" "$CMD_DESTROY" "$CMD_CLEAN" "$CMD_DOCS"; do
+    COMMAND="$s"
+    break
+  done
+else
+  COMMAND="$2"
+  echo -e "$LOG_INFO [$P$TARGET_ENV$D] Script is called with arguments: terraform command = $P$COMMAND$D"
+fi
+
+
+# invoke terraform command
+case "$COMMAND" in
+  "$CMD_INIT" ) initialize;;
+  "$CMD_VALIDATE" ) validate;;
+  "$CMD_PLAN" ) plan;;
+  "$CMD_APPLY" ) apply;;
+  "$CMD_DESTROY" ) destroy;;
+  "$CMD_CLEAN" ) clean;;
+  "$CMD_DOCS" ) generateDocs;;
+esac
