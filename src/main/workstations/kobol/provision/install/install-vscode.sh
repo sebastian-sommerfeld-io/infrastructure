@@ -30,6 +30,7 @@ extensions=(
   'wingrunr21.vscode-ruby'
   'redhat.vscode-yaml'
   'jebbs.plantuml'
+  'ms-vscode-remote.remote-containers'
 )
 for extension in "${extensions[@]}"
 do
