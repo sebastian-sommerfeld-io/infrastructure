@@ -37,6 +37,9 @@ Use `src/main/terraform/tf.sh` to control the setup hosted in the cloud.
 // futher captions inside included file
 include::ROOT:partial$generated/terraform/terraform-configs-sommerfeld-io.adoc[]
 
+* Take a look at https://api.linode.com/v4/linode/types for Linode resource types (node sizes to use with Terraform).
+* For DigitalOcean resource types take a look at https://slugs.do-api.dev (the slugs are the node sizes to use with Terraform).
+
 == Architecture Decisions
 . xref:ADRs:architecture-decision-records/cloud-provider.adoc[]
 

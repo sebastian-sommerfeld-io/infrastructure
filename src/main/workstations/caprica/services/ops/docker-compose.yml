@@ -11,8 +11,10 @@ services:
       - --path.rootfs=/host
     pid: host
     network_mode: host
-    ports:
-      - 9100:9100
+    # ports:
+    #   - 9100:9100
+    # The network_mode: host tells docker to run the container as if it was running on the
+    # server itself, so all ports exports by the container will directly be mapped to the server.
     volumes:
       - /:/host:ro,rslave
       - /etc/timezone:/etc/timezone:ro

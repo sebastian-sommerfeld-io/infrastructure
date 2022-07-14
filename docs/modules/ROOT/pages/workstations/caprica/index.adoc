@@ -28,10 +28,6 @@ CAUTION: todo ...
 
 == Building Block View / Whitebox Overall System
 === Services
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-CAUTION: todo ...
-
 The following services are up and running when the machine is started.
 
 [cols="1,1,3", options="header"]
@@ -42,8 +38,6 @@ The following services are up and running when the machine is started.
 |Portainer |http://localhost:9990 |admin (see `PATH_TO/portainer.passwd`)
 |===
 
-=== Terraform Config
-include::ROOT:partial$generated/terraform/terraform-configs-caprica.adoc[]
 
 == Install
 === Prepare bootable USB stick and install Ubuntu
@@ -56,25 +50,25 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 CAUTION: todo ...
 
-==== Automated Tests
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-CAUTION: todo ...
-
 == Usage
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 CAUTION: todo ...
 
 === Run Services
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Services are defined in a docker-compose.yml file. The compose files are grouped into folders representing their respective set of usecases.
 
-CAUTION: todo ...
+Controlling these services is done from host `kobol`. Deploying to the remote node `caprica` is done using DOCKER_HOST environment variable to set up the target engine. link:https://www.docker.com/blog/how-to-deploy-on-remote-docker-hosts-with-docker-compose[Docker Contexts] is another possibility but not used because the test environment `caprica-test` is using DHCP instead of a static IP.
+
+CAUTION: todo ... how do I run the deployment? Which script? Something from src/main/workstations/caprica ... how do I run the test script?
+
+==== Automated Tests
+Run `src/test/workstations/caprica/run-tests.sh` to startup a Vagrantbox, run all Ansible playbooks for `caprica` inside the Vagrantbox `caprica-test` and run tests to check the installation. Inside `caprica-test` the docker services are tested as well.
 
 == Architecture Decisions
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-CAUTION: todo ... (Ubuntu with Vagrant vs Proxmox ???) -> Don't use Vagrant at all and run containers directly (because Jenkins should be able to start/stop Vagrantboxes)?!
+CAUTION: todo ... (Ubuntu with Vagrant vs Proxmox ???) -> Decision = Don't use Vagrant at all and run containers directly (because Jenkins should be able to start/stop Vagrantboxes)?!
 
 == Risks and Technical Debts
 Scale for Probability and Impact: Low, Medium and High

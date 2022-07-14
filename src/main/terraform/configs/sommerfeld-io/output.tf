@@ -13,7 +13,7 @@ output "do_docs_page_default_url" {
   description = "The <random-subdomain>.ondigitalocean.app domain"
 }
 
-# ----------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------
 
 output "linode_account_email" {
   value       = data.linode_account.linode_account.email

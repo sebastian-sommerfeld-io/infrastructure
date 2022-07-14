@@ -95,8 +95,6 @@ No modules.
 |yes
 
 |===
-* Take a look at https://api.linode.com/v4/linode/types for Linode resource types (node sizes to use with Terraform).
-* For DigitalOcean resource types take a look at https://slugs.do-api.dev (the slugs are the node sizes to use with Terraform).
 
 == Outputs
 

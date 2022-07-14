@@ -44,13 +44,31 @@ function inspec() {
 }
 
 
+# @description Utility function to wait for given seconds. A progress bar is displayed.
+#
+# @arg $1 Integer Sleep timer in seconds (mandatory)
+wait() {
+  SLEEP_SECONDS="$1"
+  if [ -z "$SLEEP_SECONDS" ]; then
+    echo -e "$LOG_ERROR Sleep time missing"
+    echo -e "$LOG_ERROR exit" && exit 8
+  fi
+
+  while true;do echo -n .;sleep 10;done &
+  sleep "$SLEEP_SECONDS"
+  kill $!; trap 'kill $!' SIGTERM
+
+  echo
+}
+
+
 # @description Step 1: Validate the Vagrantfile and InSpec profile and prepare startup.
 function prepare() {
   echo -e "$LOG_INFO Validate Vagrantfile"
   vagrant validate
 
   (
-    cd ../../../../ || exit
+    cd ../../../../ || exit # project root
 
     echo -e "$LOG_INFO Validate yaml"
     docker run -it --rm --volume "$(pwd):/data" --workdir "/data" cytopia/yamllint:latest src/main/workstations/caprica/provision/ansible-playbook.yml
@@ -72,6 +90,9 @@ function startup() {
 
   echo -e "$LOG_INFO SSH config for this Vagrantbox"
   vagrant ssh-config
+  
+  echo -e "$LOG_INFO Which remote user"
+  vagrant ssh -c 'whoami'
 
   echo -e "$LOG_INFO Read IP address from vagrantbox"
   tmp=$(vagrant ssh -c "hostname -I | cut -d' ' -f2" 2>/dev/null)
@@ -80,16 +101,7 @@ function startup() {
 }
 
 
-# @description Step 3: Print some information about the virtual environment.
-function info() {
-  echo && docker run --rm mwendler/figlet:latest "Info" && echo
-
-  echo -e "$LOG_INFO Show remote user"
-  vagrant ssh -c 'whoami'
-}
-
-
-# @description Step 4: Run tests to check the correct setup of the Vagrantbox.
+# @description Step 3: Run tests to check the correct setup of the Vagrantbox.
 function test() {
   echo && docker run --rm mwendler/figlet:latest "Test" && echo
 
@@ -106,15 +118,36 @@ function test() {
   echo -e "$LOG_INFO Test git: clone repository from github via SSH"
   vagrant ssh -c "(cd repos && git clone https://github.com/sebastian-sommerfeld-io/playgrounds.git)" # todo ... ssh
 
-  echo -e "$LOG_INFO Test deployments: deploy services using Terraform"
-  echo -e "$LOG_WARN not yet implemented"
-  # todo ... https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs
-  # todo ... You can also use the ssh protocol to connect to the docker host on a remote machine.
-  # todo ... place files in src/main/terraform/configs/caprica
+  echo -e "$LOG_INFO Test deployments: deploy docker-compose services to remote host"
+  (
+    cd ../../../../ || exit # project root
+    cd src/main/workstations/caprica/services/ops || exit
+
+    echo -e "$LOG_INFO Deploy"
+    DOCKER_HOST="ssh://$BOX_USER@$BOX_IP" docker-compose up -d
+  )
+
+  SLEEP_SECONDS="300"
+  echo -e "$LOG_INFO Wait for $SLEEP_SECONDS seconds"
+  wait "$SLEEP_SECONDS"
+  echo -e "$LOG_INFO Continue"
+
+  echo -e "$LOG_INFO List all running docker services"
+  vagrant ssh -c "docker ps"
+
+  echo -e "$LOG_INFO Check node_exporter"
+  vagrant ssh -c "curl -I localhost:9100"
+  vagrant ssh -c "curl -I localhost:9100/metrics"
+
+  echo -e "$LOG_INFO Check cAdvisor"
+  vagrant ssh -c "curl -I localhost:9110"
+
+  echo -e "$LOG_INFO Check Portainer"
+  vagrant ssh -c "curl -I localhost:9990"
 }
 
 
-# @description Step 5: Shutdown and destroy the Vagrantbox and cleanup the local filesystem.
+# @description Step 4: Shutdown and destroy the Vagrantbox and cleanup the local filesystem.
 function shutdown() {
   echo && docker run --rm mwendler/figlet:latest "Shutdown" && echo
 
@@ -128,7 +161,7 @@ function shutdown() {
 
   echo -e "$LOG_INFO Read password from playbook and write to adoc"
   (
-    cd ../../../../ || exit
+    cd ../../../../ || exit # project root
 
     playbook="src/main/workstations/caprica/provision/ansible-playbook.yml"
     adoc="docs/modules/ROOT/partials/generated/ansible/caprica-vars.adoc"
@@ -156,6 +189,5 @@ function shutdown() {
 echo -e "$LOG_INFO Run tests from $P$(pwd)$D"
 prepare
 startup
-info
 test
 shutdown

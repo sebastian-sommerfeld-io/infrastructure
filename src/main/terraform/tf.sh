@@ -7,7 +7,6 @@
 #
 # This script controls the configurations for:
 #
-# . ``configs/caprica`` (which is a homelab server)
 # . ``configs/sommerfeld-io``
 #
 # These options also are the possible values for arg1.
@@ -122,7 +121,13 @@ function plan() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Plan this configuration"
 
   validate
-  tf plan -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
+
+  if [ "$TARGET_ENV" == "configs/sommerfeld-io" ]; then
+    tf plan -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
+  else
+    tf plan
+  fi
+
   generateDocs
 }
 
@@ -135,7 +140,13 @@ function apply() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Apply this configuration"
 
   validate
-  tf apply -auto-approve -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
+
+  if [ "$TARGET_ENV" == "configs/sommerfeld-io" ]; then
+    tf apply -auto-approve -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
+  else
+    tf apply
+  fi
+
   generateDocs
 }
 
@@ -148,7 +159,12 @@ function destroy() {
   echo -e "$LOG_INFO [$P$TARGET_ENV$D] Shutdown this configuration"
 
   validate
-  tf destroy -auto-approve -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
+
+  if [ "$TARGET_ENV" == "configs/sommerfeld-io" ]; then
+    tf destroy -auto-approve -var="do_token=$DO_TOKEN" -var="linode_token=$LINODE_TOKEN"
+  else
+    tf destroy
+  fi
 }
 
 # @description Cleanup local filesystem.
